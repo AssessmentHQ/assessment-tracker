@@ -162,3 +162,5 @@ hs_err_pid*
 ## IDE Specific
 .vscode/
 .idea/
+.DS_Store
+*.properties
