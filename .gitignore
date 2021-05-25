@@ -129,6 +129,9 @@ dmypy.json
 .pyre/
 
 
-# Custom
+# IDE Specific
 .vscode/
 .idea/
+
+*.log
+*.ini
