@@ -1,0 +1,45 @@
+/*
+    This is the master(main) page specific CSS3 override file
+    Use this to write custom CSS3 code that will be universally accessible
+
+    ---------Standards and Best Practices-------------------
+    -- 1. Make sure to always copy and paste this header to each *.js,*.css file to map the important functionality
+    -- 2. Use the page specific code sparingly, do your best to write relative Dynamic code - will save time and energy
+    -- 3. When reaching Production please "minify" all js/css files to eliminate comments and condense the files
+    -- 4. "Min" file naming pattern should be as follows:
+            Page specific - "[name].min.[version #].[js/css]"
+            Main files    - "main.min.[version #].[js/css]"
+    -- 5. Please remove this file from the production version to keep file structure integrity and security reasons
+    --------Standards and Best Practices End---------------
+*/
+/* default loading animation for all ajax calls */
+.loader {
+    border: 0.4rem solid #c4c4ff;
+    border-radius: 50%;
+    border-top: 0.4rem solid blue;
+    border-bottom: 0.4rem solid #c4c4ff;
+    height: 50px;
+    width: 50px;
+    -webkit-animation: spin 0.5s linear infinite;
+    animation: spin 0.5s linear infinite;
+    margin: auto;
+}
+/* If you want to place things inside the loader use this */
+.loader-inside {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+/* Spinner animation */
+/* firefox, edge/explorer, safari */
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+/* chrome */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
