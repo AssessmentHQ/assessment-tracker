@@ -1,3 +1,4 @@
+import unittest
 from datetime import datetime
 from math import floor
 
@@ -9,16 +10,21 @@ class Batch:
                  training_track,
                  start_date,
                  end_date,
-                 associates=None,
-                 trainers=None):
-        self.associates = associates if associates else []
-        self.trainers = trainers if trainers else []
+                 id=-1):
+        self.id = id
         self.name = name
         self.training_track = training_track
         self.start_date = start_date
         self.end_date = end_date
 
-    def weeks_between(self):
-        d1 = datetime.strptime(self.start_date, "%Y-%m-%d")
-        d2 = datetime.strptime(self.end_date, "%Y-%m-%d")
-        return floor(abs((d2 - d1).days / 7))
+    def current_week(self):
+        return floor(abs((self.end_date - self.start_date).days / 7))
+
+
+class TestBatch(unittest.TestCase):
+
+    def test_weeks_between(self):
+        start = datetime.strptime("2021-05-20", "%Y-%m-%d")
+        end = datetime.strptime("2021-06-20", "%Y-%m-%d")
+        batch = Batch("New Batch", "Still dont know", start, end)
+        assert batch.current_week() == 4
