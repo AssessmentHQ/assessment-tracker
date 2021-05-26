@@ -165,3 +165,7 @@ hs_err_pid*
 .DS_Store
 *.properties
 .history/
+
+
+#Exceptions
+!log4j.properties
