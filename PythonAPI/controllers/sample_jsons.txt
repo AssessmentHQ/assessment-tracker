@@ -5,7 +5,8 @@ Batch:
     name: "Python/Java w/ Automation",
     trainingTrack: "Not sure what this is supposed to be",
     startDate: 03/20/2021,
-    endDate: 06/11/2021
+    endDate: 06/11/2021,
+    currentWeek: 4
     }
 Trainer:
     {
