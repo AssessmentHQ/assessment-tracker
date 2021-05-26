@@ -1,0 +1,23 @@
+
+Batch:
+    {
+    id: 1,
+    name: "Python/Java w/ Automation",
+    trainingTrack: "Not sure what this is supposed to be",
+    startDate: 03/20/2021,
+    endDate: 06/11/2021
+    }
+Trainer:
+    {
+    firstName: "Ryan",
+    lastName: "Schlientz",
+    email: "ryainschlientz@revature.com",
+    role: "Lead"
+    }
+Associate:
+    {
+    firstName: "Zach",
+    lastName: "Vander Velden",
+    email: "zachvander.velden@revature.net",
+    trainingStatus: "fired"
+    }
