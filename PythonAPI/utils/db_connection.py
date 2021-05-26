@@ -21,7 +21,6 @@ class DbConn:
             if query is None:
                 # Create a cursor to perform database operations
                 cursor = connection.cursor()
-
                 # Executing a SQL query
                 cursor.execute("SELECT version();", "make_connect")
                 # Fetch result
