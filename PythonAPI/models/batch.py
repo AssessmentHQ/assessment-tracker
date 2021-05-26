@@ -23,7 +23,9 @@ class Batch:
             'startDate': self.start_date,
             'endDate': self.end_date,
             'name': self.name,
-            'trainingTrack': self.training_track
+            'trainingTrack': self.training_track,
+            'currentWeek': self.current_week()
+
         }
 
     @staticmethod

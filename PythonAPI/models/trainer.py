@@ -9,7 +9,7 @@ class Trainer:
 
     def json(self):
         return {
-            'trainerID': self.id,
+            'id': self.id,
             'email': self.email,
             'first_name': self.first_name,
             'last_name': self.last_name,
@@ -20,7 +20,7 @@ class Trainer:
     @staticmethod
     def json_parse(json):
         trainer = Trainer()
-        trainer.id = json["trainerID"]
+        trainer.id = json["id"]
         trainer.email = json["email"]
         trainer.first_name = json["first_name"]
         trainer.last_name = json["last_name"]

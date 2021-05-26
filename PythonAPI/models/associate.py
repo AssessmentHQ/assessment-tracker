@@ -9,7 +9,7 @@ class Associate:
 
     def json(self):
         return {
-            'ID': self.id,
+            'id': self.id,
             'email': self.email,
             'firstName': self.first_name,
             'lastName': self.last_name,
@@ -19,8 +19,9 @@ class Associate:
     @staticmethod
     def json_parse(json):
         associate = Associate()
-        associate.id = json["ID"]
+        associate.id = json["id"]
         associate.email = json["email"]
         associate.first_name = json["firstName"]
         associate.last_name = json["lastName"]
         associate.training_status = json["trainingStatus"]
+        return  associate
