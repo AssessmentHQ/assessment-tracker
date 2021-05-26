@@ -22,7 +22,6 @@ class BatchDAOImpl(BatchDAO):
     @classmethod
     def add_batch(cls, batch_id):
         try:
-            # order_num = cls.return_largest_order_number()
             batches = BatchDAO.get_all_batches(batch_id)
             batch_list = []
             for batch in batches:
