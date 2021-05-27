@@ -1,8 +1,8 @@
 package app;
 
 import io.javalin.Javalin;
-import controllers.AssessmentControlller;
-import controllers.AssessmentService;
+import controllers.AssessmentController;
+import services.AssessmentService;
 public class App {
     public static void main(String[] args) {
 
@@ -22,12 +22,12 @@ public class App {
 
 
         //EndPoints
-        AssessmentControlller as= new AssessmentControlller(as);
-        app.get("/getAssessments/:id/:weekid",as.getAssesmentForTrainee);
-        app.get("/notes/:id/:weekid/",as.getNotesForTrainee);
-        app.post("/assessments",as.createAssessment);
-        app.put("/assessments/:id/",as.updateGradeForAssessment);
-        app.put("/getAssessments/:id/:weekid",as.updateWeightForAssessment);
+        AssessmentController ac = new AssessmentController(as);
+        app.get("/getAssessments/:id/:weekid",ac.getAssesmentForTrainee);
+        app.get("/notes/:id/:weekid/",ac.getNotesForTrainee);
+        app.post("/assessments",ac.createAssessment);
+        app.put("/assessments/:id/",ac.updateGradeForAssessment);
+        app.put("/getAssessments/:id/:weekid",ac.updateWeightForAssessment);
 
 
     }
