@@ -17,9 +17,32 @@ class Batch:
         self.start_date = start_date
         self.end_date = end_date
 
-    def current_week(self):
-        return floor(abs((self.end_date - self.start_date).days / 7))
+    def json(self):
+        return {
+            'batchId': self.id,
+            'startDate': self.start_date,
+            'endDate': self.end_date,
+            'name': self.name,
+            'trainingTrack': self.training_track,
+            'currentWeek': self.current_week()
 
+        }
+
+    @staticmethod
+    def json_parse(json):
+        batch = Batch()
+        batch.id = json["batchId"]
+        batch.start_date = json["startDate"]
+        batch.end_date = json["endDate"]
+        batch.name = json["name"]
+        batch.training_track = json["trainingTrack"]
+        return batch
+
+    def current_week(self):
+        return floor(abs((datetime.now() - self.start_date).days / 7))
+
+    def total_weeks(self):
+        return floor(abs((self.end_date - self.start_date).days / 7))
 
 class TestBatch(unittest.TestCase):
 

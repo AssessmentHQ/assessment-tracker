@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Assessment {
+    private int assessmentId;
     private String assessmentTitle;
     private int typeId;
-    private Grade grade;
-    private int traineeId;
     private int batchId;
     private String weekId;
     private int assessmentWeight;
@@ -17,10 +16,9 @@ public class Assessment {
 
     public Assessment() {
         super();
+        assessmentId = 0;
         assessmentTitle = "";
         typeId = 0;
-        grade = new Grade();
-        traineeId = 0;
         batchId = 0;
         weekId = "";
         assessmentWeight = 0;
@@ -28,18 +26,25 @@ public class Assessment {
         notes = new ArrayList<String>();
     }
 
-    public Assessment(String assessmentTitle, int typeId, Grade grade, int traineeId, int batchId, String weekId,
+    public Assessment(int assessmentId, String assessmentTitle, int typeId, int batchId, String weekId,
             int assessmentWeight, int categoryId, List<String> notes) {
         super();
+        this.assessmentId = assessmentId;
         this.assessmentTitle = assessmentTitle;
         this.typeId = typeId;
-        this.grade = grade;
-        this.traineeId = traineeId;
         this.batchId = batchId;
         this.weekId = weekId;
         this.assessmentWeight = assessmentWeight;
         this.categoryId = categoryId;
         this.notes = notes;
+    }
+
+    public int getAssessmentId() {
+        return assessmentId;
+    }
+
+    public void setAssessmentId(int assessmentId) {
+        this.assessmentId = assessmentId;
     }
 
     public String getAssessmentTitle() {
@@ -56,22 +61,6 @@ public class Assessment {
 
     public void setTypeId(int typeId) {
         this.typeId = typeId;
-    }
-
-    public Grade getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Grade grade) {
-        this.grade = grade;
-    }
-
-    public int getTraineeId() {
-        return traineeId;
-    }
-
-    public void setTraineeId(int traineeId) {
-        this.traineeId = traineeId;
     }
 
     public int getBatchId() {
@@ -116,9 +105,9 @@ public class Assessment {
 
     @Override
     public String toString() {
-        return "Assessment [assessmentTitle=" + assessmentTitle + ", assessmentWeight=" + assessmentWeight
-                + ", batchId=" + batchId + ", categoryId=" + categoryId + ", grade=" + grade + ", notes=" + notes
-                + ", traineeId=" + traineeId + ", typeId=" + typeId + ", weekId=" + weekId + "]";
+        return "Assessment [assessmentId=" + assessmentId + ", assessmentTitle=" + assessmentTitle
+                + ", assessmentWeight=" + assessmentWeight + ", batchId=" + batchId + ", categoryId=" + categoryId
+                + ", notes=" + notes + ", typeId=" + typeId + ", weekId=" + weekId + "]";
     }
 
 }
