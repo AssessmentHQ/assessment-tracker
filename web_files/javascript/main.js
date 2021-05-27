@@ -91,6 +91,49 @@ function ajaxCaller(request_type, url, response_func, response_loc, load_loc, js
 // Chapter 2. Ajax End ------------------------------------
 
 // Chapter 3. Onload.Body Initializers --------------------
+
+//set a standard for form validation
+
+
+//Iterates through all forms on a page then cancels the forms default functions
+//validates form data based on elements attributes and 'is-valid' class
+(function() {
+    'use strict';
+    window.addEventListener('load', function() {
+        populateExists();
+        //place code you watn to happen on load here
+        //session data space
+        
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                event.stopPropagation();
+                event.preventDefault();
+                if (form.checkValidity() === false) {
+                    //at least one element does not have a valid value
+                    console.log("Form not valid");
+                } else {
+                    //all elements are valid
+                    console.log("Form is valid");
+                    group_book.lastcompleted = nextpage;
+                    saveSession();
+                    startbook(nextpage);
+                }
+                form.classList.add('was-validated');
+            }, false);
+            let inputs = form.getElementsByClassName("form-element")
+            // Loop over form elements and do custom validation logic
+            Array.prototype.filter.call(inputs, function(input) {
+                //required email onBlur validation
+                if(input.type == "email"){
+                    valEmail(input);
+                }
+            });
+        });
+    }, false);
+})();
 // Chapter 3. Onload.Body Initializers End ----------------
 
 // Chapter 4. Listeners -----------------------------------
@@ -100,6 +143,77 @@ function ajaxCaller(request_type, url, response_func, response_loc, load_loc, js
 // Chapter 5. Arrow/Anonymous Functions End ---------------
 
 // Chapter 6. Misc Named Functions ------------------------
+
+// ---------- pulling and saving form data ------------
+
+/**
+ * Extracts form elements and maps to passed in object
+ */
+ function extractObjectFromForm($fieldContainer,objectType,objToSaveTo) {
+    var innerArray=[];
+    var obj = $.map($fieldContainer.find(":input"), function(n, i)
+    {
+        var o = {};
+        if($(n).is("input:text") 
+                || $(n).is("textarea") 
+                || $(n).is("input:hidden") 
+                || $(n).is("input:password"))
+            o[n.name] = $(n).val();
+        else if($(n).is("input:checkbox"))
+            o[n.name] = ($(n).is(":checked") ? true:false);
+        else if(n.type == 'radio') {
+            if(innerArray.indexOf(n.name)==-1) {
+                innerArray.push(n.name);
+            }
+        }
+        else
+            o[n.name] = $(n).val();
+        return o;
+    });
+    $.each(innerArray,function(index,item){
+        var iobj={};
+        iobj[item]=$("input[name='"+item+"']:checked").val();
+        obj.push(iobj);
+    });
+    return getObjectFromObject(obj,objectType,objToSaveTo);
+}
+
+
+// Takes a object created from a form scour and
+// converts it to an Object type
+function getObjectFromObject(formObject,outputObject, objToSaveTo) {
+    $.each(formObject,function(index,item){
+        $.each(item,function(key,value){
+            if(key) {
+                outputObject[key] = services[key];
+                if(typeof(value) == "boolean") {
+                    outputObject[key].quantity = 1;
+                    outputObject[key].isselected = value;
+                } else {
+                    outputObject[key].quantity = value;
+                }
+                if(value == "" || value == false) {
+                    delete outputObject[key];
+                }
+            }
+        });
+    });
+    console.log(outputObject);
+    return outputObject;
+}
+
+//pre-load both the services page and the activities page
+function preloadService(formObject) {
+    $.each(formObject,function(index,item){
+        if(document.getElementById(index)) {
+            if(typeof(formObject[index].isselected) == 'boolean') {
+                $('#'+index).prop('checked', true);
+            } else {
+                document.getElementById(index).value = formObject[index].quantity;
+            }
+        }
+    });
+}
 
 //  --------- Manipulating sessionStorage -------------
 
