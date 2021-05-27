@@ -19,9 +19,9 @@ class Batch:
     @staticmethod
     def json_parse(json):
         batches = Batch()
-        batches.id = json['Id'] if "id" in json else None
-        batches.name = json['Name'] if "name" in json else None
-        batches.training_track = json['trainingTrack'] if "training_track" in json else None
-        batches.start_date = json['startDate'] if "start_date" in json else None
-        batches.end_date = json["endDate"] if "end_date" in json else None
+        batches.id = json['Id'] if "Id" in json else None
+        batches.name = json['Name'] if "Name" in json else None
+        batches.training_track = json['trainingTrack'] if "trainingTrack" in json else None
+        batches.start_date = json['startDate'] if "startDate" in json else None
+        batches.end_date = json["endDate"] if "endDate" in json else None
         return batches
