@@ -26,7 +26,7 @@ create table trainers ( id serial primary key,
 create table trainer_batches (trainer_id int not null,
 					        batch_id int not null,
 					        "start_date" date not null,
-					        end_date date not null, 
+					        end_date date, 
 					        "role" varchar(50) not null);					
 					       
 create table "batches" (id serial primary key,
@@ -39,7 +39,7 @@ create table "batches" (id serial primary key,
 create table associate_batches (associate_id int not null,
  							  batch_id int not null,
 				   			  "start_date" date not null,
-					          end_date date not null,
+					          end_date date,
 				              training_status varchar(50));
 				             
 				             
