@@ -1,9 +1,6 @@
-import datetime
-
-from psycopg2._psycopg import connection
 
 from daos.batch_dao import BatchDAO
-from models.batch_model import Batch
+from models.batch import Batch
 from utils.db_connection import DbConn
 
 
@@ -14,7 +11,7 @@ class BatchDAOImpl(BatchDAO):
         record = DbConn.make_connect(sql, [year])
         batches = []
         for batch in record:
-            batches.append(Batch(batch[0], batch[1], batch[2], batch[3], batch[4]))
+            batches.append(Batch(id=batch[0], start_date=batch[1], end_date=batch[2], name=batch[3], training_track=batch[4]))
         return batches
 
 

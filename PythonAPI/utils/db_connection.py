@@ -10,7 +10,7 @@ class DbConn:
     @staticmethod
     def make_connect(query=None, var_tuple=None):
 
-        connection = "No connection made yet!"
+        connection = None
         cursor = connection
         try:
             # read connection parameters

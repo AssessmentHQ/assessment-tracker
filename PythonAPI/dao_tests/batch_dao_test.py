@@ -1,9 +1,6 @@
 import unittest
 
-from daos import batch_dao
-from daos.batch_dao import BatchDAO
 from daos.batch_dao_impl import BatchDAOImpl
-from models.batch_model import Batch
 
 
 class DAOTests(unittest.TestCase):
