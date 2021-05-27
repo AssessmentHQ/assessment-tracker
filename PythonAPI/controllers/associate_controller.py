@@ -5,6 +5,7 @@ from services.associate_services import AssociateServices
 
 
 def route(app):
+
     @app.route("/associate/<associate_id>", methods=['GET'])
     def get_associate_id(associate_id):
         try:
