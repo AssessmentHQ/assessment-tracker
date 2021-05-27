@@ -6,6 +6,5 @@ associate_services = AssociateServices()
 
 class AssociateTest(unittest.TestCase):
     def test_get_associate_by_id(self):
-        assert associate_services.get_associated_byID(1)
-
+        assert associate_services.get_associated_byID(6)
 
