@@ -21,3 +21,5 @@ class BatchDAOImpl(BatchDAO):
         for batch in record:
             batches.append(Batch(id=batch[0], start_date=batch[1], end_date=batch[2], name=batch[3], training_track=batch[4]))
         return batches
+
+
