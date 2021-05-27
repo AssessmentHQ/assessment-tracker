@@ -1,4 +1,3 @@
-
 /*Default Data for Associates*/
 
 insert into associates (email, first_name, last_name) values ('zvv@revature.com', 'Zachary', 'Vander Velden');
@@ -57,8 +56,7 @@ insert into associate_batches (associate_id, batch_id, start_date, end_date, tra
 
 
 /*Give batches a trainer*/
-insert into trainer_batches (associate_id, batch_id, start_date, end_date, training_status) values (1, 1, '2020-01-20', '2020-2-20', 'Lead');
-insert into trainer_batches (associate_id, batch_id, start_date, end_date, training_status) values (2, 1, '2020-01-20', '2020-2-10', 'Co-Lead');
-insert into trainer_batches (associate_id, batch_id, start_date, end_date, training_status) values (3, 2, '2021-5-27', null, 'Lead');
-insert into trainer_batches (associate_id, batch_id, start_date, end_date, training_status) values (4, 2, '2021-5-27', null, 'Co-Lead');
-
+insert into trainer_batches (trainer_id, batch_id, start_date, end_date, "role") values (1, 1, '2020-01-20', '2020-2-20', 'Lead');
+insert into trainer_batches (trainer_id, batch_id, start_date, end_date, "role") values (2, 1, '2020-01-20', '2020-2-10', 'Co-Lead');
+insert into trainer_batches (trainer_id, batch_id, start_date, end_date, "role") values (3, 2, '2021-5-27', null, 'Lead');
+insert into trainer_batches (trainer_id, batch_id, start_date, end_date, "role") values (4, 2, '2021-5-27', null, 'Co-Lead');
