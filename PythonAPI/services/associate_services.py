@@ -7,3 +7,7 @@ class AssociateServices:
     @classmethod
     def get_associated_byID(cls, associate_id):
         return cls.associate_dao.get_associate_by_id(associate_id)
+
+    @classmethod
+    def get_associate_in_batch(associate_id, batch_id):
+        pass

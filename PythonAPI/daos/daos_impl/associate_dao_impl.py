@@ -13,5 +13,10 @@ class AssociateDAOImpl(AssociateDAO):
         else:
             f"User with id: {associate_id} - Not Found"
 
+    def get_associate_in_batch(self, associate_id, batch_id):
+        sql = "select a.id, a.first_name, a.last_name, a.email, ab.training_status " \
+              "from associates as a left join associate_batches ab " \
+              "on id = associate_id where associate_id = %s and batch_id = %s"
+
 
 
