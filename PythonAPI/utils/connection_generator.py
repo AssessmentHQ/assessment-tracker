@@ -27,4 +27,4 @@ class ConnectionGenerator:
 
 
 if __name__ == "__main__":
-    ConnectionGenerator.load_conn("conn_cred.ini")
+    ConnectionGenerator.load_conn("../conn_cred.ini")
