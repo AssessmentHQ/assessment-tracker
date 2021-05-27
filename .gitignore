@@ -162,6 +162,7 @@ hs_err_pid*
 ## IDE Specific
 .vscode/
 .idea/
+*.iml
 .DS_Store
 *.properties
 .history/
