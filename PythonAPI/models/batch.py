@@ -39,8 +39,10 @@ class Batch:
         return batch
 
     def current_week(self):
-        return floor(abs((self.end_date - self.start_date).days / 7))
+        return floor(abs((datetime.now() - self.start_date).days / 7))
 
+    def total_weeks(self):
+        return floor(abs((self.end_date - self.start_date).days / 7))
 
 class TestBatch(unittest.TestCase):
 
