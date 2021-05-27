@@ -5,7 +5,7 @@ from configparser import ConfigParser
 class ConnectionGenerator:
 
     @staticmethod
-    def load_conn(database_file="conn_cred.ini", section='postgresql'):
+    def load_conn(database_file="../conn_cred.ini", section='postgresql'):
         # Checks if file exists and creates one if it does not
         infile = open(database_file, "a")
         infile.close()
@@ -27,4 +27,4 @@ class ConnectionGenerator:
 
 
 if __name__ == "__main__":
-    ConnectionGenerator.load_conn("conn_cred.ini")
+    ConnectionGenerator.load_conn("../conn_cred.ini")
