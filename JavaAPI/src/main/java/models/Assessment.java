@@ -10,7 +10,6 @@ public class Assessment {
     private int batchId;
     private String weekId;
     private int assessmentWeight;
-
     private int categoryId;
     private List<String> notes;
 
