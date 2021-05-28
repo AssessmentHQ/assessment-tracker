@@ -12,3 +12,6 @@ class DAOTests(unittest.TestCase):
     def test_get_trainers_in_batch(self):
         trainers = TrainerDAOImpl().get_trainers_in_batch(1, 1)
         self.assertTrue(trainers)
+
+    def test_login(self):
+        self.assertTrue(TrainerDAOImpl().login("rs@revature.com"))
