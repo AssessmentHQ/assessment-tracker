@@ -7,8 +7,9 @@ from services.batch_services import BatchServices
 
 def route(app):
 
+    # Get associate by id endpoint
     @app.route("/associate/<associate_id>", methods=['GET'])
-    def get_associate_id(associate_id):
+    def get_associate_id(associate_id: int):
         try:
             batch = AssociateServices.get_associated_byID(int(associate_id))
             return jsonify(batch.json()), 200
@@ -26,3 +27,4 @@ def route(app):
             return "Not a valid ID or No such batch exist with this ID", 400  # Bad Request
         except ResourceNotFound as r:
             return r.message, 404
+

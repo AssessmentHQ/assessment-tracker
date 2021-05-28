@@ -12,6 +12,107 @@
     -- 5. Please remove this file from the production version to keep file structure integrity and security reasons
     --------Standards and Best Practices End---------------
 */
+/* Color Scheme Override */
+/* Primary Colors */
+.bg-primary, .btn-primary {
+    background-color:#F26925 !important;
+}
+.text-primary {
+    color:#F26925 !important;
+}
+.border-primary, .btn-outline-primary, .btn-primary {
+    border-color: #F26925 !important;
+}
+.btn-primary:hover, .btn-outline-primary:hover {
+    background-color: #be7e1e !important;
+    border-color: #be7e1e !important;
+}
+/* Secondary Colors */
+.bg-secondary {
+    background-color:#72A4C2 !important;
+}
+.btn-secondary {
+    background-color:#72A4C2 !important;
+}
+.border-secondary, .btn-outline-secondary, .btn-secondary {
+    border-color: #72A4C2 !important;
+}
+.btn-secondary:hover, .btn-outline-secondary:hover {
+    background-color:#4c83a5 !important;
+    border-color: #4c83a5 !important;
+}
+.text-secondary {
+    color:#72A4C2 !important;
+}
+/* Warning Colors */
+.bg-warning, .btn-warning {
+    background-color:#FCB414 !important;
+}
+.border-warning, .btn-outline-warning, .btn-warning {
+    border-color: #FCB414 !important;
+}
+.btn-warning:hover, .btn-outline-warning:hover {
+    background-color: #fc9714 !important;
+    border-color: #fc9714 !important;
+}
+.text-warning {
+    color:#FCB414 !important;
+}
+/* Info Colors */
+.bg-info, .btn-info {
+    background-color:#72A4C2 !important;
+}
+.border-info, .btn-outline-info, .btn-info {
+    border-color: #72A4C2 !important;
+}
+.text-info {
+    color:#72A4C2 !important;
+}
+/* Light Colors */
+.bg-light {
+    background-color:#B9B9BA !important;
+}
+/* Lightens on top of a parent element */
+.bg-lighter {
+    background-color:rgba(212, 218, 243, 0.342);
+}
+.text-light, .text-body {
+    color:#B9B9BA !important;
+}
+/* Dark Colors */
+/* Darkens on top of a parent element */
+.bg-darker {
+    background-color:rgba(29, 30, 34, 0.342);
+}
+.bg-dark {
+    background-color:#474C55 !important;
+}
+.text-dark {
+    color:#474C55 !important;
+}
+/* border widths */
+.border-thick {
+    border-width: 10px !important;
+}
+.nav {
+    padding-left: 100px;
+}
+.top-nav-height img{
+    height: 100%;
+}
+.top-nav-height a {
+    height: 50px;
+    padding: 10px;
+}
+
+btn:hover {
+    transition: 0.3s !important;
+    -webkit-transition-duration: 0.3s !important;
+    transition-duration: 0.3s !important;
+    -webkit-transition-property: color, background-color !important;
+    transition-property: color, background-color !important;
+}
+
 /* default loading animation for all ajax calls */
 .loader {
     border: 0.4rem solid #c4c4ff;
