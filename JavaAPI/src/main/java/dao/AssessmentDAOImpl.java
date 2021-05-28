@@ -14,6 +14,24 @@ public class AssessmentDAOImpl implements AssessmentDAO{
 
     @Override
     public List<Assessment> getAssessments() throws SQLException {
+        try {
+            String sql = "SELECT * FROM assessments";
+            PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            List<Assessment> assessments = new ArrayList<Assessment>();
+
+            while (rs.next()) {
+                assessments.add(buildAssessment(rs));
+            }
+
+            return assessments;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
@@ -61,12 +79,19 @@ public class AssessmentDAOImpl implements AssessmentDAO{
     }
 
     @Override
-    public boolean insertGrade(int assessmentId, int batchId, int traineeId) throws SQLException {
-        return false;
-    }
+    public boolean adjustWeight(int assessmentId, int weight) throws SQLException {
+        try {
+            String sql = "UPDATE assessments SET weight=? WHERE assessment_id=?";
+            PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
+            ps.setInt(1, weight);
+            ps.setInt(2, assessmentId);
 
-    @Override
-    public boolean adjustWeight(int assessmentId) throws SQLException {
+            ResultSet rs = ps.executeQuery();
+
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
