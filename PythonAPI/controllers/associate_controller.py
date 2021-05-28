@@ -7,6 +7,7 @@ from services.batch_services import BatchServices
 
 def route(app):
 
+    # Get associate by id endpoint
     @app.route("/associate/<associate_id>", methods=['GET'])
     def get_associate_id(associate_id):
         try:
