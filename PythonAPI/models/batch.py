@@ -1,5 +1,5 @@
 import unittest
-from datetime import datetime
+from datetime import datetime, date
 from math import floor
 
 import models.batch
@@ -8,11 +8,11 @@ import models.batch
 class Batch:
 
     def __init__(self,
-                 name,
-                 training_track,
-                 start_date,
-                 end_date,
-                 id=-1):
+                 name: str,
+                 training_track: str,
+                 start_date: date,
+                 end_date: date,
+                 id: int = -1):
         self.id = id
         self.name = name
         self.training_track = training_track
