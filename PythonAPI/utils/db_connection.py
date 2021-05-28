@@ -7,8 +7,8 @@ from utils.connection_generator import ConnectionGenerator
 class DbConn:
 
     @staticmethod
-    def make_connect(query=None, var_tuple=None):
-
+    def make_connect(query: str = None, values: list = None) -> list:
+        """Connects to the database and executes a query, returns a list of records"""
         connection = None
         cursor = connection
         try:
@@ -24,13 +24,13 @@ class DbConn:
                 # Executing a SQL query
                 cursor.execute("SELECT version();", "make_connect")
                 # Fetch result
-                record = cursor.fetchone()
+                record = cursor.fetchall()
                 return record
             else:
                 # Create a cursor to perform database operations
                 cursor = connection.cursor()
                 # Executing a SQL query
-                cursor.execute(query, var_tuple)
+                cursor.execute(query, values)
                 # Commit the SQL query
                 connection.commit()
                 # Fetch result
