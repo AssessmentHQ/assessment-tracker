@@ -17,4 +17,6 @@ def route(app):
 
     @app.route("/trainers/<batch_id>", methods=["GET"])
     def get_trainers_by_batch_id(batch_id):
-        return convert_list_to_json(TrainerService.get_trainers_in_batch(batch_id))
+        trainers = TrainerService.get_trainers_in_batch(batch_id)
+        trainers_as_json = convert_list_to_json(trainers)
+        return jsonify(trainers_as_json)

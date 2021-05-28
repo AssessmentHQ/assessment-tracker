@@ -15,4 +15,6 @@ def route(app):
     @app.route("/batches/<year>", methods=["GET"])
     def get_all_batches_by_year(year):
         """Takes in a year and returns all the batches currently in progress for that year"""
-        return convert_list_to_json(BatchServices.get_all_batches_by_year(year))
+        batches = BatchServices.get_all_batches_by_year(year)
+        batches_as_json = convert_list_to_json(batches)
+        return jsonify(batches_as_json)

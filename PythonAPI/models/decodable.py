@@ -1,12 +1,10 @@
 from abc import ABC
 
-import models.decodable
-
 
 class Decodable(ABC):
 
     @staticmethod
-    def json_parse(json) -> models.decodable.Decodable:
+    def json_parse(json):
         pass
 
     def json(self):
