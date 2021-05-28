@@ -24,7 +24,7 @@ class Batch:
             'endDate': self.end_date,
             'name': self.name,
             'trainingTrack': self.training_track,
-            'currentWeek': self.current_week()
+            'currentWeek': self.current_week(),
 
         }
 
@@ -44,10 +44,12 @@ class Batch:
     def total_weeks(self):
         return floor(abs((self.end_date - self.start_date).days / 7))
 
+
 class TestBatch(unittest.TestCase):
 
     def test_weeks_between(self):
         start = datetime.strptime("2021-05-20", "%Y-%m-%d")
         end = datetime.strptime("2021-06-20", "%Y-%m-%d")
         batch = Batch("New Batch", "Still dont know", start, end)
+        print("start Year ",start.year)
         assert batch.current_week() == 4
