@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AssessmentDAOImpl implements AssessmentDAO{
+public class AssessmentDAOImpl implements AssessmentDAO {
 
     @Override
     public List<Assessment> getAssessments() throws SQLException {
@@ -68,7 +68,7 @@ public class AssessmentDAOImpl implements AssessmentDAO{
 
             ResultSet rs = ps.executeQuery();
 
-            if(rs.next()) {
+            if (rs.next()) {
                 Assessment assessment = buildAssessment(rs);
                 return assessment;
             }
@@ -105,7 +105,7 @@ public class AssessmentDAOImpl implements AssessmentDAO{
 
             ResultSet rs = ps.executeQuery();
 
-            if(rs.next()) {
+            if (rs.next()) {
                 Type type = buildType(rs);
                 return type;
             }
@@ -120,7 +120,6 @@ public class AssessmentDAOImpl implements AssessmentDAO{
         return false;
     }
 
-    @Override
     public Assessment buildAssessment(ResultSet rs) throws SQLException {
         Assessment assessment = new Assessment();
         assessment.setAssessmentId(rs.getInt("id"));
@@ -133,4 +132,11 @@ public class AssessmentDAOImpl implements AssessmentDAO{
 
         return assessment;
     }
+
+    public Type buildType(ResultSet rs) throws SQLException {
+        Type type = new Type();
+        // TODO
+        return type;
+    }
+
 }
