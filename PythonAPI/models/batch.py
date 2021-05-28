@@ -2,7 +2,6 @@ import unittest
 from datetime import datetime, date
 from math import floor
 
-import models.batch
 from models.decodable import Decodable
 
 
