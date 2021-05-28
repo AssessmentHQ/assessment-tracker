@@ -14,6 +14,6 @@ public interface AssessmentDAO {
     public abstract boolean adjustWeight(int assessmentId, int weight) throws SQLException;
     public abstract Type createAssessmentType(String name, int defaultWeight) throws SQLException;
 
-    public abstract boolean assignAssessmentType(int assessmentId) throws SQLException;
+    public abstract boolean assignAssessmentType(int assessmentId, int typeId) throws SQLException;
 
 }

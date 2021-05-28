@@ -116,7 +116,19 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     }
 
     @Override
-    public boolean assignAssessmentType(int assessmentId) throws SQLException {
+    public boolean assignAssessmentType(int assessmentId, int typeId) throws SQLException {
+        try {
+            String sql = "UPDATE assessments SET typeId=? WHERE assessment_id=?";
+            PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
+            ps.setInt(1, typeId);
+            ps.setInt(2, assessmentId);
+
+            ResultSet rs = ps.executeQuery();
+
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
