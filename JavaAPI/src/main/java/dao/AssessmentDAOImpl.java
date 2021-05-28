@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AssessmentDAOImpl implements AssessmentDAO{
+public class AssessmentDAOImpl implements AssessmentDAO {
 
     @Override
     public List<Assessment> getAssessments() throws SQLException {
@@ -68,7 +68,7 @@ public class AssessmentDAOImpl implements AssessmentDAO{
 
             ResultSet rs = ps.executeQuery();
 
-            if(rs.next()) {
+            if (rs.next()) {
                 Assessment assessment = buildAssessment(rs);
                 return assessment;
             }
@@ -98,14 +98,14 @@ public class AssessmentDAOImpl implements AssessmentDAO{
     @Override
     public Type createAssessmentType(String name, int defaultWeight) throws SQLException {
         try {
-            String sql = "INSERT INTO assessmentTypes values (default, %s, %s) returning id";
+            String sql = "INSERT INTO types values (default, %s, %s) returning id";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
             ps.setString(1, name);
             ps.setInt(2, defaultWeight);
 
             ResultSet rs = ps.executeQuery();
 
-            if(rs.next()) {
+            if (rs.next()) {
                 Type type = buildType(rs);
                 return type;
             }
