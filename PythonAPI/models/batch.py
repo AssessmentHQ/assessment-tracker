@@ -44,6 +44,7 @@ class Batch:
     def total_weeks(self):
         return floor(abs((self.end_date - self.start_date).days / 7))
 
+
 class TestBatch(unittest.TestCase):
 
     def test_weeks_between(self):

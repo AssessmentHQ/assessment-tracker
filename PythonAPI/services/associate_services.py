@@ -9,5 +9,5 @@ class AssociateServices:
         return cls.associate_dao.get_associate_by_id(associate_id)
 
     @classmethod
-    def get_associate_in_batch(associate_id, batch_id):
-        pass
+    def get_associate_in_batch(cls, associate_id, batch_id):
+        return cls.associate_dao.get_associate_in_batch(batch_id, associate_id)
