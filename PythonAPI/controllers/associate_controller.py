@@ -9,7 +9,7 @@ def route(app):
 
     # Get associate by id endpoint
     @app.route("/associate/<associate_id>", methods=['GET'])
-    def get_associate_id(associate_id):
+    def get_associate_id(associate_id: int):
         try:
             batch = AssociateServices.get_associated_byID(int(associate_id))
             return jsonify(batch.json()), 200

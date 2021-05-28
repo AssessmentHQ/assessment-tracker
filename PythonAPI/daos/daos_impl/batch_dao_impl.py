@@ -5,7 +5,7 @@ from utils.db_connection import DbConn
 
 class BatchDAOImpl(BatchDAO):
 
-    def get_batch_by_id(self, batch_id: int):
+    def get_batch_by_id(self, batch_id: int) -> Batch:
         sql = "SELECT * FROM batches where id=%s"
         records = DbConn.make_connect(sql, [batch_id])
         record = records[0]

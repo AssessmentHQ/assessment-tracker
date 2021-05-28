@@ -17,7 +17,7 @@ class Batch:
         self.start_date = start_date
         self.end_date = end_date
 
-    def json(self):
+    def json(self) -> dict:
         return {
             'batchId': self.id,
             'startDate': self.start_date,
