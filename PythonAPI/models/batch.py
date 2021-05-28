@@ -32,7 +32,7 @@ class Batch(Decodable):
         }
 
     @staticmethod
-    def json_parse(json) -> models.batch.Batch:
+    def json_parse(json):
         batch = Batch()
         batch.id = json["batchId"]
         batch.start_date = json["startDate"]

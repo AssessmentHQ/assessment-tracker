@@ -3,16 +3,17 @@ import unittest
 from flask import jsonify, Response
 
 from exceptions.not_serializable import NotSerializableError
+from models.associate import Associate
 from models.decodable import Decodable
 
 
-def convert_list_to_json(items: list[Decodable]) -> Response:
-    """Pass in a list of objects that have a json method and receive a flask ready list"""
+def convert_list_to_json(items: list[Decodable]) -> list[str]:
+    """Pass in a Decodable object and recieve a dictionary ready to be jsonified"""
     json_list = []
     try:
         for item in items:
             json_list.append(item.json())
-        return jsonify(json_list)
+        return json_list
     except AttributeError:
         raise NotSerializableError("Items in list need to have a json method")
 
@@ -25,3 +26,8 @@ class UtilTest(unittest.TestCase):
             convert_list_to_json(list)
         except NotSerializableError:
             self.assertTrue(True)
+
+    def test_convert_to_json_list(self):
+        list = [Associate(first_name="a", last_name="a", email="a", training_status="a"),
+                Associate(first_name="a", last_name="a", email="a", training_status="a")]
+        self.assertTrue(convert_list_to_json(list))
