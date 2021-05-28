@@ -20,13 +20,12 @@ public class App {
         AssessmentService as= new AssessmentService();
         app.get("/Testing", (context) -> context.result("Testing"));
 
-
         //EndPoints
         AssessmentController ac = new AssessmentController(as);
-        app.get("/getAssessments/:id/:weekid",ac.getAssesmentForTrainee);
+        app.get("/getAssessments/:id/:weekid",ac.getAssessmentForTrainee);
         app.get("/notes/:id/:weekid/",ac.getNotesForTrainee);
         app.post("/assessments",ac.createAssessment);
-        app.put("/assessments/:id/",ac.updateGradeForAssessment);
+        app.post("/assessments/:id/",ac.insertGrade);
         app.put("/getAssessments/:id/:weekid",ac.updateWeightForAssessment);
 
 
