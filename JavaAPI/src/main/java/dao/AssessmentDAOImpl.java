@@ -98,7 +98,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     @Override
     public Type createAssessmentType(String name, int defaultWeight) throws SQLException {
         try {
-            String sql = "INSERT INTO assessmentTypes values (default, %s, %s) returning id";
+            String sql = "INSERT INTO types values (default, %s, %s) returning id";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
             ps.setString(1, name);
             ps.setInt(2, defaultWeight);
@@ -135,7 +135,10 @@ public class AssessmentDAOImpl implements AssessmentDAO {
 
     public Type buildType(ResultSet rs) throws SQLException {
         Type type = new Type();
-        // TODO
+        type.setTypeId(rs.getInt("id"));
+        type.setName(rs.getString("type_name"));
+        type.setDefaultWeight(rs.getInt("weight"));
+
         return type;
     }
 
