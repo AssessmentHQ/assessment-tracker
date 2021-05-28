@@ -1,6 +1,7 @@
 package dao;
 
 import models.Assessment;
+import models.Type;
 import util.dbconnection;
 
 import java.sql.PreparedStatement;
@@ -95,7 +96,22 @@ public class AssessmentDAOImpl implements AssessmentDAO{
     }
 
     @Override
-    public String createAssessmentType(String assessmentType) throws SQLException {
+    public Type createAssessmentType(String name, int defaultWeight) throws SQLException {
+        try {
+            String sql = "INSERT INTO assessmentTypes values (default, %s, %s) returning id";
+            PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setInt(2, defaultWeight);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                Type type = buildType(rs);
+                return type;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
