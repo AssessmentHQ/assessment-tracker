@@ -9,7 +9,7 @@ create table notes (id serial primary key,
 					batch_id int not null,
 					"content" varchar(250),
 					associate_id int not null,
-					week_number int not null);
+					week_number varchar(3) not null);
 				
 create table categories(id serial primary key,
 					  "name" varchar(50) not null);
