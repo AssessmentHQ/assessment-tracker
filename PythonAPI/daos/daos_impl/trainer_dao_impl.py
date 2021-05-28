@@ -1,7 +1,9 @@
+
 from daos.trainer_dao import TrainerDAO
 from models.batch import Batch
 from models.trainer import Trainer
 from utils.db_connection import DbConn
+
 
 
 class TrainerDAOImpl(TrainerDAO):
@@ -33,3 +35,5 @@ class TrainerDAOImpl(TrainerDAO):
             return Trainer(id=record[0], first_name=record[1], last_name=record[2], email=record[3])
         else:
             return f"Login Failed"
+
+

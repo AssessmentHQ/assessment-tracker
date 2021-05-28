@@ -2,6 +2,7 @@ from daos.daos_impl.trainer_dao_impl import TrainerDAOImpl
 
 
 class TrainerService:
+
     trainer_dao = TrainerDAOImpl()
     @classmethod
     def login(cls, email):
