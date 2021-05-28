@@ -141,5 +141,4 @@ public class AssessmentDAOImpl implements AssessmentDAO {
 
         return type;
     }
-
 }
