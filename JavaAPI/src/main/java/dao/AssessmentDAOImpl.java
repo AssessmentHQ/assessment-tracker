@@ -120,7 +120,6 @@ public class AssessmentDAOImpl implements AssessmentDAO{
         return false;
     }
 
-    @Override
     public Assessment buildAssessment(ResultSet rs) throws SQLException {
         Assessment assessment = new Assessment();
         assessment.setAssessmentId(rs.getInt("id"));
@@ -132,5 +131,14 @@ public class AssessmentDAOImpl implements AssessmentDAO{
         assessment.setCategoryId(rs.getInt("category_id"));
 
         return assessment;
+    }
+
+    public Type buildType(ResultSet rs) throws SQLException {
+        Type type = new Type();
+        type.setTypeId(rs.getInt("id"));
+        type.setName(rs.getString("type_name"));
+        type.setDefaultWeight(rs.getInt("weight"));
+
+        return type;
     }
 }
