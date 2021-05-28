@@ -1,11 +1,12 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <title>Home</title>
+        <title>Assessment Tracker - Home</title>
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+        <!-- favicon Icon -->
+        <link href="favicon.ico" rel="shortcut icon" />
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
         <!-- Override CSS -->
@@ -16,16 +17,30 @@
         <!-- Page Specific CSS -->
         <link rel="stylesheet" href="css/home.css">
     </head>
-    <body>
+    <body class="bg-dark">
         <!-- Page HTML Code Goes Here Start -->
 
 
         <header>
-            <nav>
-    
+            <nav class="nav justify-content-left bg-dark top-nav-height" aria-labelledby="Topbar navigation">
+                <a class="navbar-brand" href="#"><img src="images/rev-logo.png" alt="Revature Logo"></a>
+                <a class="nav-link active" href="#">Active link</a>
+                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link disabled" href="#">Disabled link</a>
             </nav>
         </header>
         <main>
+            <div class="row">
+                <nav class="nav flex-column bg-darker col-md-2" aria-labelledby="Sidebar navigation">
+                    <a class="nav-link active" href="#">Active</a>
+                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </nav>
+                <div class="col-md-10">
+
+                </div>
+            </div>
         </main>
         <footer>
 
