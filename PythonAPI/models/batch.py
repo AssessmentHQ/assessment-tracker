@@ -17,7 +17,7 @@ class Batch:
         self.start_date = start_date
         self.end_date = end_date
 
-    def json(self):
+    def json(self) -> dict:
         return {
             'batchId': self.id,
             'startDate': self.start_date,
@@ -25,7 +25,7 @@ class Batch:
             'name': self.name,
             'trainingTrack': self.training_track,
             'currentWeek': self.current_week(),
-
+            'totalWeeks': self.total_weeks()
         }
 
     @staticmethod
@@ -39,9 +39,11 @@ class Batch:
         return batch
 
     def current_week(self):
-        return floor(abs((datetime.now() - self.start_date).days / 7))
+        """Returns the current week of training"""
+        return floor(abs((datetime.now().date() - self.start_date).days / 7))
 
     def total_weeks(self):
+        """Returns the total weeks of the training"""
         return floor(abs((self.end_date - self.start_date).days / 7))
 
 

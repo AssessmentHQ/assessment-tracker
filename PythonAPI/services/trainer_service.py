@@ -12,8 +12,6 @@ class TrainerService:
     def get_trainer_byID(cls, trainer_id):
         return cls.trainer_dao.get_trainer_by_id(trainer_id)
 
-
     @classmethod
-    def login(cls, email):
-        return TrainerDAOImpl().login(email)
-
+    def get_trainers_in_batch(cls, batch_id):
+        return cls.trainer_dao.get_trainers_in_batch(batch_id)

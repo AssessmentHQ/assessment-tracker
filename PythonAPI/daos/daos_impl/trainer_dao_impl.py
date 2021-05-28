@@ -17,29 +17,23 @@ class TrainerDAOImpl(TrainerDAO):
         else:
             f"Trainer with id: {trainer_id} - Not Found"
 
-    def get_trainers_in_batch(self, trainer_id, batch_id):
-        sql = "select t.id, t.first_name, t.last_name, t.email" \
+    def get_trainers_in_batch(self, batch_id):
+        sql = "select t.id, t.first_name, t.last_name, t.email " \
               "from trainers as t left join trainer_batches tb " \
-              "on id = trainer_id where trainer_id = %s and batch_id = %s"
-        records = DbConn.make_connect(sql, [trainer_id, batch_id])
-        record = records[0]
+              "on id = trainer_id where batch_id = %s"
+        records = DbConn.make_connect(sql, [ batch_id])
+        trainers = []
+        for record in records:
+            trainers.append(Trainer(id=record[0], first_name=record[1], last_name=record[2], email=record[3]))
+        return trainers
 
+    def login(self, email):
+        sql = "SELECT * FROM trainers WHERE email=%s"
+        records = DbConn.make_connect(sql, [email])
+        record = records[0]
         if record:
             return Trainer(id=record[0], first_name=record[1], last_name=record[2], email=record[3])
         else:
-            f"Trainer with {trainer_id} and {batch_id} Not Found "
+            return f"Login Failed"
 
-class TrainerDAOImpl():
-
-    def login(self, email):
-        sql = "Select * from trainers where email = %s"
-
-        records = DbConn.make_connect(sql, [email])
-
-        # this should only return 1
-        try:
-            record = records[0]
-        except IndexError:
-            return "No record was found"
-        return Trainer(id=record[0], email=record[1], first_name=record[2], last_name=record[3])
 
