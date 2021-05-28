@@ -22,12 +22,13 @@ public class App {
 
         //EndPoints
         AssessmentController ac = new AssessmentController(as);
-        app.get("/getAssessments/:id/:weekid",ac.getAssessmentForTrainee);
+        app.get("/assessments/:id/:weekid",ac.getAssessmentForTrainee);
         app.get("/notes/:id/:weekid/",ac.getNotesForTrainee);
         app.post("/assessments",ac.createAssessment);
         app.post("/assessments/:id/",ac.insertGrade);
-        app.put("/getAssessments/:id/:weekid",ac.updateWeightForAssessment);
-
+        app.put("/assessments/:id/",ac.updateWeightForAssessment);
+        app.post("/types",ac.createType);
+        app.put("/assessments/:id/",ac.updateTypeForAssessment);
 
     }
 
