@@ -36,7 +36,7 @@ public class AssessmentService {
     public Type createAssessmentType(Type type) throws SQLException {
         return assessmentDAO.createAssessmentType(type.getName(), type.getDefaultWeight());
     }
-//    public int updateTypeForAssessment(int typeId, String name, int defaultWeight) {
-//        return 0;
-//    }
+    public int updateTypeForAssessment(int typeId) {
+        return 0;
+    }
 }
