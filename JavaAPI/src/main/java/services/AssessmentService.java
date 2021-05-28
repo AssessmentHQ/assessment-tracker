@@ -5,6 +5,7 @@ import dao.AssessmentDAOImpl;
 import models.Assessment;
 import models.Grade;
 import models.Note;
+import models.Type;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -31,4 +32,11 @@ public class AssessmentService {
     public int updateWeightForAssessment(int weight) {
         return 0;
     }
+
+    public Type createAssessmentType(Type type) throws SQLException {
+        return assessmentDAO.createAssessmentType(type.getName(), type.getDefaultWeight());
+    }
+//    public int updateTypeForAssessment(int typeId, String name, int defaultWeight) {
+//        return 0;
+//    }
 }
