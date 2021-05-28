@@ -17,16 +17,30 @@
         <!-- Page Specific CSS -->
         <link rel="stylesheet" href="css/home.css">
     </head>
-    <body>
+    <body class="bg-dark">
         <!-- Page HTML Code Goes Here Start -->
 
 
         <header>
-            <nav>
-    
+            <nav class="nav justify-content-left bg-dark top-nav-height" aria-labelledby="Topbar navigation">
+                <a class="navbar-brand" href="#"><img src="images/rev-logo.png" alt="Revature Logo"></a>
+                <a class="nav-link active" href="#">Active link</a>
+                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link disabled" href="#">Disabled link</a>
             </nav>
         </header>
         <main>
+            <div class="row">
+                <nav class="nav flex-column bg-darker col-md-2" aria-labelledby="Sidebar navigation">
+                    <a class="nav-link active" href="#">Active</a>
+                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </nav>
+                <div class="col-md-10">
+
+                </div>
+            </div>
         </main>
         <footer>
 

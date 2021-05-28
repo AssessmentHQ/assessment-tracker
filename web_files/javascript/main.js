@@ -117,20 +117,9 @@ function ajaxCaller(request_type, url, response_func, response_loc, load_loc, js
                 } else {
                     //all elements are valid
                     console.log("Form is valid");
-                    group_book.lastcompleted = nextpage;
-                    saveSession();
-                    startbook(nextpage);
                 }
                 form.classList.add('was-validated');
             }, false);
-            let inputs = form.getElementsByClassName("form-element")
-            // Loop over form elements and do custom validation logic
-            Array.prototype.filter.call(inputs, function(input) {
-                //required email onBlur validation
-                if(input.type == "email"){
-                    valEmail(input);
-                }
-            });
         });
     }, false);
 })();
@@ -149,7 +138,7 @@ function ajaxCaller(request_type, url, response_func, response_loc, load_loc, js
 /**
  * Extracts form elements and maps to passed in object
  */
- function extractObjectFromForm($fieldContainer,objectType,objToSaveTo) {
+ function extractObjectFromForm($fieldContainer,objectType) {
     var innerArray=[];
     var obj = $.map($fieldContainer.find(":input"), function(n, i)
     {
@@ -175,20 +164,19 @@ function ajaxCaller(request_type, url, response_func, response_loc, load_loc, js
         iobj[item]=$("input[name='"+item+"']:checked").val();
         obj.push(iobj);
     });
-    return getObjectFromObject(obj,objectType,objToSaveTo);
+    return getObjectFromObject(obj,objectType);
 }
 
 
 // Takes a object created from a form scour and
 // converts it to an Object type
-function getObjectFromObject(formObject,outputObject, objToSaveTo) {
+function getObjectFromObject(formObject,outputObject) {
     $.each(formObject,function(index,item){
         $.each(item,function(key,value){
             if(key) {
                 outputObject[key] = services[key];
                 if(typeof(value) == "boolean") {
-                    outputObject[key].quantity = 1;
-                    outputObject[key].isselected = value;
+                    outputObject[key].isSelected = value;
                 } else {
                     outputObject[key].quantity = value;
                 }
@@ -206,7 +194,7 @@ function getObjectFromObject(formObject,outputObject, objToSaveTo) {
 function preloadService(formObject) {
     $.each(formObject,function(index,item){
         if(document.getElementById(index)) {
-            if(typeof(formObject[index].isselected) == 'boolean') {
+            if(typeof(formObject[index].isSelected) == 'boolean') {
                 $('#'+index).prop('checked', true);
             } else {
                 document.getElementById(index).value = formObject[index].quantity;
