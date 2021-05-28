@@ -2,6 +2,8 @@ import unittest
 from datetime import datetime
 from math import floor
 
+import models.batch
+
 
 class Batch:
 
@@ -19,7 +21,7 @@ class Batch:
 
     def json(self) -> dict:
         return {
-            'batchId': self.id,
+            'id': self.id,
             'startDate': self.start_date,
             'endDate': self.end_date,
             'name': self.name,
@@ -29,7 +31,7 @@ class Batch:
         }
 
     @staticmethod
-    def json_parse(json):
+    def json_parse(json) -> models.batch.Batch:
         batch = Batch()
         batch.id = json["batchId"]
         batch.start_date = json["startDate"]
@@ -38,11 +40,11 @@ class Batch:
         batch.training_track = json["trainingTrack"]
         return batch
 
-    def current_week(self):
+    def current_week(self) -> int:
         """Returns the current week of training"""
         return floor(abs((datetime.now().date() - self.start_date).days / 7))
 
-    def total_weeks(self):
+    def total_weeks(self) -> int:
         """Returns the total weeks of the training"""
         return floor(abs((self.end_date - self.start_date).days / 7))
 
@@ -53,5 +55,4 @@ class TestBatch(unittest.TestCase):
         start = datetime.strptime("2021-05-20", "%Y-%m-%d")
         end = datetime.strptime("2021-06-20", "%Y-%m-%d")
         batch = Batch("New Batch", "Still dont know", start, end)
-        print("start Year ",start.year)
         assert batch.current_week() == 4

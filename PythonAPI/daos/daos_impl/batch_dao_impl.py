@@ -6,6 +6,7 @@ from utils.db_connection import DbConn
 class BatchDAOImpl(BatchDAO):
 
     def get_batch_by_id(self, batch_id: int) -> Batch:
+        """Takes in an id for a batch record and returns a Batch object"""
         sql = "SELECT * FROM batches where id=%s"
         records = DbConn.make_connect(sql, [batch_id])
         record = records[0]
@@ -15,7 +16,8 @@ class BatchDAOImpl(BatchDAO):
         else:
             f"User with id: {batch_id} - Not Found"
 
-    def get_all_batches_by_year(self, year: int):
+    def get_all_batches_by_year(self, year: int) -> list[Batch]:
+        """Takes in a year and returns all the batches currently in progress for that year"""
         sql = "SELECT * FROM batches WHERE date_part('year', batches.start_date) = %s "
         record = DbConn.make_connect(sql, [year])
         batches = []
