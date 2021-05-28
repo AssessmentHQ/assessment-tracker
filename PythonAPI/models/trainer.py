@@ -1,4 +1,7 @@
-class Trainer:
+from models.decodable import Decodable
+
+
+class Trainer(Decodable):
 
     def  __init__(self, first_name, last_name, email, role="", id=-1):
         self.id = id

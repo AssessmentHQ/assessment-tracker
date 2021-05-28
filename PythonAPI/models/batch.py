@@ -3,9 +3,10 @@ from datetime import datetime, date
 from math import floor
 
 import models.batch
+from models.decodable import Decodable
 
 
-class Batch:
+class Batch(Decodable):
 
     def __init__(self,
                  name: str,
@@ -41,11 +42,11 @@ class Batch:
         return batch
 
     def current_week(self) -> int:
-        """Returns the current week of training"""
+        """Returns the current week of training(today - start_date)"""
         return floor(abs((datetime.now().date() - self.start_date).days / 7))
 
     def total_weeks(self) -> int:
-        """Returns the total weeks of the training"""
+        """Returns the total weeks of training(end_date - start_date)"""
         return floor(abs((self.end_date - self.start_date).days / 7))
 
 
