@@ -12,6 +12,43 @@
     -- 5. Please remove this file from the production version to keep file structure integrity and security reasons
     --------Standards and Best Practices End---------------
 */
+/* Custom Fonts */
+@font-face {
+    font-family: "Futura STD";
+    src: url("/fonts/Futura-Std-Bold.otf") format("otf"),
+    url("/fonts/Futura-Std-Book.otf") format("otf"),
+    url("/fonts/Futura-Std-Heavy.otf") format("otf"),
+    url("/fonts/Futura-Std-Medium.otf") format("otf");
+}
+html, body {
+    height: 100%;
+    font-family: "Futura STD";
+    font-weight:400;
+}
+main {
+    height: 90%;
+    width: 100%;
+}
+main.row {
+    width: 100% !important;
+    margin: 0px;
+}
+.mainbody {
+    overflow-y: scroll;
+    max-height: 100%;
+}
+header {
+    height:10%;
+}
+/* A element */
+a, a:visited, a:active {
+    color:#72A4C2;
+    text-decoration: none;
+}
+a:hover {
+    color:#72A4C2;
+    text-decoration: underline;
+}
 /* Color Scheme Override */
 /* Primary Colors */
 .bg-primary, .btn-primary {
@@ -23,15 +60,12 @@
 .border-primary, .btn-outline-primary, .btn-primary {
     border-color: #F26925 !important;
 }
-.btn-primary:hover, .btn-outline-primary:hover {
+.btn-primary:hover, .btn-outline-primary:hover, a.bg-primary:hover {
     background-color: #be7e1e !important;
     border-color: #be7e1e !important;
 }
 /* Secondary Colors */
-.bg-secondary {
-    background-color:#72A4C2 !important;
-}
-.btn-secondary {
+.bg-secondary, .btn-secondary {
     background-color:#72A4C2 !important;
 }
 .border-secondary, .btn-outline-secondary, .btn-secondary {
@@ -45,13 +79,13 @@
     color:#72A4C2 !important;
 }
 /* Warning Colors */
-.bg-warning, .btn-warning {
+.bg-warning, .btn-warning, a.bg-warning {
     background-color:#FCB414 !important;
 }
 .border-warning, .btn-outline-warning, .btn-warning {
     border-color: #FCB414 !important;
 }
-.btn-warning:hover, .btn-outline-warning:hover {
+.btn-warning:hover, .btn-outline-warning:hover, a.bg-warning:hover {
     background-color: #fc9714 !important;
     border-color: #fc9714 !important;
 }
@@ -59,11 +93,15 @@
     color:#FCB414 !important;
 }
 /* Info Colors */
-.bg-info, .btn-info {
+.bg-info, .btn-info, a.bg-info {
     background-color:#72A4C2 !important;
 }
 .border-info, .btn-outline-info, .btn-info {
     border-color: #72A4C2 !important;
+}
+.btn-info:hover, .btn-outline-info:hover, a.bg-info:hover {
+    background-color: #4694c4 !important;
+    border-color: #4694c4 !important;
 }
 .text-info {
     color:#72A4C2 !important;
@@ -81,6 +119,9 @@
 }
 /* Dark Colors */
 /* Darkens on top of a parent element */
+.bg-darkest {
+    background-color:rgb(27, 30, 41);
+}
 .bg-darker {
     background-color:rgba(29, 30, 34, 0.342);
 }
@@ -92,20 +133,54 @@
 }
 /* border widths */
 .border-thick {
+    border-style: solid !important;
     border-width: 10px !important;
+    outline: none !important;
 }
-.nav {
-    padding-left: 100px;
+.border-none {
+    border:none !important;
 }
-.top-nav-height img{
+.top-nav {
+    height: 100% !important;
+    font-size: 1rem;
+}
+.top-nav img{
+    height: 100% !important;
+    padding-left: 45px !important;
+    padding-right: 45px !important;
+}
+.top-nav a {
+    height: 100% !important;
+    padding: 13px !important;
+}
+.top-nav .input-group {
+    width: 100% !important;
+}
+.navbar-collapse {
+    opacity: 1 !important;
+    background-color:rgba(71, 76, 85, 1.0) !important;
+    z-index:1000;
+}
+/* Navigation settings */
+.nav a, .left-nav a {
+    color:#B9B9BA;
+    font-family:'Lato', sans-serif;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-weight: 600;
+}
+.nav a:hover, .left-nav a:hover {
+    background-color:rgba(29, 30, 34, 0.342);
+    text-decoration: none;
+}
+.left-nav {
+    padding-right: 0px;
+    padding-left: 0px;
     height: 100%;
 }
-.top-nav-height a {
-    height: 50px;
-    padding: 10px;
-}
 
-btn:hover {
+.btn:hover, a:hover {
     transition: 0.3s !important;
     -webkit-transition-duration: 0.3s !important;
     transition-duration: 0.3s !important;
@@ -146,4 +221,21 @@ btn:hover {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+/* Main content area */
+.body-content {
+    overflow-y: scroll;
+}
+/* Search Bar */
+#searchLabel {
+    cursor: text;
+}
+#search:focus, #search:focus-visible {
+    border:none !important;
+}
+#search {
+    width: max-content;
+}
+#loginBtn {
+    cursor:pointer;
 }
