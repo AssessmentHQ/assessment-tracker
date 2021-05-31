@@ -1,4 +1,7 @@
-class Associate:
+from models.decodable import Decodable
+
+
+class Associate(Decodable):
 
     def __init__(self, first_name, last_name, email, training_status, id=-1):
         self.id = id
