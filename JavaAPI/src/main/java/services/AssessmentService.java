@@ -3,6 +3,7 @@ package services;
 import dao.AssessmentDAO;
 import dao.AssessmentDAOImpl;
 import models.Assessment;
+import models.Grade;
 import models.Note;
 import models.Type;
 
@@ -37,6 +38,14 @@ public class AssessmentService {
     }
     public List<Note> getNotesForTrainee(int id, String weekId){
         return assessmentDAO.getNotesForTrainee(id, weekId);
+    }
+    public Grade insertGrade(Grade grade){
+        //TODO write method to insert grade
+        return null;
+    }
+    public int assignAssessmentType(int ypeId){
+        //TODO write method to assign assessment type
+        return -99;
     }
 
 }

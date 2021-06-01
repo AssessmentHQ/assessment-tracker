@@ -1,6 +1,7 @@
 package dao;
 
 import models.Assessment;
+import models.Grade;
 import models.Note;
 import models.Type;
 import util.dbconnection;
@@ -151,6 +152,19 @@ public class AssessmentDAOImpl implements AssessmentDAO {
         }
         return notes;
     }
+
+    @Override
+    public Grade insertGrade(Grade grade) {
+        //TODO Write method to insert grade
+        return null;
+    }
+
+    @Override
+    public int assignAssessmentType(int typeId){
+        //TODO Write method to assign Assessment types
+        return -99;
+    }
+
     public Note buildNote(ResultSet rs) throws SQLException{
 
         return new Note(rs.getInt("id"),
