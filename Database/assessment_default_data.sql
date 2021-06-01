@@ -1,3 +1,5 @@
+
+
 /*default data for notes*/
 insert into notes (batch_id, "content", associate_id, week_number) values (1, 'Cool note', 1, 1);
 insert into notes (batch_id, "content", associate_id, week_number) values (1, 'Cool note 2', 2, 1);
