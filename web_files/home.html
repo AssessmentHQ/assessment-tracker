@@ -89,7 +89,7 @@
                             </div>
                             <div class="modal-footer">
                                 <span id="loadResult"><span id="logload"></span></span>
-                                <button onclick="let form = document.getElementById('loginform');if (form.checkValidity() === true) {logMeIN();}$('#loginBtn').html(`Log Out &nbsp;<i class='fa fa-sign-out' aria-hidden='true'></i>`);" type="submit" class="btn btn-info">Login &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i></button>
+                                <button onclick="let form = document.getElementById('loginform');if (form.checkValidity() === true) {loginEmail.email = this.value;logMeIN();}$('#loginBtn').html(`Log Out &nbsp;<i class='fa fa-sign-out' aria-hidden='true'></i>`);" type="submit" class="btn btn-info">Login &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i></button>
                                 <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
                             </div>
                         </form>

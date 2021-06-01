@@ -81,12 +81,13 @@ function caller_complete(status, response, response_loc, load_loc) {
     }
 }
 // Login Function
-function logMeIN() {
+// email for the login(obj)
+function logMeIN(email) {
     //set the caller_complete to the function that is supposed to receive the response
     //naming convention: [this function name]_complete
     let response_func = logMeIN_complete;
     //endpoint: rest api endpoint
-    let endpoint = "trainer"
+    let endpoint = "trainer/"
     //set the url by adding (base_url/java_base_url) + endpoint
     //options:
     //base_url(python)
@@ -104,7 +105,7 @@ function logMeIN() {
     let load_loc = "logload";
     //optional:json data to send to the server
     //can be left blank if not needed
-    let jsonData = "";
+    let jsonData = email;
     console.log(jsonData);
 
     ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData)

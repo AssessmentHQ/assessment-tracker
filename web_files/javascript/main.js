@@ -28,6 +28,7 @@
 //This is the base url that we are using this base will always be applied it is global scope
 let base_url = "http://localhost:5000/";
 let java_base_url ="http://localhost:7001/";
+let loginEmail = new Object();
 
 // Chapter 1. Global var Declarations End -----------------
 
