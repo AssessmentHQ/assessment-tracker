@@ -4,10 +4,9 @@ from flask import jsonify, Response
 
 from exceptions.not_serializable import NotSerializableError
 from models.associate import Associate
-from models.decodable import Decodable
 
 
-def convert_list_to_json(items: list[Decodable]) -> list[str]:
+def convert_list_to_json(items):
     """Pass in a Decodable object and recieve a dictionary ready to be jsonified"""
     json_list = []
     try:
