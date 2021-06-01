@@ -8,6 +8,7 @@ from utils.db_connection import DbConn
 class TrainerDAOImpl(TrainerDAO):
 
     def get_trainer_by_id(self, trainer_id):
+        """Gets a trainer by ID"""
         sql = "SELECT * FROM trainers WHERE id=%s"
         records = DbConn.make_connect(sql, [trainer_id])
         if records:
@@ -17,6 +18,7 @@ class TrainerDAOImpl(TrainerDAO):
             raise ResourceNotFound("No trainer could be found with the given id")
 
     def get_trainers_in_batch(self, batch_id):
+        """Gets list of trainers in Batch"""
         sql = "select t.id, t.first_name, t.last_name, t.email " \
               "from trainers as t left join trainer_batches tb " \
               "on id = trainer_id where batch_id = %s"
@@ -27,6 +29,7 @@ class TrainerDAOImpl(TrainerDAO):
         return trainers
 
     def login(self, email):
+        """Gets trainer email from the database"""
         sql = "SELECT * FROM trainers WHERE email=%s"
         records = DbConn.make_connect(sql, [email])
         if records:
