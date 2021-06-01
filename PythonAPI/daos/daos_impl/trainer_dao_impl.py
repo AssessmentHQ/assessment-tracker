@@ -35,6 +35,6 @@ class TrainerDAOImpl(TrainerDAO):
         records = DbConn.make_connect(sql, [email])
         if records:
             record = records[0]
-            return Trainer(id=record[0], first_name=record[1], last_name=record[2], email=record[3])
+            return Trainer(id=record[0], first_name=record[2], last_name=record[3], email=record[1])
         else:
             raise ResourceNotFound("No trainer exists with those credentials")
