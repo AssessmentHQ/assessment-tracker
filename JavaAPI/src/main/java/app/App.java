@@ -29,7 +29,8 @@ public class App {
         app.post("/assessments/:id/",ac.insertGrade);
         app.put("/assessments/:id/",ac.adjustWeight);
         app.post("/types",ac.createAssessmentType);
-        app.put("/assessments/:id/",ac.assignAssessmentType);
+        //TODO Give this a new name so it doesn't explode
+        //app.put("/assessments/:id/",ac.assignAssessmentType);
 
     }
 
