@@ -80,6 +80,60 @@ function caller_complete(status, response, response_loc, load_loc) {
         document.getElementById(response_loc).innerHTML = response;
     }
 }
+// Login Function
+function logMeIN() {
+    //set the caller_complete to the function that is supposed to receive the response
+    //naming convention: [this function name]_complete
+    let response_func = logMeIN_complete;
+    //endpoint: rest api endpoint
+    let endpoint = "trainer"
+    //set the url by adding (base_url/java_base_url) + endpoint
+    //options:
+    //base_url(python)
+    //java_base_url(java)
+    let url = base_url + endpoint;
+    //request_type: type of request
+    //options:
+    //"GET", "POST", "OPTIONS", "PATCH", "PULL", "HEAD", "DELETE", "CONNECT", "TRACE"
+    let request_type = "PUT";
+    //location you want the response to load
+    let response_loc = "loadResult";
+    //optional:location you want the load animation to be generated while awaiting the response
+    //can be set for any location but will most often be set to response_loc
+    //can be left blank if not needed
+    let load_loc = "logload";
+    //optional:json data to send to the server
+    //can be left blank if not needed
+    let jsonData = "";
+    console.log(jsonData);
+
+    ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData)
+}
+//ajax on-complete function: receives the response from an ajax request
+function logMeIN_complete(status, response, response_loc, load_loc) {
+    //do some logic with the ajax data that was returned
+    //do this if you are expecting a json object - JSON.parse(response)
+
+    //The var "load_loc" is set in case the response message is different from the action to be loaded into the named location
+    //example:
+    //-- you want a message to say "ajax done!" in a popup while the data is compiled and loaded somewhere else
+
+    //action if code 200
+    if(status == 200) {
+        $("#loginBtn").html(`Log Out <i class="fa fa-sign-out" aria-hidden="true"></i>`);
+        //load the response into the response_loc
+        document.getElementById(response_loc).innerHTML = response;
+        //action if code 201
+    } else if(status == 201) {
+        document.getElementById(response_loc).innerHTML = JSON.parse(response);
+        //action if code 400
+    } else if(status == 400) {
+        //load the response into the response_loc
+        document.getElementById(response_loc).innerHTML = response;
+    } else {
+        console.log(response);
+    }
+}
 
 // Chapter 2. Ajax End ------------------------------------
 

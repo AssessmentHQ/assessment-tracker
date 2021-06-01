@@ -100,8 +100,7 @@ function ajaxCaller(request_type, url, response_func, response_loc, load_loc, js
 (function() {
     'use strict';
     window.addEventListener('load', function() {
-        populateExists();
-        //place code you watn to happen on load here
+        //place code you want to happen on load here
         //session data space
         
         // Fetch all the forms we want to apply custom Bootstrap validation styles to
