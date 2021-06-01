@@ -29,7 +29,7 @@ class TrainerDAOImpl(TrainerDAO):
         return trainers
 
     def login(self, email):
-        """Gets trainer email from the database"""
+        """Returns a trainer with a given email. Meant to handle login functionality"""
         sql = "SELECT * FROM trainers WHERE email=%s"
         records = DbConn.make_connect(sql, [email])
         if records:
