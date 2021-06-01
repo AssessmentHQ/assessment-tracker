@@ -10,9 +10,19 @@ def route(app):
     @app.route("/batch/<id>", methods=["GET"])
     def get_batch_by_id(id):
         """Takes in an id for a batch record and returns a Batch object"""
-        return jsonify(BatchServices.get_batch_by_id(id).json())
+        try:
+            return jsonify(BatchServices.get_batch_by_id(int(id)).json())
+        except ValueError as e:
+            return "Not a valid ID or No such batch exist with this ID", 400  # Bad Request
+        except ResourceNotFound as r:
+            return r.message, 404
 
     @app.route("/batches/<year>", methods=["GET"])
     def get_all_batches_by_year(year):
         """Takes in a year and returns all the batches currently in progress for that year"""
-        return convert_list_to_json(BatchServices.get_all_batches_by_year(year))
+        try:
+            batches = BatchServices.get_all_batches_by_year(int(year))
+        except ValueError as e:
+            return "Not a valid ID or No such batch exist with this ID", 400  # Bad Request
+        batches_as_json = convert_list_to_json(batches)
+        return jsonify(batches_as_json)

@@ -28,6 +28,7 @@
 //This is the base url that we are using this base will always be applied it is global scope
 let base_url = "http://localhost:5000/";
 let java_base_url ="http://localhost:7001/";
+let loginEmail = new Object();
 
 // Chapter 1. Global var Declarations End -----------------
 
@@ -100,8 +101,7 @@ function ajaxCaller(request_type, url, response_func, response_loc, load_loc, js
 (function() {
     'use strict';
     window.addEventListener('load', function() {
-        populateExists();
-        //place code you watn to happen on load here
+        //place code you want to happen on load here
         //session data space
         
         // Fetch all the forms we want to apply custom Bootstrap validation styles to

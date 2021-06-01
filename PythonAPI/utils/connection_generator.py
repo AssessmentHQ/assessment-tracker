@@ -4,7 +4,7 @@ from configparser import ConfigParser
 class ConnectionGenerator:
 
     @staticmethod
-    def load_conn(database_file: str = "conn_cred.ini", section: str = 'postgresql') -> dict[str, str]:
+    def load_conn(database_file = "conn_cred.ini", section = 'postgresql'):
         """Tries to load connection files, creates one if none exist\n
             Note: Tests need there own ini file. I don't know why"""
         # Checks if file exists and creates one if it does not

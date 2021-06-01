@@ -10,7 +10,7 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
         <!-- Override CSS -->
-        <!-- Font Awesone for custom loaders and icons -->
+        <!-- Font Awesome for custom loaders and icons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <!-- Root Level CSS -->
         <link rel="stylesheet" href="css/main.css">
@@ -22,29 +22,81 @@
 
 
         <header>
-            <nav class="nav justify-content-left bg-dark top-nav-height" aria-labelledby="Topbar navigation">
-                <a class="navbar-brand" href="#"><img src="images/rev-logo.png" alt="Revature Logo"></a>
-                <a class="nav-link active" href="#">Active link</a>
-                <a class="nav-link" href="#">Link</a>
-                <a class="nav-link disabled" href="#">Disabled link</a>
+            <nav class="nav top-nav navbar-expand-lg d-flex justify-content-between bg-dark" aria-labelledby="Topbar navigation">
+                <a class="navbar-toggler border-none" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon text-darker text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                    </span>
+                </a>
+                <a class="navbar-brand order-md-1 order-xs-1" href="#"><img src="images/rev-logo.png" alt="Revature Logo"></a>
+                <a id="loginBtn" data-toggle="modal" data-target="#loginModal" data-preLoad="Some content to pre-load" class="nav-link bg-info d-flex order-md-3 order-xs-2 align-items-center mr-3">Login &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i></a>
+                <div class="collapse navbar-collapse order-md-2 order-xs-3 col-xs-12 bg-dark py-3" id="navbarToggle">
+                    <form class="mr-5 col-md-9 col-sm-12">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <label for="search" id="searchLabel" class="input-group-text bg-darkest border-none text-light"><i class="fa fa-search" aria-hidden="true"></i></label>
+                            </div>
+                            <input id="search" class="form-control bg-darkest border-none col-12" type="search" placeholder="Search" aria-label="Search" aria-describedby="Search a batch" />
+                        </div>
+                    </form>
+                </div>
             </nav>
         </header>
-        <main>
-            <div class="row">
-                <nav class="nav flex-column bg-darker col-md-2" aria-labelledby="Sidebar navigation">
-                    <a class="nav-link active" href="#">Active</a>
-                    <a class="nav-link" href="#">Link</a>
-                    <a class="nav-link" href="#">Link</a>
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </nav>
-                <div class="col-md-10">
-
+        <main class="row row-cols-2 bg-darker">
+            <div class="left-nav col col-sm-2 col-md-2 text-left bg-lighter" aria-labelledby="Sidebar navigation">
+                <a class="nav-link" href="#">Batch</a>
+                <a class="nav-link" href="#">Assessments</a>
+                <a class="nav-link" href="#">Notes</a>
+            </div>
+            <div class="col col-sm-10 col-md-10 mainbody bg-darker text-light p-5">
+                <div class="col-sm-1-10">
+                    <div class="card mb-5 bg-darker p-3">
+                        <div class="card-body rounded p-3">
+                            <h3 class="card-title"><strong>Please Login</strong></h3>
+                            <p class="">If you would like to view your batches then please <a href="#">login Here</a>, or you may click the link above.</p>
+                            <p class="card-text">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
         <footer>
 
         </footer>
+            
+        <!-- Modal Section -->
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h5 class="modal-title h1" id="modalLabel"><strong>Login</strong></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="loginform" class="needs-validation" novalidate autocomplete="on">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label h3">Email:</label>
+                                <input type="email" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){2,7}$" minlength="10" placeholder="ex: name@the.com" maxlength=25 class="form-control form-control-lg h-50" id="recipient-name" required />
+                                <div class="invalid-feedback">
+                                    Please enter a valid Email.
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <span id="loadResult"><span id="logload"></span></span>
+                                <button onclick="let form = document.getElementById('loginform');if (form.checkValidity() === true) {loginEmail.email = this.value;logMeIN();}$('#loginBtn').html(`Log Out &nbsp;<i class='fa fa-sign-out' aria-hidden='true'></i>`);" type="submit" class="btn btn-info">Login &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i></button>
+                                <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         <!-- Page HTML Code End -->

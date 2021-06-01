@@ -1,13 +1,13 @@
-from abc import ABC
-
-import models.decodable
+from abc import ABC, abstractmethod
 
 
 class Decodable(ABC):
 
     @staticmethod
-    def json_parse(json) -> models.decodable.Decodable:
+    @abstractmethod
+    def json_parse(json):
         pass
 
+    @abstractmethod
     def json(self):
         pass
