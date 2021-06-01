@@ -7,7 +7,7 @@ from utils.connection_generator import ConnectionGenerator
 class DbConn:
 
     @staticmethod
-    def make_connect(query: str = None, values: list = None) -> list:
+    def make_connect(query = None, values = None):
         """Connects to the database and executes a query, returns a list of records"""
         connection = None
         cursor = connection
