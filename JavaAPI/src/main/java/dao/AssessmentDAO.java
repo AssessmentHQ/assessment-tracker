@@ -1,6 +1,7 @@
 package dao;
 
 import models.Assessment;
+import models.Note;
 import models.Type;
 
 import java.util.List;
@@ -18,5 +19,7 @@ public interface AssessmentDAO {
     public Type createAssessmentType(String name, int defaultWeight) throws SQLException;
 
     public boolean assignAssessmentType(int assessmentId, int typeId) throws SQLException;
+
+    public List<Note> getNotesForTrainee(int id, String weekId);
 
 }

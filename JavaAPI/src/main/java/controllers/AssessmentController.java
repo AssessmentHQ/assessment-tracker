@@ -25,14 +25,28 @@ public class AssessmentController {
         this.as = as;
     }
 
+    public Handler getAssessments = (context) -> {
+        try {
+            aclogger.info("attempting to get assessments for a trainee");
+            int id = Integer.parseInt(context.pathParam("id"));
+            aclogger.info("attempting to get all assessments");
+            Assessment assessment = as.getWeekAssessments(id);
+            context.contentType("application/json");
+            context.result(gson.toJson(assessment));
+        } catch (Exception e) {
+            aclogger.info(e);
+        }
 
-    public Handler getAssessmentForTrainee = (context) -> {
+    };
+
+
+    public Handler getWeekAssessments = (context) -> {
         try {
             aclogger.info("attempting to get assessments for a trainee");
             int id = Integer.parseInt(context.pathParam("id"));
             String weekId = context.pathParam("weekid");
             aclogger.info("attempting to get assessments");
-            Assessment assessment = as.getAssesmentForTrainee(id, weekId);
+            Assessment assessment = as.getWeekAssessments(id, weekId);
             context.contentType("application/json");
             context.result(gson.toJson(assessment));
         } catch (Exception e) {
@@ -82,12 +96,12 @@ public class AssessmentController {
         }
     };
 
-    public Handler updateWeightForAssessment = (context) -> {
+    public Handler adjustWeight = (context) -> {
         aclogger.info("attempting to update the weight on an assessment");
         try {
             aclogger.info("attempting to update the grade on an assessment");
             int weight = Integer.parseInt(context.pathParam("weight"));
-            int updatedWeight = as.updateWeightForAssessment(weight);
+            int updatedWeight = as.adjustWeight(weight);
             context.contentType("application/json");
             aclogger.info("attempting to return updatedWeight");
             context.result(gson.toJson(updatedWeight));
@@ -95,7 +109,7 @@ public class AssessmentController {
             aclogger.info(e);
         }
     };
-    public Handler createType = (context) -> {
+    public Handler createAssessmentType = (context) -> {
         try {
             aclogger.info("attempting to create a Type for assessments");
             Type type = gson.fromJson(context.body(), Type.class);
@@ -107,11 +121,11 @@ public class AssessmentController {
             aclogger.info(e);
         }
     };
-    public Handler updateTypeForAssessment = (context) -> {
+    public Handler assignAssessmentType = (context) -> {
         aclogger.info("attempting to update type for assessment");
         try {
             int typeId = Integer.parseInt(context.pathParam("typeId"));
-            int updatedTypeId = as.updateTypeForAssessment(typeId);
+            int updatedTypeId = as.assignAssessmentType(typeId);
             context.contentType("application/json");
             aclogger.info("attempting to return updated type for assessment");
             context.result(gson.toJson(updatedTypeId));
