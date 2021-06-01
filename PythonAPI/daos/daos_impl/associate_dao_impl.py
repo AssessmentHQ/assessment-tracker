@@ -6,6 +6,7 @@ from utils.db_connection import DbConn
 
 class AssociateDAOImpl(AssociateDAO):
     def get_associate_by_id(self, associate_id):
+        """Get a specific Associate by their ID"""
         sql = "SELECT * FROM associates where id=%s"
         records = DbConn.make_connect(sql, [associate_id])
         if records:
@@ -16,6 +17,7 @@ class AssociateDAOImpl(AssociateDAO):
             raise ResourceNotFound("No associate found with that id")
 
     def get_associate_in_batch(self, associate_id, batch_id):
+        """Get an  Associate in a batch by  their ID and a batch ID"""
         sql = "select a.id, a.first_name, a.last_name, a.email, ab.training_status " \
               "from associates as a left join associate_batches ab " \
               "on id = associate_id where associate_id = %s and batch_id = %s"

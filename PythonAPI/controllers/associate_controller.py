@@ -9,6 +9,7 @@ def route(app):
     # Get associate by id endpoint
     @app.route("/associate/<associate_id>", methods=['GET'])
     def get_associate_id(associate_id):
+        """Get a specific Associate by their ID"""
         try:
             batch = AssociateServices.get_associated_byID(int(associate_id))
             return jsonify(batch.json()), 200
@@ -19,6 +20,7 @@ def route(app):
 
     @app.route("/associate/<associate_id>/<batch_id>", methods=['GET'])
     def get_associate_in_batch(associate_id, batch_id):
+        """Get a specific Associate in the batch by their ID and a batch ID"""
         try:
             batch = AssociateServices.get_associate_in_batch(int(batch_id), int(associate_id))
             return jsonify(batch.json()), 200
