@@ -19,11 +19,255 @@
     </head>
     <body class="bg-dark">
         <!-- Page HTML Code Goes Here Start -->
-    <!-- This is the webpage that will display the individual information
-    for that week for the specific batch. (The notes and grades) -->
-    
-    <!-- Create modal for a week for a batch to give
-    the option to add an assessment, grades, and notes -->
+        <!-- This page for displaying batch weeks  -->
+
+        <header>
+            <nav class="nav top-nav navbar-expand-lg d-flex justify-content-between bg-dark" aria-labelledby="Topbar navigation">
+                <a class="navbar-toggler border-none" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon text-darker text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                    </span>
+                </a>
+                <a class="navbar-brand order-md-1 order-xs-1" href="#"><img src="images/rev-logo.png" alt="Revature Logo"></a>
+                <a id="logoutBtn" data-toggle="modal" data-target="#loginModal" data-preLoad="Some content to pre-load" class="nav-link bg-info d-flex order-md-3 order-xs-2 align-items-center mr-3">Logout &nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                <div class="collapse navbar-collapse order-md-2 order-xs-3 col-xs-12 bg-dark py-3" id="navbarToggle">
+                    <form class="mr-5 col-md-9 col-sm-12">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <label for="search" id="searchLabel" class="input-group-text bg-darkest border-none text-light"><i class="fa fa-search" aria-hidden="true"></i></label>
+                            </div>
+                            <input id="search" class="form-control bg-darkest border-none col-12" type="search" placeholder="Search" aria-label="Search" aria-describedby="Search a batch" />
+                        </div>
+                    </form>
+                </div>
+            </nav>
+        </header>
+
+        <main class="row row-cols-2 bg-darker">
+            <div class="left-nav col col-sm-2 col-md-2 text-left bg-lighter" aria-labelledby="Sidebar navigation">
+                <a class="nav-link" href="#">Batch</a>
+                <a class="nav-link" href="#">Assessments</a>
+                <a class="nav-link" href="#">Notes</a>
+            </div>
+
+            <!-- --------PANELS------------ -->
+            <div id="panels" class="col col-sm-10 col-md-10 mainbody bg-darker text-light p-5">
+
+                <!-- -----Week 1----- -->
+                <div id="week 1" class="col-sm-1-10">
+                    <div class="card mb-5 bg-darker p-3">
+                        <div class="card-body rounded p-3">
+                            <h3 class="card-title"><strong>Week 1</strong></h3>
+                            <p class="">HTML/CSS.</p>
+                            <p class="card-text">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </p>
+                            <button id="addAssessmentBtn">Add Assessment To This Week</button>
+                            <button id="viewAssessmentsBtn">View Assessments For This Week</button>
+                            <button id="deletePanelBtn">Delete This Week</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- -----Week 2----- -->
+                <div id="week 2" class="col-sm-1-10">
+                    <div class="card mb-5 bg-darker p-3">
+                        <div class="card-body rounded p-3">
+                            <h3 class="card-title"><strong>Week 2</strong></h3>
+                            <p class="">JavaScript.</p>
+                            <p class="card-text">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </p>
+                            <button id="addAssessmentBtn">Add Assessment To This Week</button>
+                            <button id="viewAssessmentsBtn">View Assessments For This Week</button>
+                            <button id="deletePanelBtn">Delete This Week</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- -----Week 3----- -->
+                <div id="week 3" class="col-sm-1-10">
+                    <div class="card mb-5 bg-darker p-3">
+                        <div class="card-body rounded p-3">
+                            <h3 class="card-title"><strong>Week 3</strong></h3>
+                            <p class="">Python.</p>
+                            <p class="card-text">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </p>
+                            <button id="addAssessmentBtn">Add Assessment To This Week</button>
+                            <button id="viewAssessmentsBtn">View Assessments For This Week</button>
+                            <button id="deletePanelBtn">Delete This Week</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- -----Week 4----- -->
+                <div id="week 4" class="col-sm-1-10">
+                    <div class="card mb-5 bg-darker p-3">
+                        <div class="card-body rounded p-3">
+                            <h3 class="card-title"><strong>Week 4</strong></h3>
+                            <p class="">Java.</p>
+                            <p class="card-text">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </p>
+                            <button id="addAssessmentBtn">Add Assessment To This Week</button>
+                            <button id="viewAssessmentsBtn">View Assessments For This Week</button>
+                            <button id="deletePanelBtn">Delete This Week</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- -----Week 5----- -->
+                <div id="week 5" class="col-sm-1-10">
+                    <div class="card mb-5 bg-darker p-3">
+                        <div class="card-body rounded p-3">
+                            <h3 class="card-title"><strong>Week 5</strong></h3>
+                            <p class="">SQL & NoSQL.</p>
+                            <p class="card-text">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </p>
+                            <button id="addAssessmentBtn">Add Assessment To This Week</button>
+                            <button id="viewAssessmentsBtn">View Assessments For This Week</button>
+                            <button id="deletePanelBtn">Delete This Week</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- -----Week 6----- -->
+                <div id="week 6" class="col-sm-1-10">
+                    <div class="card mb-5 bg-darker p-3">
+                        <div class="card-body rounded p-3">
+                            <h3 class="card-title"><strong>Week 6</strong></h3>
+                            <p class="">Selenium & Cucumber.</p>
+                            <p class="card-text">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </p>
+                            <button id="addAssessmentBtn">Add Assessment To This Week</button>
+                            <button id="viewAssessmentsBtn">View Assessments For This Week</button>
+                            <button id="deletePanelBtn">Delete This Week</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- -----Week 7----- -->
+                <div id="week 7" class="col-sm-1-10">
+                    <div class="card mb-5 bg-darker p-3">
+                        <div class="card-body rounded p-3">
+                            <h3 class="card-title"><strong>Week 7</strong></h3>
+                            <p class="">Flask & Javalin.</p>
+                            <p class="card-text">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </p>
+                            <button id="addAssessmentBtn">Add Assessment To This Week</button>
+                            <button id="viewAssessmentsBtn">View Assessments For This Week</button>
+                            <button id="deletePanelBtn">Delete This Week</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- -----Week 8----- -->
+                <div id="week 8" class="col-sm-1-10">
+                    <div class="card mb-5 bg-darker p-3">
+                        <div class="card-body rounded p-3">
+                            <h3 class="card-title"><strong>Week 8</strong></h3>
+                            <p class="">HTTP & REST.</p>
+                            <p class="card-text">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </p>
+                            <button id="addAssessmentBtn">Add Assessment To This Week</button>
+                            <button id="viewAssessmentsBtn">View Assessments For This Week</button>
+                            <button id="deletePanelBtn">Delete This Week</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- -----Week 9----- -->
+                <div id="week 9" class="col-sm-1-10">
+                    <div class="card mb-5 bg-darker p-3">
+                        <div class="card-body rounded p-3">
+                            <h3 class="card-title"><strong>Week 9</strong></h3>
+                            <p class="">AWS & DevOps.</p>
+                            <p class="card-text">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </p>
+                            <button id="addAssessmentBtn">Add Assessment To This Week</button>
+                            <button id="viewAssessmentsBtn">View Assessments For This Week</button>
+                            <button id="deletePanelBtn">Delete This Week</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- -----Week 10----- -->
+                <div id="week 10" class="col-sm-1-10">
+                    <div class="card mb-5 bg-darker p-3">
+                        <div class="card-body rounded p-3">
+                            <h3 class="card-title"><strong>Week 10</strong></h3>
+                            <p class="">Outsourcing Your Work and You.</p>
+                            <p class="card-text">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </p>
+                            <button id="addAssessmentBtn">Add Assessment To This Week</button>
+                            <button id="viewAssessmentsBtn">View Assessments For This Week</button>
+                            <button id="deletePanelBtn">Delete This Week</button>
+                        </div>
+                    </div>
+                </div>
+            
+
+            <!-- -------Add A Week Button--------- -->
+                <div class="col-sm-1-10">
+                    <div class="card mb-5 bg-darker p-3">
+                        <div class="card-body rounded p-3">
+                            <button id="addPanelBtn" data-toggle="modal" data-target="#addWeekModal" data-preLoad="Some content to pre-load">Add A Week</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </main>
+        <footer>
+
+        </footer>
+            
+        <!-- Modal Section -->
+        <div class="modal fade" id="addWeekModal" tabindex="-1" aria-labelledby="addWeekModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h5 class="modal-title h1" id="modalLabel"><strong>Create Week</strong></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addWeekForm" class="needs-validation" novalidate autocomplete="on">
+                            <div class="form-group">
+                                <label for="week-title" class="col-form-label h3">Title:</label>
+                                <input type="text" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){17}$" minlength="3" placeholder="ex: Week 3" maxlength=25 class="form-control form-control-lg h-50" id="week-title" required />
+                                <div class="invalid-feedback">
+                                    Please enter a valid Title.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="week-topic" class="col-form-label h3">Topic:</label>
+                                <input type="text" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){17}$" minlength="3" placeholder="ex: Week 3" maxlength=25 class="form-control form-control-lg h-50" id="week-topic" required />
+                                <div class="invalid-feedback">
+                                    Please enter a valid Topic.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="week-description" class="col-form-label h3">Description:</label>
+                                <input type="text" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){17}$" minlength="3" placeholder="ex: Week 3" maxlength=200 class="form-control form-control-lg h-50" id="week-description" required />
+                                <div class="invalid-feedback">
+                                    Please enter a valid Description.
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <span id="loadResult"><span id="logload"></span></span>
+                                <button onclick="addWeek()" type="submit" class="btn btn-info">Create &nbsp;<i class="fa-solid fa-square-plus" aria-hidden="true"></i></button>
+                                <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Page HTML Code End -->
         <!-- Optional JavaScript -->
