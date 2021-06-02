@@ -6,7 +6,7 @@ from utils.json_tool import convert_list_to_json
 
 
 def route(app):
-    @app.route("/trainer/", methods=["PUT"])
+    @app.route("/trainer/", methods=["POST"])
     def login():
         try:
             email = request.json["email"]

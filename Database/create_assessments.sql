@@ -1,3 +1,4 @@
+
 drop table if exists notes;
 drop table if exists grades;
 drop table if exists assessments;
@@ -30,4 +31,4 @@ create table grades (id serial primary key,
 					 assessment_id int not null references assessments(id),
 					 score int not null,
 					 associate_id int not null);
-				   
+
