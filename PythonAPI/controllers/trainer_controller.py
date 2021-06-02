@@ -14,7 +14,7 @@ def route(app):
         except ResourceNotFound as r:
             return r.message, 404
 
-    @app.route("/trainer/<id>", methods=["GET"])
+    @app.route("/trainer/<id>/", methods=["GET"])
     def get_trainer_by_id(id):
         try:
             return jsonify(TrainerService.get_trainer_byID(int(id)).json())
@@ -23,7 +23,7 @@ def route(app):
         except ResourceNotFound as r:
             return r.message, 404
 
-    @app.route("/trainers/<batch_id>", methods=["GET"])
+    @app.route("/trainers/<batch_id>/", methods=["GET"])
     def get_trainers_by_batch_id(batch_id):
         try:
             trainers = TrainerService.get_trainers_in_batch(int(batch_id))
