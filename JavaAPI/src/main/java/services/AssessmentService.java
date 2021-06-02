@@ -23,8 +23,8 @@ public class AssessmentService {
         return assessments;
     }
 
-    public List<Assessment> getWeekAssessments(String weekId, int batchId) throws SQLException {
-        List<Assessment> weekAssessments = assessmentDAO.getWeekAssessments(weekId, batchId);
+    public List<Assessment> getWeekAssessments(int traineeId, String weekId) throws SQLException {
+        List<Assessment> weekAssessments = assessmentDAO.getWeekAssessments(traineeId, weekId);
         return weekAssessments;
 
     }
