@@ -28,7 +28,7 @@ public class App {
         app.get("/notes/:id/:weekid/", ac.getNotesForTrainee);
         app.post("/assessments", ac.createAssessment);
         app.post("/assessments/:id/", ac.insertGrade);
-        app.put("/assessments/:id/", ac.adjustWeight);
+        app.put("/assessments/:assessmentId/:weight", ac.adjustWeight);
         app.post("/types", ac.createAssessmentType);
         // TODO Give this a new name so it doesn't explode
         // app.put("/assessments/:id/",ac.assignAssessmentType);
