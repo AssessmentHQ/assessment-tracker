@@ -11,6 +11,8 @@ import java.sql.SQLException;
 public interface AssessmentDAO {
     public List<Assessment> getAssessments() throws SQLException;
 
+    public List<Assessment> getAssessmentsByTraineeId(int traineeId) throws SQLException;
+
     public List<Assessment> getWeekAssessments(String weekId, int batchId) throws SQLException;
 
     public Assessment createAssessment(Assessment a) throws SQLException;

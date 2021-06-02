@@ -35,6 +35,19 @@ public class AssessmentController {
 
     };
 
+    public Handler getAssessmentsByTraineeId = (context) -> {
+        try {
+            int traineeId = Integer.parseInt(context.pathParam("id"));
+            aclogger.info("attempting to get all assessments");
+            List<Assessment> assessment = as.getAssessmentsByTraineeId(traineeId);
+            context.contentType("application/json");
+            context.result(gson.toJson(assessment));
+        } catch (Exception e) {
+            aclogger.info(e);
+        }
+
+    };
+
     public Handler getWeekAssessments = (context) -> {
         try {
             aclogger.info("attempting to get assessments for a trainee");
