@@ -49,17 +49,17 @@ See STARTUP.md for more details on starting up the application.
 
 ## Contributers
 
-Marc Levine
-Lamar Hinchen
-Zachary Vander Veldan
-Jessica 
-Alex Jones
-Christopher Sei
-Donald Nteh
-Dwayne Johnson
-Jeremy Brezenoff
-Joaquin Bell
-Jose Del Valle
+Marc Levine,
+Lamar Hinchen,
+Zachary Vander Veldan,
+Jessica Gay,
+Alex Jones,
+Christopher Sei,
+Donald Nteh,
+Dwayne Johnson,
+Jeremy Brezenoff,
+Joaquin Bell,
+Jose Del Valle,
 Serigne Samb
 
 ## License
