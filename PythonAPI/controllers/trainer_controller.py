@@ -6,7 +6,6 @@ from utils.json_tool import convert_list_to_json
 
 
 def route(app):
-
     @app.route("/trainer/", methods=["PUT"])
     def login():
         try:
