@@ -170,8 +170,8 @@ public class AssessmentDAOImpl implements AssessmentDAO {
         return new Note(rs.getInt("id"),
                 rs.getInt("batch_id"),
                 rs.getInt("associate_id"),
-                rs.getString("content"),
-                rs.getString("week_number"));
+                rs.getString("week_number"),
+                rs.getString("content"));
     }
     public Assessment buildAssessment(ResultSet rs) throws SQLException {
         Assessment assessment = new Assessment();
