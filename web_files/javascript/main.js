@@ -28,7 +28,24 @@
 //This is the base url that we are using this base will always be applied it is global scope
 let base_url = "http://localhost:5000/";
 let java_base_url ="http://localhost:7001/";
-let loginEmail = new Object();
+let loginData = new Object();
+// represents you are on this page in main nav
+let onPage = "text-light";
+// represents you are not on this page in main nav
+let offPage = "text-dark";
+// must login message
+//var to set the body of the page to if user is not logged in
+let mustLogin = `
+<div class="col-sm-1-10">
+    <div class="card mb-5 bg-darker p-3">
+        <div class="card-body rounded p-3">
+            <h3 class="card-title"><strong>Please Login</strong></h3>
+            <p class="">If you would like to view your batches then please <a data-toggle="modal" href="#loginModal">login Here</a>, or you may click the link above.</p>
+        </div>
+    </div>
+</div>`;
+// temporarily holds the main body content if user is not logged in until user logs in
+let tempMainContentHolder = $("#mainbody").html();
 
 // Chapter 1. Global var Declarations End -----------------
 
@@ -103,7 +120,19 @@ function ajaxCaller(request_type, url, response_func, response_loc, load_loc, js
     window.addEventListener('load', function() {
         //place code you want to happen on load here
         //session data space
-        
+        // Logged in check
+        if(getSession(loginData, true)){
+            $("#loginBtn").html(`Log Out&nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i>`);
+            document.getElementById("loginBtn").setAttribute("data-target", "#logoutModal");
+        } else {
+            tempMainContentHolder = $("#mainbody").html();
+            $("#mainbody").html(mustLogin);
+        }
+
+        //set up main nav links
+        //this is so you do not have to copy paste to every page
+        $("#navController").html(setMainNav());
+
         // Fetch all the forms we want to apply custom Bootstrap validation styles to
         var forms = document.getElementsByClassName('needs-validation');
         // Loop over them and prevent submission
@@ -135,7 +164,15 @@ function ajaxCaller(request_type, url, response_func, response_loc, load_loc, js
 
 // ---------- pulling and saving form data ------------
 
-/**
+// logout function
+function logout(){
+    $("#loginBtn").html(`Login&nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i>`);
+    document.getElementById("loginBtn").setAttribute("data-target", "#loginModal");
+    tempMainContentHolder = $("#mainbody").html();
+    $("#mainbody").html(mustLogin);
+}
+
+/*
  * Extracts form elements and maps to passed in object
  */
  function extractObjectFromForm($fieldContainer,objectType) {
@@ -215,10 +252,12 @@ function goToPage(newSpot) {
 //if expecting an object pass in optional second arg, make it true
 //Getter
 function getSession(getData, isObj) {
-    if(isObj) {
+    if(isObj && sessionStorage[getData]) {
         return JSON.parse(sessionStorage[getData]);
-    } else {
+    } else if(sessionStorage[getData]) {
         return sessionStorage[getData];
+    } else {
+        return;
     }
 }
 

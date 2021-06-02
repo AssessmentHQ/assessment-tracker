@@ -23,15 +23,15 @@
 
         <header>
             <nav class="nav top-nav navbar-expand-lg d-flex justify-content-between bg-dark" aria-labelledby="Topbar navigation">
-                <a class="navbar-toggler border-none" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon text-darker text-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                <a class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon text-darker text-center rounded-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
                         </svg>
                     </span>
                 </a>
                 <a class="navbar-brand order-md-1 order-xs-1" href="#"><img src="images/rev-logo.png" alt="Revature Logo"></a>
-                <a id="loginBtn" data-toggle="modal" data-target="#loginModal" data-preLoad="Some content to pre-load" class="nav-link bg-info d-flex order-md-3 order-xs-2 align-items-center mr-3">Login &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i></a>
+                <a id="loginBtn" data-toggle="modal" data-target="#loginModal" data-preLoad="Some content to pre-load" class="nav-link text-dark bg-info d-flex order-md-3 order-xs-2 align-items-center mr-3">Login &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i></a>
                 <div class="collapse navbar-collapse order-md-2 order-xs-3 col-xs-12 bg-dark py-3" id="navbarToggle">
                     <form class="mr-5 col-md-9 col-sm-12">
                         <div class="input-group">
@@ -45,59 +45,77 @@
             </nav>
         </header>
         <main class="row row-cols-2 bg-darker">
-            <div class="left-nav col col-sm-2 col-md-2 text-left bg-lighter" aria-labelledby="Sidebar navigation">
-                <a class="nav-link" href="#">Batch</a>
-                <a class="nav-link" href="#">Assessments</a>
-                <a class="nav-link" href="#">Notes</a>
-            </div>
-            <div class="col col-sm-10 col-md-10 mainbody bg-darker text-light p-5">
+            <!-- Holds the main navigation is customizable per page so don't delete -->
+            <nav id="navController" class="left-nav col col-sm-2 col-md-2 text-left" aria-labelledby="Sidebar navigation">
+            </nav>
+            <div id="mainbody" class="col col-sm-10 col-md-10 mainbody bg-darker text-light p-5">
                 <div class="col-sm-1-10">
                     <div class="card mb-5 bg-darker p-3">
                         <div class="card-body rounded p-3">
                             <h3 class="card-title"><strong>Please Login</strong></h3>
-                            <p class="">If you would like to view your batches then please <a href="#">login Here</a>, or you may click the link above.</p>
-                            <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
+                            <p>Hi my name is slim shady.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
-        <footer>
-
-        </footer>
+        <footer id="modalHolder">
             
-        <!-- Modal Section -->
-        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h5 class="modal-title h1" id="modalLabel"><strong>Login</strong></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="loginform" class="needs-validation" novalidate autocomplete="on">
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label h3">Email:</label>
-                                <input type="email" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){2,7}$" minlength="10" placeholder="ex: name@the.com" maxlength=25 class="form-control form-control-lg h-50" id="recipient-name" required />
-                                <div class="invalid-feedback">
-                                    Please enter a valid Email.
+            <!-- Modal Section -->
+            <!-- Modal Login -->
+            <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <h5 class="modal-title h1" id="modalLabel"><strong>Login</strong></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="loginform" class="needs-validation" novalidate autocomplete="on">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label h3">Email:</label>
+                                    <input type="email" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){2,7}$" minlength="10" placeholder="ex: name@the.com" maxlength=25 class="form-control form-control-lg h-50" id="recipient-email" name="recipient-email" required />
+                                    <div class="invalid-feedback">
+                                        Please enter a valid Email.
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <span id="loadResult"><span id="logload"></span></span>
-                                <button onclick="let form = document.getElementById('loginform');if (form.checkValidity() === true) {loginEmail.email = this.value;logMeIN();}$('#loginBtn').html(`Log Out &nbsp;<i class='fa fa-sign-out' aria-hidden='true'></i>`);" type="submit" class="btn btn-info">Login &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i></button>
-                                <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
-                            </div>
-                        </form>
+                                <div class="modal-footer">
+                                    <span id="loadResult"><span id="logload"></span></span>
+                                    <button onclick="let form = document.getElementById('loginform');if (form.checkValidity() === true) {loginData.email = document.getElementById('recipient-email').value;logMeIN(loginData);}" type="submit" class="btn btn-info">Login &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
+                
+            <!-- Modal logout -->
+            <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <h5 class="modal-title h1" id="modalLabel"><strong>Login</strong></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                                <div class="form-group">
+                                    <h4>Are you sure?</h4>
+                                </div>
+                                <div class="modal-footer">
+                                    <span id="loadResult"><span id="logload"></span></span>
+                                    <button onclick="wipeStorage();logout();" type="button" data-dismiss="modal" class="btn btn-info">Logout &nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </footer>
 
         <!-- Page HTML Code End -->
         <!-- Optional JavaScript -->
