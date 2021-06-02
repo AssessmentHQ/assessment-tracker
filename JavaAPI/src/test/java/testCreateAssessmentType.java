@@ -1,6 +1,7 @@
 import dao.AssessmentDAO;
 import dao.AssessmentDAOImpl;
 import models.Assessment;
+import models.AssessmentType;
 import models.Grade;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,15 +56,14 @@ public class testCreateAssessmentType {
 
     @Test
     public void testNotNull() throws Exception {
-        String returnedAssessmentType = adao.createAssessmentType("Quiz");
+        AssessmentType returnedAssessmentType = adao.createAssessmentType("Quiz", 1);
         assertNotNull(returnedAssessmentType);
     }
 
     @Test
     public void testIsEmpty() throws Exception {
-        String returnedAssessmentType = adao.createAssessmentType("Quiz");
+        AssessmentType returnedAssessmentType = adao.createAssessmentType("Quiz", 1);
         assertNotNull(returnedAssessmentType);
-        assertFalse(returnedAssessmentType.isEmpty());
     }
 
     @AfterEach
