@@ -12,25 +12,21 @@ import services.AssessmentService;
 
 import java.util.List;
 
-
 public class AssessmentController {
     private static Logger aclogger = LogManager.getLogger(AssessmentController.class);
 
     private AssessmentService as;
     private Gson gson = new Gson();
 
-
     public AssessmentController(AssessmentService as) {
-        //Setting Service
+        // Setting Service
         this.as = as;
     }
 
     public Handler getAssessments = (context) -> {
         try {
-            aclogger.info("attempting to get assessments for a trainee");
-            int id = Integer.parseInt(context.pathParam("id"));
             aclogger.info("attempting to get all assessments");
-            List <Assessment> assessment = as.getAssessments();
+            List<Assessment> assessment = as.getAssessments();
             context.contentType("application/json");
             context.result(gson.toJson(assessment));
         } catch (Exception e) {
@@ -39,14 +35,13 @@ public class AssessmentController {
 
     };
 
-
     public Handler getWeekAssessments = (context) -> {
         try {
             aclogger.info("attempting to get assessments for a trainee");
             int id = Integer.parseInt(context.pathParam("id"));
             String weekId = context.pathParam("weekid");
             aclogger.info("attempting to get assessments");
-            List <Assessment> assessments = as.getWeekAssessments(weekId,id);
+            List<Assessment> assessments = as.getWeekAssessments(weekId, id);
             context.contentType("application/json");
             context.result(gson.toJson(assessments));
         } catch (Exception e) {
@@ -54,7 +49,6 @@ public class AssessmentController {
         }
 
     };
-
 
     public Handler getNotesForTrainee = (context) -> {
         try {
@@ -103,7 +97,7 @@ public class AssessmentController {
             aclogger.info("attempting to update the grade on an assessment");
             int weight = Integer.parseInt(context.pathParam("weight"));
             int assessmentId = Integer.parseInt(context.pathParam("assessmentId"));
-            boolean weightUpdated = as.adjustWeight(assessmentId,weight);
+            boolean weightUpdated = as.adjustWeight(assessmentId, weight);
             context.contentType("application/json");
             aclogger.info("attempting to return updatedWeight");
             context.result(gson.toJson(weightUpdated));
