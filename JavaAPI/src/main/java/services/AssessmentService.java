@@ -19,6 +19,11 @@ public class AssessmentService {
         return assessments;
     }
 
+    public List<Assessment> getAssessmentsByTraineeId(int traineeId) throws SQLException {
+        List<Assessment> assessments = assessmentDAO.getAssessmentsByTraineeId(traineeId);
+        return assessments;
+    }
+
     public List<Assessment> getWeekAssessments(String weekId, int batchId) throws SQLException {
         List<Assessment> weekAssessments = assessmentDAO.getWeekAssessments(weekId, batchId);
         return weekAssessments;
@@ -36,15 +41,18 @@ public class AssessmentService {
     public Type createAssessmentType(Type type) throws SQLException {
         return assessmentDAO.createAssessmentType(type.getName(), type.getDefaultWeight());
     }
-    public List<Note> getNotesForTrainee(int id, String weekId){
+
+    public List<Note> getNotesForTrainee(int id, String weekId) {
         return assessmentDAO.getNotesForTrainee(id, weekId);
     }
-    public Grade insertGrade(Grade grade){
-        //TODO write method to insert grade
+
+    public Grade insertGrade(Grade grade) {
+        // TODO write method to insert grade
         return null;
     }
-    public int assignAssessmentType(int ypeId){
-        //TODO write method to assign assessment type
+
+    public int assignAssessmentType(int ypeId) {
+        // TODO write method to assign assessment type
         return -99;
     }
 
