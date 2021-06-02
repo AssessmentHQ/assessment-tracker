@@ -20,7 +20,6 @@ function setMainNav() {
     </a>`;
 }
 
-weekCount = 0
 
 function getWeeks() {
     let weekTitles = document.getElementsByClassName("week-title")
@@ -38,22 +37,26 @@ function getWeeks() {
 
 function addWeek(){
     weeks = getWeeks()
-    weekCount += 1
+    weekId = document.getElementById("week-title").value
+    weekTopic = document.getElementById("week-topic").value
     document.getElementById("panels").innerHTML += 
     `
-    <div id="week ${weekCount}" class="col-sm-1-10">
-                    <div class="card mb-5 bg-darker p-3">
-                        <div class="card-body rounded p-3">
-                            <h3 class="card-title"><strong>Week ${weekCount}</strong></h3>
-                            <p class="cart-topic">Outsourcing Your Work and You.</p>
-                            <p class="card-text" class-"weekDescription">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            </p>
-                            <button id="addAssessmentBtn">Add Assessment To This Week</button>
-                            <button id="viewAssessmentsBtn">View Assessments For This Week</button>
-                            <button id="deletePanelBtn">Delete This Week</button>
+    <div class="d-flex mb-5">
+                        <div id="week_${weekId}" class="col col-11 p-0">
+                            <div class="card bg-darker">
+                                <div class="card-body rounded">
+                                    <h3 class="card-title"><strong>Week ${weekId}</strong></h3>
+                                    <p class="card-topic">${weekTopic}.</p>
+                                    <p class="card-text">
+                                        -No Assessments Yet-
+                                    </p>
+                                    <button id="addAssessmentBtn" class="btn btn-primary">Add Assessment To This Week</button>
+                                    <button id="viewAssessmentsBtn" class="btn btn-primary">View Assessments For This Week</button>
+
+                                </div>
+                            </div>
                         </div>
+                        <button id="deletePanelBtn" class="btn btn-danger col col-1 del-week align-items-center"><i class="fa fa-trash" aria-hidden="true"></i>Delete Week<br/><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;</button>
                     </div>
-                </div>
     `
 }
