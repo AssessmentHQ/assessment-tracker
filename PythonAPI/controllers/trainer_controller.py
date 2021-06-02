@@ -33,3 +33,10 @@ def route(app):
             return r.message, 404
         trainers_as_json = convert_list_to_json(trainers)
         return jsonify(trainers_as_json)
+
+    @app.route("/trainers/years/<trainer_id>", methods=["GET"])
+    def get_years_for_trainer(trainer_id):
+        try:
+            return jsonify(TrainerService.get_years_for_trainer(int(trainer_id)))
+        except ValueError as e:
+            return "Not a valid ID or No such batch exist with this ID", 400  # Bad Request

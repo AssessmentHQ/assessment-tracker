@@ -15,3 +15,11 @@ class TrainerService:
     @classmethod
     def get_trainers_in_batch(cls, batch_id):
         return cls.trainer_dao.get_trainers_in_batch(batch_id)
+
+    @classmethod
+    def get_years_for_trainer(cls, trainer_id):
+        years = TrainerDAOImpl().get_years_for_trainer(trainer_id)
+        years_dict = []
+        for year in years:
+            years_dict.append({"year": year})
+        return years_dict

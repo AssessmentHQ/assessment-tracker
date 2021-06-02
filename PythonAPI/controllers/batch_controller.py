@@ -26,3 +26,5 @@ def route(app):
             return "Not a valid ID or No such batch exist with this ID", 400  # Bad Request
         batches_as_json = convert_list_to_json(batches)
         return jsonify(batches_as_json)
+
+

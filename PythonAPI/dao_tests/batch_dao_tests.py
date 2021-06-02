@@ -12,7 +12,6 @@ class DAOTests(unittest.TestCase):
     def test_get_all_batches_by_year_fail(self):
         self.assertFalse(BatchDAOImpl().get_all_batches_by_year(1, 1))
 
-
     def test_get_batch_by_id(self):
         self.assertTrue(BatchDAOImpl().get_batch_by_id(1))
 
