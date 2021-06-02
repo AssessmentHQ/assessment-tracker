@@ -7,7 +7,7 @@ from utils.json_tool import convert_list_to_json
 
 def route(app):
 
-    @app.route("/batch/<id>", methods=["GET"])
+    @app.route("/batch/<id>/", methods=["GET"])
     def get_batch_by_id(id):
         """Takes in an id for a batch record and returns a Batch object"""
         try:
@@ -17,7 +17,7 @@ def route(app):
         except ResourceNotFound as r:
             return r.message, 404
 
-    @app.route("/batches/<year>", methods=["GET"])
+    @app.route("/batches/<year>/", methods=["GET"])
     def get_all_batches_by_year(year):
         """Takes in a year and returns all the batches currently in progress for that year"""
         try:

@@ -29,6 +29,29 @@
 let base_url = "http://localhost:5000/";
 let java_base_url ="http://localhost:7001/";
 let loginData = new Object();
+// main header content
+let mainHeader = `
+<nav class="nav top-nav navbar-expand-lg d-flex justify-content-between bg-dark" aria-labelledby="Topbar navigation">
+    <a class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon text-darker text-center rounded-0">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+        </span>
+    </a>
+    <a class="navbar-brand order-md-1 order-xs-1" href="#"><img src="images/rev-logo.png" alt="Revature Logo"></a>
+    <a id="loginBtn" data-toggle="modal" data-target="#loginModal" data-preLoad="Some content to pre-load" class="nav-link text-dark bg-info d-flex order-md-3 order-xs-2 align-items-center mr-3">Login &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i></a>
+    <div class="collapse navbar-collapse order-md-2 order-xs-3 col-xs-12 bg-dark py-3" id="navbarToggle">
+        <form class="mr-5 col-md-9 col-sm-12">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <label for="search" id="searchLabel" class="input-group-text bg-darkest border-none text-light"><i class="fa fa-search" aria-hidden="true"></i></label>
+                </div>
+                <input id="search" class="form-control bg-darkest border-none col-12" type="search" placeholder="Search" aria-label="Search" aria-describedby="Search a batch" />
+            </div>
+        </form>
+    </div>
+</nav>`;
 // represents you are on this page in main nav
 let onPage = "text-light";
 // represents you are not on this page in main nav
@@ -118,7 +141,9 @@ function ajaxCaller(request_type, url, response_func, response_loc, load_loc, js
 (function() {
     'use strict';
     window.addEventListener('load', function() {
-        //place code you want to happen on load here
+        //set up header content
+        $("#headContent").html(mainHeader);
+        
         //session data space
         // Logged in check
         if(getSession(loginData, true)){
