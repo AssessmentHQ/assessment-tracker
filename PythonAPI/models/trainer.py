@@ -1,6 +1,9 @@
-class Trainer:
+from models.decodable import Decodable
 
-    def __init__(self, first_name, last_name, email, role="", id=-1):
+
+class Trainer(Decodable):
+
+    def  __init__(self, first_name, last_name, email, role="", id=-1):
         self.id = id
         self.first_name = first_name
         self.last_name = last_name
@@ -14,7 +17,6 @@ class Trainer:
             'first_name': self.first_name,
             'last_name': self.last_name,
             'role': self.role,
-
         }
 
     @staticmethod

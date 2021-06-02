@@ -1,16 +1,18 @@
 import unittest
-from datetime import datetime
+from datetime import datetime, date
 from math import floor
 
+from models.decodable import Decodable
 
-class Batch:
+
+class Batch(Decodable):
 
     def __init__(self,
                  name,
                  training_track,
                  start_date,
                  end_date,
-                 id=-1):
+                 id = -1):
         self.id = id
         self.name = name
         self.training_track = training_track
@@ -19,13 +21,13 @@ class Batch:
 
     def json(self):
         return {
-            'batchId': self.id,
+            'id': self.id,
             'startDate': self.start_date,
             'endDate': self.end_date,
             'name': self.name,
             'trainingTrack': self.training_track,
-            'currentWeek': self.current_week()
-
+            'currentWeek': self.current_week(),
+            'totalWeeks': self.total_weeks()
         }
 
     @staticmethod
@@ -39,10 +41,13 @@ class Batch:
         return batch
 
     def current_week(self):
-        return floor(abs((datetime.now() - self.start_date).days / 7))
+        """Returns the current week of training(today - start_date)"""
+        return floor(abs((datetime.now().date() - self.start_date).days / 7))
 
     def total_weeks(self):
+        """Returns the total weeks of training(end_date - start_date)"""
         return floor(abs((self.end_date - self.start_date).days / 7))
+
 
 class TestBatch(unittest.TestCase):
 
@@ -51,3 +56,4 @@ class TestBatch(unittest.TestCase):
         end = datetime.strptime("2021-06-20", "%Y-%m-%d")
         batch = Batch("New Batch", "Still dont know", start, end)
         assert batch.current_week() == 4
+

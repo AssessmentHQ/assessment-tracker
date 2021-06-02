@@ -1,0 +1,6 @@
+[postgresql]
+host=
+database=postgres
+user=
+password=
+port=5432
