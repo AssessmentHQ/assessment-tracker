@@ -13,3 +13,4 @@ class BatchServices:
     @classmethod
     def get_all_batches_by_year(cls, trainer_id, year):
         return BatchDAOImpl().get_all_batches_by_year(trainer_id, year)
+
