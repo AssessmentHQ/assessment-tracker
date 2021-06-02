@@ -25,7 +25,7 @@ public class AssessmentService {
     }
 
     public Assessment createAssessment(Assessment assessment) throws SQLException {
-        return assessmentDAO.createAssessment(assessment.getWeekId(), assessment.getBatchId());
+        return assessmentDAO.createAssessment(assessment);
     }
 
     public boolean adjustWeight(int assessmentId, int weight) throws SQLException {

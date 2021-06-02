@@ -61,12 +61,14 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     }
 
     @Override
-    public Assessment createAssessment(String weekId, int batchId) throws SQLException {
+    public Assessment createAssessment(Assessment a) throws SQLException {
         try {
-            String sql = "INSERT INTO assessments VALUES (DEFAULT,0,0,\"\",0,?,?) RETURNING *";
+            String sql = "INSERT INTO assessments VALUES (DEFAULT,1,?,?,0,?,?) RETURNING *";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
-            ps.setInt(1, batchId);
-            ps.setString(2, weekId);
+            ps.setInt(1,a.getTypeId());
+            ps.setString(2, a.getAssessmentTitle());
+            ps.setInt(3, a.getBatchId());
+            ps.setString(4, a.getWeekId());
 
             ResultSet rs = ps.executeQuery();
 
