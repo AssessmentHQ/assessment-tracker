@@ -51,10 +51,10 @@ public class AssessmentController {
     public Handler getWeekAssessments = (context) -> {
         try {
             aclogger.info("attempting to get assessments for a trainee");
-            int id = Integer.parseInt(context.pathParam("id"));
+            int traineeId = Integer.parseInt(context.pathParam("id"));
             String weekId = context.pathParam("weekid");
             aclogger.info("attempting to get assessments");
-            List<Assessment> assessments = as.getWeekAssessments(weekId, id);
+            List<Assessment> assessments = as.getWeekAssessments(traineeId, weekId);
             context.contentType("application/json");
             context.result(gson.toJson(assessments));
         } catch (Exception e) {

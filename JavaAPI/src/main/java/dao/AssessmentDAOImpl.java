@@ -62,11 +62,12 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     }
 
     @Override
-    public List<Assessment> getWeekAssessments(String weekId, int batchId) throws SQLException {
+    public List<Assessment> getWeekAssessments(int traineeId, String weekId) throws SQLException {
         try {
-            String sql = "SELECT * FROM assessments WHERE week_number = ?";
+            String sql = "select * from grades as g join assessments a on g.assessment_id = a.id where associate_id = ? and week_number = ?";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
-            ps.setString(1, weekId);
+            ps.setInt(1, traineeId);
+            ps.setString(2, weekId);
 
             ResultSet rs = ps.executeQuery();
 
@@ -89,7 +90,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
         try {
             String sql = "INSERT INTO assessments VALUES (DEFAULT,1,?,?,0,?,?) RETURNING *";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
-            ps.setInt(1,a.getTypeId());
+            ps.setInt(1, a.getTypeId());
             ps.setString(2, a.getAssessmentTitle());
             ps.setInt(3, a.getBatchId());
             ps.setString(4, a.getWeekId());
