@@ -3,7 +3,7 @@ package dao;
 import models.Assessment;
 import models.Grade;
 import models.Note;
-import models.Type;
+import models.AssessmentType;
 import util.dbconnection;
 
 import java.sql.PreparedStatement;
@@ -63,7 +63,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     @Override
     public Assessment createAssessment(String weekId, int batchId) throws SQLException {
         try {
-            String sql = "INSERT INTO assessments VALUES (DEFAULT,\"\",0,?,?,0) RETURNING *";
+            String sql = "INSERT INTO assessments VALUES (DEFAULT,0,0,\"\",0,?,?) RETURNING *";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
             ps.setInt(1, batchId);
             ps.setString(2, weekId);
@@ -98,7 +98,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     }
 
     @Override
-    public Type createAssessmentType(String name, int defaultWeight) throws SQLException {
+    public AssessmentType createAssessmentType(String name, int defaultWeight) throws SQLException {
         try {
             String sql = "INSERT INTO types values (default, %s, %s) returning id";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
@@ -108,8 +108,8 @@ public class AssessmentDAOImpl implements AssessmentDAO {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                Type type = buildType(rs);
-                return type;
+                AssessmentType assessmentType = buildType(rs);
+                return assessmentType;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -186,12 +186,12 @@ public class AssessmentDAOImpl implements AssessmentDAO {
         return assessment;
     }
 
-    public Type buildType(ResultSet rs) throws SQLException {
-        Type type = new Type();
-        type.setTypeId(rs.getInt("id"));
-        type.setName(rs.getString("type_name"));
-        type.setDefaultWeight(rs.getInt("weight"));
+    public AssessmentType buildType(ResultSet rs) throws SQLException {
+        AssessmentType assessmentType = new AssessmentType();
+        assessmentType.setTypeId(rs.getInt("id"));
+        assessmentType.setName(rs.getString("type_name"));
+        assessmentType.setDefaultWeight(rs.getInt("weight"));
 
-        return type;
+        return assessmentType;
     }
 }
