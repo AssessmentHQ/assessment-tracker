@@ -29,6 +29,29 @@
 let base_url = "http://localhost:5000/";
 let java_base_url ="http://localhost:7001/";
 let loginData = new Object();
+// main header content
+let mainHeader = `
+<nav class="nav top-nav navbar-expand-lg d-flex justify-content-between bg-dark" aria-labelledby="Topbar navigation">
+    <a class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon text-darker text-center rounded-0">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+        </span>
+    </a>
+    <a class="navbar-brand order-md-1 order-xs-1" href="#"><img src="images/rev-logo.png" alt="Revature Logo"></a>
+    <a id="loginBtn" data-toggle="modal" data-target="#loginModal" data-preLoad="Some content to pre-load" class="nav-link text-dark bg-info d-flex order-md-3 order-xs-2 align-items-center mr-3">Login &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i></a>
+    <div class="collapse navbar-collapse order-md-2 order-xs-3 col-xs-12 bg-dark py-3" id="navbarToggle">
+        <form class="mr-5 col-md-9 col-sm-12">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <label for="search" id="searchLabel" class="input-group-text bg-darkest border-none text-light"><i class="fa fa-search" aria-hidden="true"></i></label>
+                </div>
+                <input id="search" class="form-control bg-darkest border-none col-12" type="search" placeholder="Search" aria-label="Search" aria-describedby="Search a batch" />
+            </div>
+        </form>
+    </div>
+</nav>`;
 // represents you are on this page in main nav
 let onPage = "text-light";
 // represents you are not on this page in main nav
@@ -105,6 +128,66 @@ function ajaxCaller(request_type, url, response_func, response_loc, load_loc, js
         ajax.send();
     }
 }
+// Login Function
+// email for the login(obj)
+function logMeIN(email) {
+    //set the caller_complete to the function that is supposed to receive the response
+    //naming convention: [this function name]_complete
+    let response_func = logMeIN_complete;
+    //endpoint: rest api endpoint
+    let endpoint = "trainer/"
+    //set the url by adding (base_url/java_base_url) + endpoint
+    //options:
+    //base_url(python)
+    //java_base_url(java)
+    let url = base_url + endpoint;
+    //request_type: type of request
+    //options:
+    //"GET", "POST", "OPTIONS", "PATCH", "PULL", "HEAD", "DELETE", "CONNECT", "TRACE"
+    let request_type = "POST";
+    //location you want the response to load
+    let response_loc = "loadResult";
+    //optional:location you want the load animation to be generated while awaiting the response
+    //can be set for any location but will most often be set to response_loc
+    //can be left blank if not needed
+    let load_loc = "logload";
+    //optional:json data to send to the server
+    //can be left blank if not needed
+    let jsonData = email;
+    console.log(jsonData);
+
+    ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData)
+}
+//ajax on-complete function: receives the response from an ajax request
+function logMeIN_complete(status, response, response_loc, load_loc) {
+    //do some logic with the ajax data that was returned
+    //do this if you are expecting a json object - JSON.parse(response)
+
+    //The var "load_loc" is set in case the response message is different from the action to be loaded into the named location
+    //example:
+    //-- you want a message to say "ajax done!" in a popup while the data is compiled and loaded somewhere else
+
+    //action if code 200
+    if(status == 200) {
+        $("#loginBtn").html(`Log Out &nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i>`);
+        document.getElementById("loginBtn").setAttribute("data-target", "#logoutModal");
+        //save the session
+        saveSession(loginData, response);
+        // hides the modal after login is successful
+        $('#loginModal').modal('hide');
+        // reset page content back to the actual page
+         $("#mainbody").html(tempMainContentHolder);
+
+        //action if code 201
+    } else if(status == 201) {
+        document.getElementById(response_loc).innerHTML = JSON.parse(response);
+        //action if code 400
+    } else if(status == 400) {
+        //load the response into the response_loc
+        document.getElementById(response_loc).innerHTML = response;
+    }
+    console.log(response);
+}
 
 // Chapter 2. Ajax End ------------------------------------
 
@@ -118,7 +201,9 @@ function ajaxCaller(request_type, url, response_func, response_loc, load_loc, js
 (function() {
     'use strict';
     window.addEventListener('load', function() {
-        //place code you want to happen on load here
+        //set up header content
+        $("#headContent").html(mainHeader);
+        
         //session data space
         // Logged in check
         if(getSession(loginData, true)){
