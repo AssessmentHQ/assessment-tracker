@@ -3,7 +3,7 @@ package dao;
 import models.Assessment;
 import models.Grade;
 import models.Note;
-import models.Type;
+import models.AssessmentType;
 
 import java.util.List;
 import java.sql.SQLException;
@@ -11,13 +11,15 @@ import java.sql.SQLException;
 public interface AssessmentDAO {
     public List<Assessment> getAssessments() throws SQLException;
 
-    public List<Assessment> getWeekAssessments(String weekId, int batchId) throws SQLException;
+    public List<Assessment> getAssessmentsByTraineeId(int traineeId) throws SQLException;
 
-    public Assessment createAssessment(String weekId, int batchId) throws SQLException;
+    public List<Assessment> getWeekAssessments(int traineeId, String weekId) throws SQLException;
+
+    public Assessment createAssessment(Assessment a) throws SQLException;
 
     public boolean adjustWeight(int assessmentId, int weight) throws SQLException;
 
-    public Type createAssessmentType(String name, int defaultWeight) throws SQLException;
+    public AssessmentType createAssessmentType(String name, int defaultWeight) throws SQLException;
 
     public boolean assignAssessmentType(int assessmentId, int typeId) throws SQLException;
 

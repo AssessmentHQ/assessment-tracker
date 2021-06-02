@@ -5,10 +5,9 @@ import dao.AssessmentDAOImpl;
 import models.Assessment;
 import models.Grade;
 import models.Note;
-import models.Type;
+import models.AssessmentType;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AssessmentService {
@@ -19,32 +18,40 @@ public class AssessmentService {
         return assessments;
     }
 
-    public List<Assessment> getWeekAssessments(String weekId, int batchId) throws SQLException {
-        List<Assessment> weekAssessments = assessmentDAO.getWeekAssessments(weekId, batchId);
+    public List<Assessment> getAssessmentsByTraineeId(int traineeId) throws SQLException {
+        List<Assessment> assessments = assessmentDAO.getAssessmentsByTraineeId(traineeId);
+        return assessments;
+    }
+
+    public List<Assessment> getWeekAssessments(int traineeId, String weekId) throws SQLException {
+        List<Assessment> weekAssessments = assessmentDAO.getWeekAssessments(traineeId, weekId);
         return weekAssessments;
 
     }
 
     public Assessment createAssessment(Assessment assessment) throws SQLException {
-        return assessmentDAO.createAssessment(assessment.getWeekId(), assessment.getBatchId());
+        return assessmentDAO.createAssessment(assessment);
     }
 
     public boolean adjustWeight(int assessmentId, int weight) throws SQLException {
         return assessmentDAO.adjustWeight(assessmentId, weight);
     }
 
-    public Type createAssessmentType(Type type) throws SQLException {
-        return assessmentDAO.createAssessmentType(type.getName(), type.getDefaultWeight());
+    public AssessmentType createAssessmentType(AssessmentType assessmentType) throws SQLException {
+        return assessmentDAO.createAssessmentType(assessmentType.getName(), assessmentType.getDefaultWeight());
     }
-    public List<Note> getNotesForTrainee(int id, String weekId){
+
+    public List<Note> getNotesForTrainee(int id, String weekId) {
         return assessmentDAO.getNotesForTrainee(id, weekId);
     }
-    public Grade insertGrade(Grade grade){
-        //TODO write method to insert grade
+
+    public Grade insertGrade(Grade grade) {
+        // TODO write method to insert grade
         return null;
     }
-    public int assignAssessmentType(int ypeId){
-        //TODO write method to assign assessment type
+
+    public int assignAssessmentType(int ypeId) {
+        // TODO write method to assign assessment type
         return -99;
     }
 

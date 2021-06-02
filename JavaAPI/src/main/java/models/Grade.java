@@ -3,22 +3,22 @@ package models;
 public class Grade {
     private int gradeId;
     private int assessmentId;
-    private int trainerId;
+    private int traineeId;
     private double score;
 
     public Grade() {
         super();
         gradeId = 0;
         assessmentId = 0;
-        trainerId = 0;
+        traineeId = 0;
         score = 0;
     }
 
-    public Grade(int gradeId, int assessmentId, int trainerId, double score) {
+    public Grade(int gradeId, int assessmentId, int traineeId, double score) {
         super();
         this.gradeId = gradeId;
         this.assessmentId = assessmentId;
-        this.trainerId = trainerId;
+        this.traineeId = traineeId;
         this.score = score;
     }
 
@@ -39,11 +39,11 @@ public class Grade {
     }
 
     public int getTrainerId() {
-        return trainerId;
+        return traineeId;
     }
 
-    public void setTrainerId(int trainerId) {
-        this.trainerId = trainerId;
+    public void setTrainerId(int traineeId) {
+        this.traineeId = traineeId;
     }
 
     public double getScore() {
@@ -56,8 +56,8 @@ public class Grade {
 
     @Override
     public String toString() {
-        return "Grade [assessmentId=" + assessmentId + ", gradeId=" + gradeId + ", score=" + score + ", trainerId="
-                + trainerId + "]";
+        return "Grade [assessmentId=" + assessmentId + ", gradeId=" + gradeId + ", score=" + score + ", traineeId="
+                + traineeId + "]";
     }
 
 }

@@ -53,13 +53,13 @@ public class testAdjustWeight {
 
     @Test
     public void testNotNegativeWeight() throws Exception {
-        boolean returnedVal = adao.adjustWeight(1);
+        boolean returnedVal = adao.adjustWeight(1, 1);
         assertTrue(true, "Expected true on success");
     }
 
     @Test
     public void testTooMuchWeight() throws Exception {
-        boolean returnVal = adao.adjustWeight(1);
+        boolean returnVal = adao.adjustWeight(1,1);
         // TODO: Should we pass in who much weight we want to adjust by, and return the weight instead of a boolean.
         //assertTrue(returnedWeight <= 100, "Expected weight less than 100");
     }
