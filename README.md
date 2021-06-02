@@ -2,7 +2,7 @@
 
 ## Project Description
 
-The Assessment Tracker is an application designed to help track an individual's progress through a batch training. A user can see all the batches organized by year, view a particular week for a batch, create new assessments, update grades for trainees for each assessment, and leave notes for trainees as needed. In addition, the application calculates the average grade for each assessment, as well as the average grade per week according to weights assigned to each assessment.
+The Assessment Tracker is an application designed to help track an individual's progress through a batch training. A user can see all the batches organized by year, view a particular week for a batch, create new assessments, update grades for associates for each assessment, and leave notes for associates as needed. In addition, the application calculates the average grade for each assessment, as well as the average grade per week according to weights assigned to each assessment.
 
 ## Technologies Used
 
@@ -29,6 +29,18 @@ The Assessment Tracker is an application designed to help track an individual's 
 
 ## Features
 
+Features included:
+* See all batches by year
+* View an individual week of a batch
+* Create an assessment for a batch on a given week
+* Insert a grade for an associate on an assignment
+* Adjust the weight of an assessment
+* Assign types to assessments and create new types
+* Create a note for a particular associate
+
+To be included in the future:
+* 
+
 ## Getting Started
 
 See STARTUP.md for more details on starting up the application.
@@ -36,6 +48,19 @@ See STARTUP.md for more details on starting up the application.
 ## Usage
 
 ## Contributers
+
+Marc Levine
+Lamar Hinchen
+Zachary Vander Veldan
+Jessica 
+Alex Jones
+Christopher Sei
+Donald Nteh
+Dwayne Johnson
+Jeremy Brezenoff
+Joaquin Bell
+Jose Del Valle
+Serigne Samb
 
 ## License
 
