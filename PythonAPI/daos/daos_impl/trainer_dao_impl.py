@@ -1,3 +1,5 @@
+from math import floor
+
 from daos.trainer_dao import TrainerDAO
 from exceptions.resource_not_found import ResourceNotFound
 from models.batch import Batch
@@ -58,3 +60,17 @@ class TrainerDAOImpl(TrainerDAO):
 
 
             raise ResourceNotFound("No trainer exists with those credentials")
+
+    def get_years_for_trainer(self, trainer_id):
+        """Takes in a year and returns all the batches currently in progress for that year"""
+        sql = "SELECT date_part('year', b.start_date) " \
+              "FROM batches as b " \
+              "left join trainer_batches as tb " \
+              "on b.id = tb.batch_id " \
+              "WHERE trainer_id = %s"
+        records = DbConn.make_connect(sql, [trainer_id])
+        years = set()
+        for year in records:
+            years.add(floor(year[0]))
+
+        return years

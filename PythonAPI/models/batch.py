@@ -56,3 +56,4 @@ class TestBatch(unittest.TestCase):
         end = datetime.strptime("2021-06-20", "%Y-%m-%d")
         batch = Batch("New Batch", "Still dont know", start, end)
         assert batch.current_week() == 4
+
