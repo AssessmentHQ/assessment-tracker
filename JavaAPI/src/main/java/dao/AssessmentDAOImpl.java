@@ -63,7 +63,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     @Override
     public Assessment createAssessment(String weekId, int batchId) throws SQLException {
         try {
-            String sql = "INSERT INTO assessments VALUES (DEFAULT,0,0,\"\",0,?,?) RETURNING *";
+            String sql = "INSERT INTO assessments VALUES (DEFAULT,1,1,'',1,?,?) RETURNING *";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
             ps.setInt(1, batchId);
             ps.setString(2, weekId);
