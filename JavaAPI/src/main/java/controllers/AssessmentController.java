@@ -5,7 +5,7 @@ import com.google.gson.Gson;
 import models.Grade;
 import models.Note;
 import models.Assessment;
-import models.Type;
+import models.AssessmentType;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import services.AssessmentService;
@@ -108,11 +108,11 @@ public class AssessmentController {
     public Handler createAssessmentType = (context) -> {
         try {
             aclogger.info("attempting to create a Type for assessments");
-            Type type = gson.fromJson(context.body(), Type.class);
-            Type updatedType = as.createAssessmentType(type);
+            AssessmentType assessmentType = gson.fromJson(context.body(), AssessmentType.class);
+            AssessmentType updatedAssessmentType = as.createAssessmentType(assessmentType);
             context.contentType("application/json");
             aclogger.info("attempting to return updated type");
-            context.result(gson.toJson(updatedType));
+            context.result(gson.toJson(updatedAssessmentType));
         } catch (Exception e) {
             aclogger.info(e);
         }

@@ -5,10 +5,9 @@ import dao.AssessmentDAOImpl;
 import models.Assessment;
 import models.Grade;
 import models.Note;
-import models.Type;
+import models.AssessmentType;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AssessmentService {
@@ -33,8 +32,8 @@ public class AssessmentService {
         return assessmentDAO.adjustWeight(assessmentId, weight);
     }
 
-    public Type createAssessmentType(Type type) throws SQLException {
-        return assessmentDAO.createAssessmentType(type.getName(), type.getDefaultWeight());
+    public AssessmentType createAssessmentType(AssessmentType assessmentType) throws SQLException {
+        return assessmentDAO.createAssessmentType(assessmentType.getName(), assessmentType.getDefaultWeight());
     }
     public List<Note> getNotesForTrainee(int id, String weekId){
         return assessmentDAO.getNotesForTrainee(id, weekId);

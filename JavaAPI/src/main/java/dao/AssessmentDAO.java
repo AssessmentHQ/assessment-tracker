@@ -3,7 +3,7 @@ package dao;
 import models.Assessment;
 import models.Grade;
 import models.Note;
-import models.Type;
+import models.AssessmentType;
 
 import java.util.List;
 import java.sql.SQLException;
@@ -17,7 +17,7 @@ public interface AssessmentDAO {
 
     public boolean adjustWeight(int assessmentId, int weight) throws SQLException;
 
-    public Type createAssessmentType(String name, int defaultWeight) throws SQLException;
+    public AssessmentType createAssessmentType(String name, int defaultWeight) throws SQLException;
 
     public boolean assignAssessmentType(int assessmentId, int typeId) throws SQLException;
 
