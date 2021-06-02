@@ -17,12 +17,17 @@ class BatchDAOImpl(BatchDAO):
         else:
             raise ResourceNotFound("No batch could be found with the given id")
 
-    def get_all_batches_by_year(self, year):
+    def get_all_batches_by_year(self, trainer_id, year):
         """Takes in a year and returns all the batches currently in progress for that year"""
-        sql = "SELECT * FROM batches WHERE date_part('year', batches.start_date) = %s "
-        records = DbConn.make_connect(sql, [year])
+        sql = "SELECT b.id, b.start_date, b.end_date, b.name, b.training_track " \
+              "FROM batches as b " \
+              "left join trainer_batches as tb " \
+              "on b.id = tb.batch_id " \
+              "WHERE trainer_id = %s and date_part('year', b.start_date) = %s"
+        records = DbConn.make_connect(sql, [trainer_id, year])
         batches = []
         for batch in records:
             batches.append(
                 Batch(id=batch[0], start_date=batch[1], end_date=batch[2], name=batch[3], training_track=batch[4]))
         return batches
+

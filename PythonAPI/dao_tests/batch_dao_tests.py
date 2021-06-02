@@ -6,11 +6,11 @@ from exceptions.resource_not_found import ResourceNotFound
 
 class DAOTests(unittest.TestCase):
     def test_get_all_batches_by_year(self):
-        batches = BatchDAOImpl().get_all_batches_by_year(2020)
+        batches = BatchDAOImpl().get_all_batches_by_year(1, 2020)
         self.assertTrue(batches)
 
     def test_get_all_batches_by_year_fail(self):
-        self.assertFalse(BatchDAOImpl().get_all_batches_by_year(1))
+        self.assertFalse(BatchDAOImpl().get_all_batches_by_year(1, 1))
 
 
     def test_get_batch_by_id(self):
