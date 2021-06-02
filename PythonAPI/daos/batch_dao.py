@@ -6,7 +6,7 @@ from models.batch import Batch
 class BatchDAO(ABC):
 
     @abstractmethod
-    def get_all_batches_by_year(self, year):
+    def get_all_batches_by_year(self, trainer_id, year):
         pass
 
     @abstractmethod

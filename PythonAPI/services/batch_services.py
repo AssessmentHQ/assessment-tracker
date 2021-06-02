@@ -11,5 +11,5 @@ class BatchServices:
         return BatchDAOImpl().get_batch_by_id(batch_id)
 
     @classmethod
-    def get_all_batches_by_year(cls, year):
-        return BatchDAOImpl().get_all_batches_by_year(year)
+    def get_all_batches_by_year(cls, trainer_id, year):
+        return BatchDAOImpl().get_all_batches_by_year(trainer_id, year)
