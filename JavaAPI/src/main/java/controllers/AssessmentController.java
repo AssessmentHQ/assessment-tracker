@@ -30,7 +30,7 @@ public class AssessmentController {
             aclogger.info("attempting to get assessments for a trainee");
             int id = Integer.parseInt(context.pathParam("id"));
             aclogger.info("attempting to get all assessments");
-            Assessment assessment = as.getWeekAssessments(id);
+            List <Assessment> assessment = as.getAssessments();
             context.contentType("application/json");
             context.result(gson.toJson(assessment));
         } catch (Exception e) {
@@ -46,9 +46,9 @@ public class AssessmentController {
             int id = Integer.parseInt(context.pathParam("id"));
             String weekId = context.pathParam("weekid");
             aclogger.info("attempting to get assessments");
-            Assessment assessment = as.getWeekAssessments(id, weekId);
+            List <Assessment> assessments = as.getWeekAssessments(weekId,id);
             context.contentType("application/json");
-            context.result(gson.toJson(assessment));
+            context.result(gson.toJson(assessments));
         } catch (Exception e) {
             aclogger.info(e);
         }
@@ -81,6 +81,7 @@ public class AssessmentController {
         } catch (Exception e) {
             aclogger.info(e);
         }
+
     };
 
     public Handler insertGrade = (context) -> {
@@ -101,10 +102,11 @@ public class AssessmentController {
         try {
             aclogger.info("attempting to update the grade on an assessment");
             int weight = Integer.parseInt(context.pathParam("weight"));
-            int updatedWeight = as.adjustWeight(weight);
+            int assessmentId = Integer.parseInt(context.pathParam("assessmentId"));
+            boolean weightUpdated = as.adjustWeight(assessmentId,weight);
             context.contentType("application/json");
             aclogger.info("attempting to return updatedWeight");
-            context.result(gson.toJson(updatedWeight));
+            context.result(gson.toJson(weightUpdated));
         } catch (Exception e) {
             aclogger.info(e);
         }

@@ -1,6 +1,8 @@
 package dao;
 
 import models.Assessment;
+import models.Grade;
+import models.Note;
 import models.Type;
 import util.dbconnection;
 
@@ -131,7 +133,46 @@ public class AssessmentDAOImpl implements AssessmentDAO {
         }
         return false;
     }
+    @Override
+    public List<Note> getNotesForTrainee(int id, String weekId){
+        List<Note> notes = new ArrayList<>();
+        try {
+            String sql = "Select * from notes where associate_id=? and week_number=?";
+            PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.setString(2, weekId);
 
+            ResultSet resultSet = ps.executeQuery();
+
+            while(resultSet.next()){
+                notes.add(buildNote(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return notes;
+    }
+
+    @Override
+    public Grade insertGrade(Grade grade) {
+        //TODO Write method to insert grade
+        return null;
+    }
+
+    @Override
+    public int assignAssessmentType(int typeId){
+        //TODO Write method to assign Assessment types
+        return -99;
+    }
+
+    public Note buildNote(ResultSet rs) throws SQLException{
+
+        return new Note(rs.getInt("id"),
+                rs.getInt("batch_id"),
+                rs.getInt("associate_id"),
+                rs.getString("content"),
+                rs.getString("week_number"));
+    }
     public Assessment buildAssessment(ResultSet rs) throws SQLException {
         Assessment assessment = new Assessment();
         assessment.setAssessmentId(rs.getInt("id"));
