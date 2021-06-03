@@ -34,4 +34,8 @@ public class AssessmentService {
         return assessmentDAO.createAssessmentType(type.getName(), type.getDefaultWeight());
     }
 
+    public boolean updateTypeForAssessment(int assessmentId, int typeId) throws SQLException {
+        return assessmentDAO.assignAssessmentType(assessmentId, typeId);
+    }
+
 }
