@@ -35,13 +35,11 @@ function addWeek(totalWeeks) {
                                     <button id="addAssessmentBtn" class="btn btn-primary">Add Assessment To This Week</button>
                                 </div>
                             </div>
+                            
                         </div>
-                        
-                    </div>
-    `
+        `
     }
 }
-
 
 //Get all Current Assessments for a Week
 function getAssessments(weekId) {
