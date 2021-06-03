@@ -63,6 +63,20 @@ public class AssessmentController {
 
     };
 
+    public Handler getBatchWeek = (context) -> {
+        try {
+            aclogger.info("attempting to get assessments for a batch by week");
+            int batchId = Integer.parseInt(context.pathParam("id"));
+            String weekId = context.pathParam("weekid");
+            aclogger.info("attempting to get assessments");
+            List<Assessment> assessments = as.getBatchWeek(batchId, weekId);
+            context.contentType("application/json");
+            context.result(gson.toJson(assessments));
+        } catch (Exception e) {
+            aclogger.info(e);
+        }
+    };
+
     public Handler getNotesForTrainee = (context) -> {
         try {
             aclogger.info("attempting to get notes params");
