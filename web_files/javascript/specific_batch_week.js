@@ -4,21 +4,7 @@ let onBatch = onPage;
 let onAssess = offPage;
 let onNotes = offPage;
 
-// Sets the main navigation
-function setMainNav() {
-    return `
-    <a class="nav-link ${onHome} d-flex align-items-center justify-content-center justify-content-md-start" title="Home" href="home.html"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;<span class="d-none d-md-inline">Home</span></a>
-    <a class="nav-link ${onBatch} d-flex align-items-center justify-content-center justify-content-md-start" title="Batch" href="specific_batch_week.html"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;<span class="d-none d-md-inline">Batch</span></a>
-    <a class="nav-link ${onAssess} d-flex align-items-center justify-content-center justify-content-md-start" title="Assessments" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;<span class="d-none d-md-inline">Assessments</span></a>
-    <a class="nav-link ${onNotes} d-flex align-items-center justify-content-center justify-content-md-start" title="Notes" href="#">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
-            <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
-            <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
-            <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
-        </svg>
-    &nbsp;<span class="d-none d-md-inline">Notes</span>
-    </a>`;
-}
+weekCount = 0
 
 let batch = {
     id: 1,
@@ -27,8 +13,7 @@ let batch = {
     startDate:"",
     currentWeek:5,
     totalWeeks:10
-} 
-
+}
 
 function getWeeks() {
     let weekTitles = document.getElementsByClassName("week-title")
@@ -52,24 +37,29 @@ function addWeek(totalWeeks){
     for(i = 1; i <= totalWeeks; i++){
         let gotAssessments = getAssessments(i)
 
-    panels.innerHTML +=
-    `
-    <div class="d-flex mb-5">
-                        <div id="week_${i}" class="col col-12 p-0">
-                            <div class="card bg-darker">
-                                <div class="card-body rounded">
-                                    <h3 class="card-title"><strong>Week ${i}</strong></h3>
-                                    <p class="card-text" id="week${i}Assessments">
-                                        ${gotAssessments ? gotAssessments : "-No Assessments Yet-"}
-                                    </p>
-                                    <button id="addAssessmentBtn" class="btn btn-primary">Add Assessment To This Week</button>
+        panels.innerHTML +=
+        `
+        <div class="d-flex mb-5">
+                            <div id="week_${i}" class="col col-12 p-0">
+                                <div class="card bg-darker">
+                                    <div class="card-body rounded">
+                                        <h3 class="card-title"><strong>Week ${i}</strong></h3>
+                                        <p class="card-text" id="week${i}Assessments">
+                                            ${gotAssessments ? gotAssessments : "-No Assessments Yet-"}
+                                        </p>
+                                        <button id="addAssessmentBtn" class="btn btn-primary">Add Assessment To This Week</button>
+                                    </div>
                                 </div>
                             </div>
+                            
                         </div>
-                        
-                    </div>
-    `
+        `
     }
+}
+//data to load on this page
+// should be replicated for each page to abstract the load process in case the user was not logged in on load
+function pageDataToLoad() {
+    // put what you want to load on the page if you are logged in
 }
 addWeek(batch.totalWeeks)
 
