@@ -35,6 +35,7 @@ public class AssessmentController {
 
     };
 
+
     public Handler getAssessmentsByTraineeId = (context) -> {
         try {
             int traineeId = Integer.parseInt(context.pathParam("id"));

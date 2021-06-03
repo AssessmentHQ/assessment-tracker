@@ -33,4 +33,5 @@ public interface AssessmentDAO {
 
     public List<Assessment> getBatchWeek(int batchId, String weekId) throws SQLException;
 
+
 }

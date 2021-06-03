@@ -173,10 +173,13 @@ function logMeIN_complete(status, response, response_loc, load_loc) {
         document.getElementById("loginBtn").setAttribute("data-target", "#logoutModal");
         //save the session
         saveSession(loginData, response);
+        // loads it back to the object
+        loginData = getSession(loginData, true);
         // hides the modal after login is successful
         $('#loginModal').modal('hide');
         // reset page content back to the actual page
          $("#mainbody").html(tempMainContentHolder);
+         pageDataToLoad();
 
         //action if code 201
     } else if(status == 201) {
@@ -186,7 +189,7 @@ function logMeIN_complete(status, response, response_loc, load_loc) {
         //load the response into the response_loc
         document.getElementById(response_loc).innerHTML = response;
     }
-    console.log(response);
+    console.log(loginData);
 }
 
 // Chapter 2. Ajax End ------------------------------------
@@ -207,12 +210,15 @@ function logMeIN_complete(status, response, response_loc, load_loc) {
         //session data space
         // Logged in check
         if(getSession(loginData, true)){
+            loginData = getSession(loginData, true);
+            pageDataToLoad();
             $("#loginBtn").html(`Log Out&nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i>`);
             document.getElementById("loginBtn").setAttribute("data-target", "#logoutModal");
         } else {
             tempMainContentHolder = $("#mainbody").html();
             $("#mainbody").html(mustLogin);
         }
+        console.log(loginData);
 
         //set up main nav links
         //this is so you do not have to copy paste to every page

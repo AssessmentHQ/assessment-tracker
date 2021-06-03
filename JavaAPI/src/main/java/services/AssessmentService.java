@@ -50,8 +50,7 @@ public class AssessmentService {
     }
 
     public Grade insertGrade(Grade grade) {
-        // TODO write method to insert grade
-        return null;
+        return assessmentDAO.insertGrade(grade);
     }
 
     public int assignAssessmentType(int ypeId) {
