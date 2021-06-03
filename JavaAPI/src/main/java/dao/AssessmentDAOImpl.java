@@ -135,7 +135,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     @Override
     public boolean adjustWeight(int weight, int assessmentId) throws SQLException {
         try {
-            String sql = "UPDATE assessments SET weight=? WHERE assessment_id=?";
+            String sql = "UPDATE assessments SET weight=? WHERE id=?";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
             ps.setInt(1, weight);
             ps.setInt(2, assessmentId);
@@ -173,7 +173,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     @Override
     public boolean assignAssessmentType(int typeId, int assessmentId) throws SQLException {
         try {
-            String sql = "UPDATE assessments SET type_id=? WHERE assessment_id=?";
+            String sql = "UPDATE assessments SET type_id=? WHERE id=?";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
             ps.setInt(1, typeId);
             ps.setInt(2, assessmentId);
