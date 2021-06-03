@@ -19,7 +19,6 @@ public interface AssessmentDAO {
 
     public List<Assessment> getWeekAssessments(int traineeId, String weekId) throws SQLException;
 
-
     public Assessment createAssessment(Assessment a) throws SQLException;
 
     public boolean adjustWeight(int assessmentId, int weight) throws SQLException;
@@ -32,10 +31,6 @@ public interface AssessmentDAO {
 
     public Grade insertGrade(Grade grade);
 
-
-    public int assignAssessmentType(int typeId);
-
     public List<Assessment> getBatchWeek(int batchId, String weekId) throws SQLException;
-
 
 }
