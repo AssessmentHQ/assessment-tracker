@@ -29,6 +29,9 @@ let onHome = offPage;
 let onBatch = onPage;
 let onAssess = offPage;
 let onNotes = offPage;
+
+// which information the user chooses to view. i.e. batches by year.
+var wantedBatchData = [];
 // Chapter 1. Global var Declarations End -----------------
 
 // Chapter 2. Ajax ----------------------------------------
@@ -85,14 +88,14 @@ function caller_complete(status, response, response_loc, load_loc) {
         document.getElementById(response_loc).innerHTML = response;
     }
 }
-// Login Function
-// email for the login(obj)
-function logMeIN(email) {
+
+// Retrieving the data for all batches Function
+function getBatchData(trainer_id, year) {
     //set the caller_complete to the function that is supposed to receive the response
     //naming convention: [this function name]_complete
-    let response_func = logMeIN_complete;
+    let response_func = getBatchData_complete;
     //endpoint: rest api endpoint
-    let endpoint = "trainer/"
+    let endpoint = "batches/" + trainer_id + "/" + year + "/"
     //set the url by adding (base_url/java_base_url) + endpoint
     //options:
     //base_url(python)
@@ -101,7 +104,7 @@ function logMeIN(email) {
     //request_type: type of request
     //options:
     //"GET", "POST", "OPTIONS", "PATCH", "PULL", "HEAD", "DELETE", "CONNECT", "TRACE"
-    let request_type = "POST";
+    let request_type = "GET";
     //location you want the response to load
     let response_loc = "loadResult";
     //optional:location you want the load animation to be generated while awaiting the response
@@ -110,13 +113,13 @@ function logMeIN(email) {
     let load_loc = "logload";
     //optional:json data to send to the server
     //can be left blank if not needed
-    let jsonData = email;
+    let jsonData = " ";
     console.log(jsonData);
 
     ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData)
 }
 //ajax on-complete function: receives the response from an ajax request
-function logMeIN_complete(status, response, response_loc, load_loc) {
+function getBatchData_complete(status, response) {
     //do some logic with the ajax data that was returned
     //do this if you are expecting a json object - JSON.parse(response)
 
@@ -126,24 +129,44 @@ function logMeIN_complete(status, response, response_loc, load_loc) {
 
     //action if code 200
     if(status == 200) {
-        $("#loginBtn").html(`Log Out &nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i>`);
-        document.getElementById("loginBtn").setAttribute("data-target", "#logoutModal");
-        //save the session
-        saveSession(loginData, response);
-        // hides the modal after login is successful
-        $('#loginModal').modal('hide');
-        // reset page content back to the actual page
-         $("#mainbody").html(tempMainContentHolder);
+        let objects = [];
+        // console.log(JSON.parse(response));
+        let object = JSON.parse(response);
+        let ascending = true;
 
-        //action if code 201
-    } else if(status == 201) {
-        document.getElementById(response_loc).innerHTML = JSON.parse(response);
-        //action if code 400
+        let year = object.year;
+
+        if (object.length > 1){
+            for (i = 0; i < object.length; i++){
+                if (object[i].year == year){
+                    objects.push(object[i]);
+                    // console.log(object[i]);
+                }
+            }
+        } else {
+            if (object.year == year){
+                objects.push(object);
+            } 
+        }
+         
+        sortedObjects = [];
+        if (ascending == true){
+            sortedObjects = objects.sort((a, b) => b.startDate 
+            < a.startDate ? 1: -1);
+        } else {
+            sortedStudents = objects.sort((a, b) => b.startDate 
+            > a.startDate ? 1: -1);
+        }
+    
+        // console.log(sortedObjects);
+        wantedBatchData.push(sortedObjects);
+        console.log(wantedBatchData);
     } else if(status == 400) {
         //load the response into the response_loc
         document.getElementById(response_loc).innerHTML = response;
     }
-    console.log(response);
+    
+    // console.log(response);
 }
 
 // Chapter 2. Ajax End ------------------------------------
@@ -175,76 +198,63 @@ function setMainNav() {
     </a>`;
 }
 
-// Chapter 6. Misc Named Functions ------------------------
-function getByYear(object, year, ascending=true){
+// Gets all batches from a specific year
+function getByYear(year, ascending=true){
     let objects = [];
+    let batchData = Object();
 
-    if (object.length > 1){
-        for (i = 0; i < object.length; i++){
-            for(obj in object[i]){
-                if (obj.week == week){
-                    objects.push(obj);
-                }
-            }
+    if (year.length > 1){
+        for (i = 0; i < year.length; i++){
+            getBatchData(loginData.id, year[i]);
+            console.log("multiple years");
         }
-    }
-
-    for(obj in object){
-        if (obj.year == year){
-            objects.push(obj);
-        }
-    }
-
-    const sortedObjects;
-    if (ascending == true){
-        sortedObjects = objects.sort((a, b) => b.startDate 
-        < a.startDate ? 1: -1);
     } else {
-        sortedStudents = objects.sort((a, b) => b.startDate 
-        > a.startDate ? 1: -1);
+        getBatchData(loginData.id, year);
+        console.log("one year");
     }
-
-    return sortedObjects;
 }
 
-function getByWeek(object, week, ascending=true){
-    let objects = [];
+getByYear([2020, 2021]);
 
-    if (object.length > 1){
-        for (i = 0; i < object.length; i++){
-            for(obj in object[i]){
-                if (obj.week == week){
-                    objects.push(obj);
-                }
-            }
-        }
+// Shows each week for each batch we have chosen to display
+// function getByWeek(object, week, ascending=true){
+//     let objects = [];
+
+//     if (object.length > 1){
+//         for (i = 0; i < object.length; i++){
+//             for(obj in object[i]){
+//                 if (obj.week == week){
+//                     objects.push(obj);
+//                 }
+//             }
+//         }
         
-        const sortedObjects;
-        if (ascending == true){
-            sortedObjects = objects.sort((a, b) => b.startDate 
-            < a.startDate ? 1: -1);
-        } else {
-            sortedStudents = objects.sort((a, b) => b.startDate 
-            > a.startDate ? 1: -1);
-        }
+//         const sortedObjects = [];
+//         if (ascending == true){
+//             sortedObjects = objects.sort((a, b) => b.startDate 
+//             < a.startDate ? 1: -1);
+//         } else {
+//             sortedStudents = objects.sort((a, b) => b.startDate 
+//             > a.startDate ? 1: -1);
+//         }
 
-        return sortedObjects;
-    } else {
-        for (obj in object){
-            if (obj.week == week){
-                objects.push(obj);
-            }
-        }
+//         return sortedObjects = [];
+//     } else {
+//         for (obj in object){
+//             if (obj.week == week){
+//                 objects.push(obj);
+//             }
+//         }
     
-        const sortedObjects;
-        if (ascending == true){
-            sortedObjects = objects.sort((a, b) => b.startDate 
-            < a.startDate ? 1: -1);
-        } else {
-            sortedStudents = objects.sort((a, b) => b.startDate 
-            > a.startDate ? 1: -1);
-        }
+//         const sortedObjects = [];
+//         if (ascending == true){
+//             sortedObjects = objects.sort((a, b) => b.startDate 
+//             < a.startDate ? 1: -1);
+//         } else {
+//             sortedStudents = objects.sort((a, b) => b.startDate 
+//             > a.startDate ? 1: -1);
+//         }
     
-        return sortedObjects;
-    }
-}
+//         return sortedObjects;
+//     }
+// }
