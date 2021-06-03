@@ -40,7 +40,8 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     @Override
     public List<Assessment> getAssessmentsByTraineeId(int traineeId) throws SQLException {
         try {
-            String sql = "select * from grades as g join assessments a on g.assessment_id = a.id where associate_id = ?";
+            String sql = "SELECT * FROM grades AS g JOIN assessments a ON " +
+                    "g.assessment_id = a.id WHERE associate_id = ?";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
             ps.setInt(1, traineeId);
 
@@ -64,7 +65,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     @Override
     public List<Assessment> getBatchWeek(int batchId, String weekId) throws SQLException {
         try {
-            String sql = "select * from assessments where batch_id = ? and week_number = ?";
+            String sql = "SELECT * FROM assessments WHERE batch_id = ? AND week_number = ?";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
             ps.setInt(1, batchId);
             ps.setString(2, weekId);
@@ -89,7 +90,8 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     @Override
     public List<Assessment> getWeekAssessments(int traineeId, String weekId) throws SQLException {
         try {
-            String sql = "select * from grades as g join assessments a on g.assessment_id = a.id where associate_id = ? and week = ?";
+            String sql = "SELECT * FROM grades AS g JOIN assessments a ON g.assessment_id = a.id WHERE" +
+                    " associate_id = ? AND week = ?";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
             ps.setInt(1, traineeId);
             ps.setString(2, weekId);
@@ -135,14 +137,14 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     @Override
     public boolean adjustWeight(int assessmentId, int weight) throws SQLException {
         try {
-            String sql = "UPDATE assessments SET weight=? WHERE id=?";
+            String sql = "UPDATE assessments SET weight=? WHERE id=? RETURNING *";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
             ps.setInt(1, weight);
             ps.setInt(2, assessmentId);
 
-            ps.executeUpdate();
+            ResultSet rs = ps.executeQuery();
 
-            return true;
+            return rs.next();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -173,14 +175,14 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     @Override
     public boolean assignAssessmentType(int assessmentId, int typeId) throws SQLException {
         try {
-            String sql = "UPDATE assessments SET type_id=? WHERE id=?";
+            String sql = "UPDATE assessments SET type_id=? WHERE id=? RETURNING *";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
             ps.setInt(1, typeId);
             ps.setInt(2, assessmentId);
 
-            ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
-            return true;
+            return rs.next();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -192,7 +194,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     public List<Note> getNotesForTrainee(int id, String weekId) {
         List<Note> notes = new ArrayList<>();
         try {
-            String sql = "Select * from notes where associate_id=? and week=?";
+            String sql = "SELECT * FROM notes WHERE associate_id=? AND week=?";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
             ps.setInt(1, id);
             ps.setString(2, weekId);
