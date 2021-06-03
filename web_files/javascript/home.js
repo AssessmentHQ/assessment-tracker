@@ -108,7 +108,7 @@ function loadBatchesbyYear(trainerId) {
     //optional:location you want the load animation to be generated while awaiting the response
     //can be set for any location but will most often be set to response_loc
     //can be left blank if not needed
-    let load_loc = response_loc;
+    let load_loc = "batchLoader";
     //optional:json data to send to the server
     //can be left blank if not needed
     let jsonData = "";
@@ -128,12 +128,11 @@ function loadBatchesbyYear_complete(status, response, response_loc, load_loc) {
     //action if code 200
     if(status == 200) {
         batches = jsonHolder[0];
-        //empties what is in this element to reset it
-        document.getElementById(response_loc).innerHTML = "";
         //loop structure to load data into element
         $.each(batches,(element => {
             //load the response into the response_loc
             document.getElementById(response_loc).innerHTML += newBatch(batches[element]);
+            branchData(loginData.id, batches[element], "batch_"+batches[element]);
         }));
         //action if code 201
     } else if(status == 201) {
@@ -148,12 +147,12 @@ function loadBatchesbyYear_complete(status, response, response_loc, load_loc) {
 
 //Caller function: calls an ajax request
 //Function Description goes here
-function branchData(trainerId) {
+function branchData(trainerId, year, response_loc) {
     //set the caller_complete to the function that is supposed to receive the response
     //naming convention: [this function name]_complete
     let response_func = branchData_complete;
     //endpoint: rest api endpoint
-    let endpoint = "trainers/years/"+trainerId
+    let endpoint = "batches/"+trainerId+"/"+year;
     //set the url by adding (base_url/java_base_url) + endpoint
     //options:
     //base_url(python)
@@ -164,11 +163,11 @@ function branchData(trainerId) {
     //"GET", "POST", "OPTIONS", "PATCH", "PULL", "HEAD", "DELETE", "CONNECT", "TRACE"
     let request_type = "GET";
     //location you want the response to load
-    let response_loc = "yearsWorked";
+    //let response_loc = "yearsWorked";
     //optional:location you want the load animation to be generated while awaiting the response
     //can be set for any location but will most often be set to response_loc
     //can be left blank if not needed
-    let load_loc = response_loc;
+    let load_loc = "batchLoader";
     //optional:json data to send to the server
     //can be left blank if not needed
     let jsonData = "";
@@ -188,13 +187,11 @@ function branchData_complete(status, response, response_loc, load_loc) {
     //action if code 200
     if(status == 200) {
         batches = jsonHolder[0];
-        //empties what is in this element to reset it
-        document.getElementById(response_loc).innerHTML = "";
-        //loop structure to load data into element
-        $.each(batches,(element => {
-            //load the response into the response_loc
-            document.getElementById(response_loc).innerHTML += newBatch(batches[element]);
-        }));
+        let myDate = new Date(batches.startDate);
+        
+        console.log(myDate.getUTCMonth());
+        //load the response into the response_loc
+        document.getElementById(response_loc).innerHTML += newBatchBtn(batches.name, myDate.getUTCMonth());
         //action if code 201
     } else if(status == 201) {
         document.getElementById(response_loc).innerHTML = JSON.parse(response);
@@ -233,14 +230,17 @@ function loadinfoByClass(theClass, dataToLoad) {
 }
 // holds the styling for the batches
 function newBatch(year) {
-    return `<div class="d-flex-inline-block flex-fill p-4 mr-2 my-2 bg-darker border border-dark">
+    return `<div id="batch_${year}" class="d-flex-inline-block flex-fill p-4 mr-2 my-2 bg-darker border border-dark">
     <h4 class="card-title">${year}</h4>
     <hr class="bg-light" />
-    <h6 class="card-title">March</h6>
-    <button class="d-inline-block my-2 btn btn-light text-primary border border-dark bg-darker p-1 rounded">Java</button>
-    <h6 class="card-title">March</h6>
-    <button class="d-inline-block my-2 btn btn-light text-primary border border-dark bg-darker p-1 rounded">Java</button> 
     </div>`;
+}
+// holds the styling for the batches
+function newBatchBtn(btnName,monthName) {
+    return `
+    <h6 class="card-title">${months[monthName]}</h6>
+    <button class="d-inline-block my-2 btn btn-light text-primary border border-dark bg-darker p-1 rounded">${btnName}</button>
+    `;
 }
 
 // Chapter 6. Misc Named Functions ------------------------
