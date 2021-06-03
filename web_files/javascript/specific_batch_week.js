@@ -10,8 +10,8 @@ let batch = {
     name: "",
     trainingTrack: "",
     startDate: "",
-    currentWeek: 5,
-    totalWeeks: 10
+    currentWeek: 71,
+    totalWeeks: 4
 }
 
 
@@ -20,27 +20,36 @@ const panels = document.getElementById("panels");
 function addWeek(totalWeeks) {
     weekId = document.getElementById("week-title").value
     for (i = 1; i <= totalWeeks; i++) {
-        let gotAssessments = getAssessments(i)
+        panels.innerHTML += newWeek(i)
+    }
+}
 
-        panels.innerHTML +=
-            `
+function displayAssessments(assessments){
+    display = ""
+    Array.prototype.forEach.call(assessments, (assessment)=>{
+        display += `<li id=assessent${assessment.assessmentId}>${assessment.assessmentTitle}</li>`
+    });
+    return display
+}
+// holds the styling for the batches
+function newWeek(week) {
+    let gotAssessments = getAssessments(i)
+    return       `
     <div class="d-flex mb-5">
-                        <div id="week_${i}" class="col col-12 p-0">
+                        <div id="week_${week}" class="col col-12 p-0">
                             <div class="card bg-darker">
                                 <div class="card-body rounded">
-                                    <h3 class="card-title"><strong>Week ${i}</strong></h3>
-                                    <p class="card-text" id="week${i}Assessments">
-                                        ${gotAssessments ? gotAssessments : "-No Assessments Yet-"}
-                                    </p>
+                                    <h3 class="card-title"><strong>Week ${week}</strong></h3>
+                                    <ul class="card-text" id="week${week}Assessments">
+                                        ${gotAssessments ? displayAssessment(gotAssessments) : "-No Assessments Yet-"}
+                                    </ul>
                                     <button id="addAssessmentBtn" class="btn btn-primary">Add Assessment To This Week</button>
                                 </div>
                             </div>
                             
                         </div>
-        `
-    }
+        `;
 }
-
 //Get all Current Assessments for a Week
 function getAssessments(weekId) {
     //set the caller_complete to the function that is supposed to receive the response
@@ -79,7 +88,7 @@ function getAssessments_complete(status, response, response_loc, load_loc) {
     //action if code 200
     if (status == 200) {
         //load the response into the response_loc
-        document.getElementById(response_loc).innerHTML = response;
+        document.getElementById(response_loc).innerHTML = displayAssessments(JSON.parse(response));
         //action if code 201
     } else if (status == 201) {
         document.getElementById(response_loc).innerHTML = JSON.parse(response);
