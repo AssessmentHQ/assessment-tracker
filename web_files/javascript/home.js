@@ -86,6 +86,60 @@ function caller_complete(status, response, response_loc, load_loc) {
     }
 }
 
+//Caller function: calls an ajax request
+//Function Description goes here
+function loadBatchesbyYear(trainerId) {
+    //set the caller_complete to the function that is supposed to receive the response
+    //naming convention: [this function name]_complete
+    let response_func = loadBatchesbyYear_complete;
+    //endpoint: rest api endpoint
+    let endpoint = "trainers/years/"+trainerId
+    //set the url by adding (base_url/java_base_url) + endpoint
+    //options:
+    //base_url(python)
+    //java_base_url(java)
+    let url = base_url + endpoint;
+    //request_type: type of request
+    //options:
+    //"GET", "POST", "OPTIONS", "PATCH", "PULL", "HEAD", "DELETE", "CONNECT", "TRACE"
+    let request_type = "GET";
+    //location you want the response to load
+    let response_loc = "yearsWorked";
+    //optional:location you want the load animation to be generated while awaiting the response
+    //can be set for any location but will most often be set to response_loc
+    //can be left blank if not needed
+    let load_loc = response_loc;
+    //optional:json data to send to the server
+    //can be left blank if not needed
+    let jsonData = "";
+    console.log(jsonData);
+
+    ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData)
+}
+//ajax on-complete function: receives the response from an ajax request
+function loadBatchesbyYear_complete(status, response, response_loc, load_loc) {
+    //do some logic with the ajax data that was returned
+    //do this if you are expecting a json object - JSON.parse(response)
+
+    //The var "load_loc" is set in case the response message is different from the action to be loaded into the named location
+    //example:
+    //-- you want a message to say "ajax done!" in a popup while the data is compiled and loaded somewhere else
+    let jsonHolder = JSON.parse(response);
+    //action if code 200
+    if(status == 200) {
+        //load the response into the response_loc
+        document.getElementById(response_loc).innerHTML = jsonHolder[0];
+        //action if code 201
+    } else if(status == 201) {
+        document.getElementById(response_loc).innerHTML = JSON.parse(response);
+        //action if code 400
+    } else if(status == 400) {
+        //load the response into the response_loc
+        document.getElementById(response_loc).innerHTML = response;
+    }
+    console.log(JSON.parse(response));
+}
+
 // Chapter 2. Ajax End ------------------------------------
 
 // Chapter 3. Onload.Body Initializers --------------------
@@ -113,6 +167,30 @@ function setMainNav() {
         </svg>
     &nbsp;<span class="d-none d-md-inline">Notes</span>
     </a>`;
+}
+//data to load on this page
+// should be replicated for each page to abstract the load process in case the user was not logged in on load
+function pageDataToLoad() {
+    loadinfoByClass("trainerName", loginData.first_name+" "+loginData.last_name);
+    loadBatchesbyYear(loginData.id);
+}
+
+function loadinfoByClass(theClass, dataToLoad) {
+    let trainerName = document.getElementsByClassName(theClass);
+    Array.from(trainerName).forEach(element => {
+        element.innerHTML = dataToLoad;
+    });
+}
+// holds the styling for the batches
+function newBatch(year) {
+    return `<div class="d-flex-inline-block flex-fill p-4 mr-2 my-2 bg-darker border border-dark">
+    <h4 class="card-title">${year}</h4>
+    <hr class="bg-light" />
+    <h6 class="card-title">March</h6>
+    <button class="d-inline-block my-2 btn btn-light text-primary border border-dark bg-darker p-1 rounded">Java</button>
+    <h6 class="card-title">March</h6>
+    <button class="d-inline-block my-2 btn btn-light text-primary border border-dark bg-darker p-1 rounded">Java</button> 
+    </div>`;
 }
 
 // Chapter 6. Misc Named Functions ------------------------
