@@ -6,8 +6,12 @@ import models.Assessment;
 import models.Grade;
 import models.Note;
 import models.AssessmentType;
+import util.dbconnection;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AssessmentService {
@@ -54,4 +58,7 @@ public class AssessmentService {
         return -99;
     }
 
+    public List<Assessment> getBatchWeek(int batchId, String weekId) throws SQLException{
+        return assessmentDAO.getBatchWeek(batchId, weekId);
+    }
 }
