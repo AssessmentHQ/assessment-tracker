@@ -37,23 +37,24 @@ function addWeek(totalWeeks){
     for(i = 1; i <= totalWeeks; i++){
         let gotAssessments = getAssessments(i)
 
-    panels.innerHTML +=
-    `
-    <div class="d-flex mb-5">
-                        <div id="week_${i}" class="col col-12 p-0">
-                            <div class="card bg-darker">
-                                <div class="card-body rounded">
-                                    <h3 class="card-title"><strong>Week ${i}</strong></h3>
-                                    <p class="card-text" id="week${i}Assessments">
-                                        ${gotAssessments ? gotAssessments : "-No Assessments Yet-"}
-                                    </p>
-                                    <button id="addAssessmentBtn" class="btn btn-primary">Add Assessment To This Week</button>
+        panels.innerHTML +=
+        `
+        <div class="d-flex mb-5">
+                            <div id="week_${i}" class="col col-12 p-0">
+                                <div class="card bg-darker">
+                                    <div class="card-body rounded">
+                                        <h3 class="card-title"><strong>Week ${i}</strong></h3>
+                                        <p class="card-text" id="week${i}Assessments">
+                                            ${gotAssessments ? gotAssessments : "-No Assessments Yet-"}
+                                        </p>
+                                        <button id="addAssessmentBtn" class="btn btn-primary">Add Assessment To This Week</button>
+                                    </div>
                                 </div>
                             </div>
+                            
                         </div>
-                        
-                    </div>
-    `
+        `
+    }
 }
 //data to load on this page
 // should be replicated for each page to abstract the load process in case the user was not logged in on load
