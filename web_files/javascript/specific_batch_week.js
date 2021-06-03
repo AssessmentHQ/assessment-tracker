@@ -1,6 +1,6 @@
 // highlights which page you are on in main nav
-let onHome = onPage;
-let onBatch = offPage;
+let onHome = offPage;
+let onBatch = onPage;
 let onAssess = offPage;
 let onNotes = offPage;
 
