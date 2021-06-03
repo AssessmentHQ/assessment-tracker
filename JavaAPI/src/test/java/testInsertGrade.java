@@ -61,8 +61,8 @@ public class testInsertGrade {
 
     @Test
     public void testNotNuLL() throws Exception {
-        Boolean returnedGrade = adao.insertGrade(1, 3, 4);
-        assertTrue(returnedGrade);
+        Grade returnedGrade = adao.insertGrade(new Grade());
+        assertNotNull(returnedGrade);
     }
 
     @Test

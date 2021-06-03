@@ -15,3 +15,7 @@ class TrainerDAO(ABC):
     @abstractmethod
     def login(self, email):
         pass
+
+    @abstractmethod
+    def get_years_for_trainer(self, trainer_id):
+        pass
