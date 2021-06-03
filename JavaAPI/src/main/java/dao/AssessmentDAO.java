@@ -31,7 +31,6 @@ public interface AssessmentDAO {
 
     public Grade insertGrade(Grade grade);
 
-    public int assignAssessmentType(int typeId);
     public List<Assessment> getBatchWeek(int batchId, String weekId) throws SQLException;
 
 }
