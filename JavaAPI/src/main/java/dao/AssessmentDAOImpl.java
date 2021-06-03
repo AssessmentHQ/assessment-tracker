@@ -1,7 +1,9 @@
 package dao;
 
 import models.Assessment;
-import models.Type;
+import models.Grade;
+import models.Note;
+import models.AssessmentType;
 import util.dbconnection;
 
 import java.sql.PreparedStatement;
@@ -36,11 +38,36 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     }
 
     @Override
-    public List<Assessment> getWeekAssessments(String weekId, int batchId) throws SQLException {
+    public List<Assessment> getAssessmentsByTraineeId(int traineeId) throws SQLException {
         try {
-            String sql = "SELECT * FROM assessments WHERE week_number = ?";
+            String sql = "select * from grades as g join assessments a on g.assessment_id = a.id where associate_id = ?";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
-            ps.setString(1, weekId);
+            ps.setInt(1, traineeId);
+
+            ResultSet rs = ps.executeQuery();
+
+            List<Assessment> assessments = new ArrayList<Assessment>();
+
+            while (rs.next()) {
+                assessments.add(buildAssessment(rs));
+            }
+
+            return assessments;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    public List<Assessment> getWeekAssessments(int traineeId, String weekId) throws SQLException {
+        try {
+            String sql = "select * from grades as g join assessments a on g.assessment_id = a.id where associate_id = ? and week = ?";
+            PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
+            ps.setInt(1, traineeId);
+            ps.setString(2, weekId);
 
             ResultSet rs = ps.executeQuery();
 
@@ -59,12 +86,14 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     }
 
     @Override
-    public Assessment createAssessment(String weekId, int batchId) throws SQLException {
+    public Assessment createAssessment(Assessment a) throws SQLException {
         try {
-            String sql = "INSERT INTO assessments VALUES (DEFAULT,\"\",0,?,?,0) RETURNING *";
+            String sql = "INSERT INTO assessments VALUES (DEFAULT,1,?,?,0,?,?) RETURNING *";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
-            ps.setInt(1, batchId);
-            ps.setString(2, weekId);
+            ps.setInt(1, a.getTypeId());
+            ps.setString(2, a.getAssessmentTitle());
+            ps.setInt(3, a.getBatchId());
+            ps.setString(4, a.getWeekId());
 
             ResultSet rs = ps.executeQuery();
 
@@ -96,7 +125,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     }
 
     @Override
-    public Type createAssessmentType(String name, int defaultWeight) throws SQLException {
+    public AssessmentType createAssessmentType(String name, int defaultWeight) throws SQLException {
         try {
             String sql = "INSERT INTO types values (default, %s, %s) returning id";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
@@ -106,8 +135,8 @@ public class AssessmentDAOImpl implements AssessmentDAO {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                Type type = buildType(rs);
-                return type;
+                AssessmentType assessmentType = buildType(rs);
+                return assessmentType;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -132,6 +161,44 @@ public class AssessmentDAOImpl implements AssessmentDAO {
         return false;
     }
 
+    @Override
+    public List<Note> getNotesForTrainee(int id, String weekId) {
+        List<Note> notes = new ArrayList<>();
+        try {
+            String sql = "Select * from notes where associate_id=? and week=?";
+            PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.setString(2, weekId);
+
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                notes.add(buildNote(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return notes;
+    }
+
+    @Override
+    public Grade insertGrade(Grade grade) {
+        // TODO Write method to insert grade
+        return null;
+    }
+
+    @Override
+    public int assignAssessmentType(int typeId) {
+        // TODO Write method to assign Assessment types
+        return -99;
+    }
+
+    public Note buildNote(ResultSet rs) throws SQLException {
+
+        return new Note(rs.getInt("id"), rs.getInt("batch_id"), rs.getInt("associate_id"), rs.getString("content"),
+                rs.getString("week_number"));
+    }
+
     public Assessment buildAssessment(ResultSet rs) throws SQLException {
         Assessment assessment = new Assessment();
         assessment.setAssessmentId(rs.getInt("id"));
@@ -145,12 +212,12 @@ public class AssessmentDAOImpl implements AssessmentDAO {
         return assessment;
     }
 
-    public Type buildType(ResultSet rs) throws SQLException {
-        Type type = new Type();
-        type.setTypeId(rs.getInt("id"));
-        type.setName(rs.getString("type_name"));
-        type.setDefaultWeight(rs.getInt("weight"));
+    public AssessmentType buildType(ResultSet rs) throws SQLException {
+        AssessmentType assessmentType = new AssessmentType();
+        assessmentType.setTypeId(rs.getInt("id"));
+        assessmentType.setName(rs.getString("type_name"));
+        assessmentType.setDefaultWeight(rs.getInt("weight"));
 
-        return type;
+        return assessmentType;
     }
 }
