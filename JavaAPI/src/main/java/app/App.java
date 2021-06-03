@@ -2,12 +2,13 @@ package app;
 
 import io.javalin.Javalin;
 import controllers.AssessmentController;
+import io.javalin.core.JavalinConfig;
 import services.AssessmentService;
 
 public class App {
     public static void main(String[] args) {
 
-        Javalin app = Javalin.create();
+        Javalin app = Javalin.create(JavalinConfig::enableCorsForAllOrigins);
         establishRoutes(app);
         app.start(7001);
 
