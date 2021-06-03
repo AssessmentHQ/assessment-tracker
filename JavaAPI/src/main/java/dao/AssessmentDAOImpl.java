@@ -183,14 +183,23 @@ public class AssessmentDAOImpl implements AssessmentDAO {
 
     @Override
     public Grade insertGrade(Grade grade) {
-        // TODO Write method to insert grade
-        return null;
-    }
+        try {
+            String sql = "INSERT INTO grades VALUES (DEFAULT,?,?,?) RETURNING *";
+            PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
+            ps.setInt(1,grade.getAssessmentId());
+            ps.setInt(2, grade.getTrainerId());
+            ps.setDouble(3, grade.getScore());
 
-    @Override
-    public int assignAssessmentType(int typeId) {
-        // TODO Write method to assign Assessment types
-        return -99;
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                Grade grade1 = buildGrade(rs);
+                return grade1;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public Note buildNote(ResultSet rs) throws SQLException {
@@ -219,5 +228,15 @@ public class AssessmentDAOImpl implements AssessmentDAO {
         assessmentType.setDefaultWeight(rs.getInt("weight"));
 
         return assessmentType;
+    }
+    public Grade buildGrade(ResultSet rs) throws SQLException {
+        Grade grade = new Grade();
+        grade.setGradeId(rs.getInt("id"));
+        grade.setAssessmentId(rs.getInt("assessmentId"));
+        grade.setTrainerId(rs.getInt("trainerId"));
+        grade.setScore(rs.getDouble("score"));
+
+
+        return grade;
     }
 }

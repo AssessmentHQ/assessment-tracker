@@ -27,6 +27,5 @@ public interface AssessmentDAO {
 
     public Grade insertGrade(Grade grade);
 
-    public int assignAssessmentType(int typeId);
 
 }
