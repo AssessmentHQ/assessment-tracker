@@ -25,8 +25,8 @@
 
 // Chapter 1. Global var Declarations ---------------------
 // highlights which page you are on in main nav
-let onHome = onPage;
-let onBatch = offPage;
+let onHome = offPage;
+let onBatch = onPage;
 let onAssess = offPage;
 let onNotes = offPage;
 // Chapter 1. Global var Declarations End -----------------
@@ -85,15 +85,14 @@ function caller_complete(status, response, response_loc, load_loc) {
         document.getElementById(response_loc).innerHTML = response;
     }
 }
-
-//Caller function: calls an ajax request
-//Function Description goes here
-function loadBatchesbyYear(trainerId) {
+// Login Function
+// email for the login(obj)
+function logMeIN(email) {
     //set the caller_complete to the function that is supposed to receive the response
     //naming convention: [this function name]_complete
-    let response_func = loadBatchesbyYear_complete;
+    let response_func = logMeIN_complete;
     //endpoint: rest api endpoint
-    let endpoint = "trainers/years/"+trainerId
+    let endpoint = "trainer/"
     //set the url by adding (base_url/java_base_url) + endpoint
     //options:
     //base_url(python)
@@ -102,33 +101,40 @@ function loadBatchesbyYear(trainerId) {
     //request_type: type of request
     //options:
     //"GET", "POST", "OPTIONS", "PATCH", "PULL", "HEAD", "DELETE", "CONNECT", "TRACE"
-    let request_type = "GET";
+    let request_type = "POST";
     //location you want the response to load
-    let response_loc = "yearsWorked";
+    let response_loc = "loadResult";
     //optional:location you want the load animation to be generated while awaiting the response
     //can be set for any location but will most often be set to response_loc
     //can be left blank if not needed
-    let load_loc = response_loc;
+    let load_loc = "logload";
     //optional:json data to send to the server
     //can be left blank if not needed
-    let jsonData = "";
+    let jsonData = email;
     console.log(jsonData);
 
     ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData)
 }
 //ajax on-complete function: receives the response from an ajax request
-function loadBatchesbyYear_complete(status, response, response_loc, load_loc) {
+function logMeIN_complete(status, response, response_loc, load_loc) {
     //do some logic with the ajax data that was returned
     //do this if you are expecting a json object - JSON.parse(response)
 
     //The var "load_loc" is set in case the response message is different from the action to be loaded into the named location
     //example:
     //-- you want a message to say "ajax done!" in a popup while the data is compiled and loaded somewhere else
-    let jsonHolder = JSON.parse(response);
+
     //action if code 200
     if(status == 200) {
-        //load the response into the response_loc
-        document.getElementById(response_loc).innerHTML = jsonHolder[0];
+        $("#loginBtn").html(`Log Out &nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i>`);
+        document.getElementById("loginBtn").setAttribute("data-target", "#logoutModal");
+        //save the session
+        saveSession(loginData, response);
+        // hides the modal after login is successful
+        $('#loginModal').modal('hide');
+        // reset page content back to the actual page
+         $("#mainbody").html(tempMainContentHolder);
+
         //action if code 201
     } else if(status == 201) {
         document.getElementById(response_loc).innerHTML = JSON.parse(response);
@@ -137,7 +143,7 @@ function loadBatchesbyYear_complete(status, response, response_loc, load_loc) {
         //load the response into the response_loc
         document.getElementById(response_loc).innerHTML = response;
     }
-    console.log(JSON.parse(response));
+    console.log(response);
 }
 
 // Chapter 2. Ajax End ------------------------------------
@@ -157,7 +163,7 @@ function loadBatchesbyYear_complete(status, response, response_loc, load_loc) {
 function setMainNav() {
     return `
     <a class="nav-link ${onHome} d-flex align-items-center justify-content-center justify-content-md-start" title="Home" href="home.html"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;<span class="d-none d-md-inline">Home</span></a>
-    <a class="nav-link ${onBatch} d-flex align-items-center justify-content-center justify-content-md-start" title="Batch" href="specific_batch_week.html"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;<span class="d-none d-md-inline">Batch</span></a>
+    <a class="nav-link ${onBatch} d-flex align-items-center justify-content-center justify-content-md-start" title="Batch" href="batch_home.html"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;<span class="d-none d-md-inline">Batch</span></a>
     <a class="nav-link ${onAssess} d-flex align-items-center justify-content-center justify-content-md-start" title="Assessments" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;<span class="d-none d-md-inline">Assessments</span></a>
     <a class="nav-link ${onNotes} d-flex align-items-center justify-content-center justify-content-md-start" title="Notes" href="#">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
@@ -168,29 +174,77 @@ function setMainNav() {
     &nbsp;<span class="d-none d-md-inline">Notes</span>
     </a>`;
 }
-//data to load on this page
-// should be replicated for each page to abstract the load process in case the user was not logged in on load
-function pageDataToLoad() {
-    loadinfoByClass("trainerName", loginData.first_name+" "+loginData.last_name);
-    loadBatchesbyYear(loginData.id);
-}
-
-function loadinfoByClass(theClass, dataToLoad) {
-    let trainerName = document.getElementsByClassName(theClass);
-    Array.from(trainerName).forEach(element => {
-        element.innerHTML = dataToLoad;
-    });
-}
-// holds the styling for the batches
-function newBatch(year) {
-    return `<div class="d-flex-inline-block flex-fill p-4 mr-2 my-2 bg-darker border border-dark">
-    <h4 class="card-title">${year}</h4>
-    <hr class="bg-light" />
-    <h6 class="card-title">March</h6>
-    <button class="d-inline-block my-2 btn btn-light text-primary border border-dark bg-darker p-1 rounded">Java</button>
-    <h6 class="card-title">March</h6>
-    <button class="d-inline-block my-2 btn btn-light text-primary border border-dark bg-darker p-1 rounded">Java</button> 
-    </div>`;
-}
 
 // Chapter 6. Misc Named Functions ------------------------
+function getByYear(object, year, ascending=true){
+    let objects = [];
+
+    if (object.length > 1){
+        for (i = 0; i < object.length; i++){
+            for(obj in object[i]){
+                if (obj.week == week){
+                    objects.push(obj);
+                }
+            }
+        }
+    }
+
+    for(obj in object){
+        if (obj.year == year){
+            objects.push(obj);
+        }
+    }
+
+    const sortedObjects;
+    if (ascending == true){
+        sortedObjects = objects.sort((a, b) => b.startDate 
+        < a.startDate ? 1: -1);
+    } else {
+        sortedStudents = objects.sort((a, b) => b.startDate 
+        > a.startDate ? 1: -1);
+    }
+
+    return sortedObjects;
+}
+
+function getByWeek(object, week, ascending=true){
+    let objects = [];
+
+    if (object.length > 1){
+        for (i = 0; i < object.length; i++){
+            for(obj in object[i]){
+                if (obj.week == week){
+                    objects.push(obj);
+                }
+            }
+        }
+        
+        const sortedObjects;
+        if (ascending == true){
+            sortedObjects = objects.sort((a, b) => b.startDate 
+            < a.startDate ? 1: -1);
+        } else {
+            sortedStudents = objects.sort((a, b) => b.startDate 
+            > a.startDate ? 1: -1);
+        }
+
+        return sortedObjects;
+    } else {
+        for (obj in object){
+            if (obj.week == week){
+                objects.push(obj);
+            }
+        }
+    
+        const sortedObjects;
+        if (ascending == true){
+            sortedObjects = objects.sort((a, b) => b.startDate 
+            < a.startDate ? 1: -1);
+        } else {
+            sortedStudents = objects.sort((a, b) => b.startDate 
+            > a.startDate ? 1: -1);
+        }
+    
+        return sortedObjects;
+    }
+}

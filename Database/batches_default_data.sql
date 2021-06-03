@@ -19,14 +19,14 @@ insert into associates (email, first_name, last_name) values ('bh@revature.com',
 insert into associates (email, first_name, last_name) values ('bl@revature.com', 'Banana', 'Leeds');
 
 /*Default data for batches*/
-insert into batches (start_date, end_date, "name", training_track) values ('2020-1-20', '2020-2-20', 'Python', '¯\_(ツ)_/¯');
-insert into batches (start_date, end_date, "name", training_track) values ('2021-5-27', '2021-7-21', 'Data Admin', '¯\_(ツ)_/¯');
+insert into batches (start_date, end_date, "name", training_track) values ('2020-1-20', '2020-2-20', '20200120', 'Python');
+insert into batches (start_date, end_date, "name", training_track) values ('2021-5-27', '2021-7-21', '20210527', 'Data Admin');
 /*Currently Empty*/
-insert into batches (start_date, end_date, "name", training_track) values ('2020-2-20', '2020-4-24', 'Java', '¯\_(ツ)_/¯');
-insert into batches (start_date, end_date, "name", training_track) values ('2020-2-20', '2020-4-13', 'C#', '¯\_(ツ)_/¯');
-insert into batches (start_date, end_date, "name", training_track) values ('2021-2-20', '2021-4-19', 'C++', '¯\_(ツ)_/¯');
-insert into batches (start_date, end_date, "name", training_track) values ('2021-3-20', '2021-9-20', 'Tech Sales', '¯\_(ツ)_/¯');
-insert into batches (start_date, end_date, "name", training_track) values ('2021-6-20', '2021-8-20', 'Android Development', '¯\_(ツ)_/¯');
+insert into batches (start_date, end_date, "name", training_track) values ('2020-2-20', '2020-4-24', '20200220', 'Java');
+insert into batches (start_date, end_date, "name", training_track) values ('2020-2-20', '2020-4-13', '202002220', 'C#');
+insert into batches (start_date, end_date, "name", training_track) values ('2021-2-20', '2021-4-19', '20202222', 'C++');
+insert into batches (start_date, end_date, "name", training_track) values ('2021-3-20', '2021-9-20', '20210320', 'iOS Development');
+insert into batches (start_date, end_date, "name", training_track) values ('2021-6-20', '2021-8-20', '20210620', 'Android Development');
 
 /*default data for trainers*/
 insert into trainers (email, first_name, last_name) values ('rs@revature.com', 'Ryan', 'Schlientz');
