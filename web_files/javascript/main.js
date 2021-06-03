@@ -207,12 +207,14 @@ function logMeIN_complete(status, response, response_loc, load_loc) {
         //session data space
         // Logged in check
         if(getSession(loginData, true)){
+            loginData = getSession(loginData, true);
             $("#loginBtn").html(`Log Out&nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i>`);
             document.getElementById("loginBtn").setAttribute("data-target", "#logoutModal");
         } else {
             tempMainContentHolder = $("#mainbody").html();
             $("#mainbody").html(mustLogin);
         }
+        console.log(loginData);
 
         //set up main nav links
         //this is so you do not have to copy paste to every page
