@@ -10,7 +10,7 @@ create table notes (id serial primary key,
 					batch_id int not null,
 					"content" varchar(250),
 					associate_id int not null,
-					week_number varchar(3) not null);
+					week varchar(3) not null);
 				
 create table categories(id serial primary key,
 					  "name" varchar(50) not null);
@@ -25,10 +25,10 @@ create table assessments(id serial primary key,
 						title varchar(50) not null,
 						weight int not null,
 						batch_id int not null,
-						week_number varchar(3) not null);
+						week varchar(3) not null);
 					
 create table grades (id serial primary key,
 					 assessment_id int not null references assessments(id),
-					 score int not null,
+					 score decimal not null,
 					 associate_id int not null);
 
