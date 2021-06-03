@@ -30,6 +30,8 @@ let base_url = "http://localhost:5000/";
 let java_base_url ="http://localhost:7001/";
 let loginData = new Object();
 let batches = new Object();
+//holds the string value of months
+let months = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
 // main header content
 let mainHeader = `
 <nav class="nav top-nav navbar-expand-lg d-flex justify-content-between bg-dark" aria-labelledby="Topbar navigation">
@@ -404,4 +406,34 @@ function wipeStorage() {
     sessionStorage.clear();
 }
 
+//this sets the date ranges allowed for a form input["date"] element
+function getDateFormat(myDate, addDay, addMonth, addYear) {
+    myDate.setUTCDate(myDate.getUTCDate());
+    //to increase the future date just add a number to it ex. +5
+    let n = myDate.getUTCHours()+4;
+    let dd = myDate.getUTCDate()+addDay;
+    let mm = myDate.getUTCMonth()+1+addMonth; //January is 0!
+    myDate.getUTC
+    let yyyy = myDate.getFullYear()+addYear;
+    if(dd<10){
+        dd='0'+dd
+    } 
+    if(mm<10){
+        mm='0'+mm
+    } 
+
+    myDate = yyyy+'-'+mm+'-'+dd;
+    return myDate;
+}
+
+// finds the difference between 2 dates in days
+function dateDiff(date1, date2) {
+    let diff = (date2 - date1)/1000;
+    diff = Math.abs(Math.floor(diff));
+    dateDiffHolder = Math.floor(diff/(24*60*60));
+    if(date1 > date2) {
+        dateDiffHolder = 0;
+    }
+    return dateDiffHolder+1;
+}
 // Chapter 6. Misc Named Functions ------------------------
