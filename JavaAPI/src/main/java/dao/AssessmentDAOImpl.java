@@ -62,6 +62,31 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     }
 
     @Override
+    public List<Assessment> getBatchWeek(int batchId, String weekId) throws SQLException{
+        try {
+        String sql = "select * from assessments where batch_id = ? and week_number = ?";
+        PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
+        ps.setInt(1, batchId);
+        ps.setString(2, weekId);
+
+        ResultSet rs = ps.executeQuery();
+
+        List<Assessment> assessments = new ArrayList<Assessment>();
+
+        while (rs.next()) {
+            assessments.add(buildAssessment(rs));
+        }
+
+        return assessments;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+        return null;
+
+    }
+
+    @Override
     public List<Assessment> getWeekAssessments(int traineeId, String weekId) throws SQLException {
         try {
             String sql = "select * from grades as g join assessments a on g.assessment_id = a.id where associate_id = ? and week = ?";
