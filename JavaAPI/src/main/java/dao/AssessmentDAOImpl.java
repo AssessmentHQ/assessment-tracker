@@ -187,10 +187,9 @@ public class AssessmentDAOImpl implements AssessmentDAO {
         try {
             String sql = "INSERT INTO grades VALUES (DEFAULT,?,?,?) RETURNING *";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
-            ps.setInt(1, grade.getGradeId());
-            ps.setInt(2,grade.getAssessmentId());
-            ps.setInt(3, grade.getTrainerId());
-            ps.setDouble(4, grade.getScore());
+            ps.setInt(1,grade.getAssessmentId());
+            ps.setInt(2, grade.getTrainerId());
+            ps.setDouble(3, grade.getScore());
 
             ResultSet rs = ps.executeQuery();
 
