@@ -150,34 +150,40 @@
         </footer>
             
         <!-- Modal Section -->
-        <div class="modal fade" id="addWeekModal" tabindex="-1" aria-labelledby="addWeekModal" aria-hidden="true">
+        <div class="modal fade" id="createAssessmentModal" tabindex="-1" aria-labelledby="createAssessmentModal" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header text-center">
-                        <h5 class="modal-title h1" id="modalLabel"><strong>Create Week</strong></h5>
+                        <h5 class="modal-title h1" id="modalLabel"><strong>Create Assessment</strong></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="addWeekForm" class="needs-validation" novalidate autocomplete="on">
+                        <form id="createAssessmentForm" class="needs-validation" novalidate autocomplete="on">
                             <div class="form-group">
-                                <label for="week-title" class="col-form-label h3">Week Number:</label>
-                                <input type="text" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){17}$" minlength="1" placeholder="ex: 3" maxlength=2 class="form-control form-control-lg h-50" id="week-title" required />
+                                <label for="assessment-week" class="col-form-label h3">Batch Week:</label>
+                                <input type="text" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){17}$" minlength="1" placeholder="ex: 5" maxlength=2 class="form-control form-control-lg h-50" id="assessment-week" required />
                                 <div class="invalid-feedback">
-                                    Please enter a valid Week Number.
+                                    Please select a valid Week.
+                                </div>
+                            </div><div class="form-group">
+                                <label for="assessment-type" class="col-form-label h3">Assessment Type:</label>
+                                <input type="text" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){17}$" minlength="1" placeholder="ex: 1" maxlength=2 class="form-control form-control-lg h-50" id="assessment-type" required />
+                                <div class="invalid-feedback">
+                                    Please select a valid Type.
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="week-topic" class="col-form-label h3">Topic:</label>
-                                <input type="text" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){17}$" minlength="3" placeholder="ex: Python & Selenium" maxlength=25 class="form-control form-control-lg h-50" id="week-topic" required />
+                                <label for="assessment-title" class="col-form-label h3">Title:</label>
+                                <input type="text" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){17}$" minlength="3" placeholder="ex: Python Quiz" maxlength=25 class="form-control form-control-lg h-50" id="assessment-title" required />
                                 <div class="invalid-feedback">
-                                    Please enter a valid Topic.
+                                    Please enter a valid Title.
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <span id="loadResult"><span id="logload"></span></span>
-                                <button onclick="addWeek()" type="submit" class="btn btn-info" data-dismiss="modal">Create &nbsp;<i class="fa-solid fa-square-plus" aria-hidden="true"></i></button>
+                                <button onclick="createAssessment()" type="submit" class="btn btn-info" data-dismiss="modal">Create &nbsp;<i class="fa-solid fa-square-plus" aria-hidden="true"></i></button>
                                 <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
                             </div>
                         </form>
