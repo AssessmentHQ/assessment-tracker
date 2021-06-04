@@ -4,7 +4,7 @@ import models.Assessment;
 import models.Grade;
 import models.Note;
 import models.AssessmentType;
-import util.dbconnection;
+import util_project.dbconnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

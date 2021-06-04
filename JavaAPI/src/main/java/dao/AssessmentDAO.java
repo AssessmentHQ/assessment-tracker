@@ -4,11 +4,7 @@ import models.Assessment;
 import models.Grade;
 import models.Note;
 import models.AssessmentType;
-import util.dbconnection;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 import java.sql.SQLException;
 

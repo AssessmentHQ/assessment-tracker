@@ -1,6 +1,8 @@
-package util;
+package util_project;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
@@ -11,7 +13,9 @@ public class dbconnection {
     public static Connection getConnection() {
         if (conn == null) {
             try {
-                FileInputStream input = new FileInputStream("resources/connection.properties");
+                String filePath = new File("").getAbsolutePath();
+                filePath += "/resources/connection.properties";
+                FileReader input = new FileReader(filePath);
 
                 Properties props = new Properties();
                 props.load(input);
