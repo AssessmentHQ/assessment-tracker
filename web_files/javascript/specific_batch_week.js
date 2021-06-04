@@ -10,15 +10,15 @@ let batch = {
     name: "",
     trainingTrack: "",
     startDate: "",
-    currentWeek: 71,
-    totalWeeks: 4
+    currentWeek: 5,
+    totalWeeks: 9
 }
 
 
 const panels = document.getElementById("panels");
 
 function addWeek(totalWeeks) {
-    weekId = document.getElementById("week-title").value
+    // weekId = document.getElementById("week-title").value
     for (i = 1; i <= totalWeeks; i++) {
         panels.innerHTML += newWeek(i)
     }
@@ -33,7 +33,7 @@ function displayAssessments(assessments){
 }
 // holds the styling for the batches
 function newWeek(week) {
-    let gotAssessments = getAssessments(i)
+    let gotAssessments = getAssessments(week)
     return       `
     <div class="d-flex mb-5">
                         <div id="week_${week}" class="col col-12 p-0">
@@ -43,7 +43,7 @@ function newWeek(week) {
                                     <ul class="card-text" id="week${week}Assessments">
                                         ${gotAssessments ? displayAssessment(gotAssessments) : "-No Assessments Yet-"}
                                     </ul>
-                                    <button id="addAssessmentBtn" class="btn btn-primary">Add Assessment To This Week</button>
+                                    <button id="addAssessmentBtn" class="btn btn-primary" data-toggle="modal" data-target="#createAssessmentModal">Add Assessment To This Week</button>
                                 </div>
                             </div>
                             
@@ -100,6 +100,7 @@ function getAssessments_complete(status, response, response_loc, load_loc) {
 }
 function pageDataToLoad() {
     addWeek(batch.totalWeeks)
+    
 }
 
 
@@ -148,6 +149,44 @@ function getAllWeeks_complete(status, response, response_loc, load_loc) {
         document.getElementById(response_loc).innerHTML = JSON.parse(response);
         //action if code 400
     } else if (status == 400) {
+        //load the response into the response_loc
+        document.getElementById(response_loc).innerHTML = response;
+    }
+}
+
+// ---------------------createAssessment---------------------
+function createAssessment() {
+    let response_func = createAssessment_complete;
+    //endpoint: rest api endpoint
+    let endpoint = "assessments"
+    let url = java_base_url + endpoint;
+    let request_type = "POST";
+    //location you want the response to load
+    let response_loc = "";
+    let load_loc = response_loc;
+
+    let thisAssessment = {
+        assessmentTitle: document.getElementById("assessment-title").value,
+        typeId: document.getElementById("assessment-type").value,
+        batchId: batch.id,
+        weekId: document.getElementById("assessment-week").value
+    }
+    let jsonData = thisAssessment;
+    console.log(jsonData);
+
+    ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData)
+}
+
+function createAssessment_complete(status, response, response_loc, load_loc) {
+    //action if code 200
+    if(status == 200) {
+        //load the response into the response_loc
+        document.getElementById(response_loc).innerHTML = response;
+        //action if code 201
+    } else if(status == 201) {
+        document.getElementById(response_loc).innerHTML = JSON.parse(response);
+        //action if code 400
+    } else if(status == 400) {
         //load the response into the response_loc
         document.getElementById(response_loc).innerHTML = response;
     }
