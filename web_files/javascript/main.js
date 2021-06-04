@@ -214,7 +214,7 @@ function logMeIN_complete(status, response, response_loc, load_loc) {
         // Logged in check
         if(getSession(loginData, true)){
             loginData = getSession(loginData, true);
-            pageDataToLoad();
+            // pageDataToLoad();
             $("#loginBtn").html(`Log Out&nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i>`);
             document.getElementById("loginBtn").setAttribute("data-target", "#logoutModal");
         } else {
