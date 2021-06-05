@@ -71,6 +71,7 @@ function newWeek(week) {
             <div class="card bg-darker">
                 <div class="card-body rounded">
                     <h3 class="card-title"><strong>Week ${week}</strong></h3>
+                    <div id="batchLoader${week}" class="d-flex justify-content-center"></div>
                     <ul class="card-text" id="week${week}Assessments">
                         -No Assessments Yet-
                     </ul>
@@ -102,8 +103,6 @@ function getAssessments(weekId) {
     //optional:json data to send to the server
     //can be left blank if not needed
     let jsonData = "";
-    console.log("batchId:")
-    console.log(batch.id)
 
     ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData)
 }
@@ -205,7 +204,7 @@ function createAssessment() {
     //location you want the response to load
     thisWeekId = document.getElementById("assessment-week").innerHTML
     let response_loc = `week${thisWeekId}Assessments`;
-    let load_loc = response_loc;
+    let load_loc = "batchLoader"+thisWeekId;
 
     let thisAssessment = {
         assessmentTitle: document.getElementById("assessment-title").value,
@@ -214,7 +213,7 @@ function createAssessment() {
         weekId: document.getElementById("assessment-week").innerHTML
     }
     let jsonData = thisAssessment;
-    console.log(jsonData);
+    console.log(thisWeekId);
 
     ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData)
 }
@@ -223,8 +222,8 @@ function createAssessment_complete(status, response, response_loc, load_loc) {
     //action if code 200
     if(status == 200) {
         //load the response into the response_loc
-        newJson = JSON.parse(response)
-        document.getElementById(response_loc).innerHTML += `<li>${newJson.assessmentTitle}</li>`;
+        let newJson = JSON.parse(response)
+        document.getElementById(response_loc).innerHTML += `<li id="${newJson.assessmentId}">${newJson.assessmentTitle}</li>`;
         //action if code 201
     } else if(status == 201) {
         document.getElementById(response_loc).innerHTML = JSON.parse(response);
