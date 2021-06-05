@@ -126,11 +126,11 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
+                        <!-- create assessment modal -->
                         <div class="modal-body">
                             <form id="createAssessmentForm" class="needs-validation" novalidate autocomplete="on">
                                 <div class="form-group">
-                                    <label for="assessment-week" class="col-form-label h3">Batch Week:</label>
-                                    <!-- <input type="text" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){17}$" minlength="1" placeholder="ex: 5" maxlength=2 class="form-control form-control-lg h-50" id="assessment-week" required /> -->
+                                    <h4 class="col-form-label h3">Batch Week:</h4>
                                     <p id="assessment-week"></p>
                                     <div class="invalid-feedback">
                                         Please select a valid Week.
@@ -152,6 +152,35 @@
                                 <div class="modal-footer">
                                     <span id="loadAssessResult"><span id="assessLoad"></span></span>
                                     <button onclick="createAssessment()" type="submit" class="btn btn-info" data-dismiss="modal">Create &nbsp;<i class="fa-solid fa-square-plus" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Section -->
+            <div class="modal fade" id="adjustWeightModal" tabindex="-1" aria-labelledby="createAssessmentModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <h5 class="modal-title h1" id="assessWeightTitle"><strong>Create Assessment</strong></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <!-- adjust assessment weight modal -->
+                        <div class="modal-body">
+                            <form id="adjustWeightForm" class="needs-validation" novalidate autocomplete="on">
+                                <div class="form-group">
+                                    <label for="weightControl">Adjust Weight</label>
+                                    <p class="text-muted">Default weight is 100</p>
+                                    <input value="100" onchange="document.getElementById('weightValue').innerHTML = this.value;" type="range" min="1" max="100" class="form-control-range" id="weightControl" name="weightControl">
+                                    <P class="h5 text-center" id="weightValue">100</P>
+                                </div>
+                                <div class="modal-footer">
+                                    <span id="loadweightResult"></span><span id="WeightLoad"></span>
+                                    <button onclick="updateWeight(batch.currentWeek,batch.currentID, document.getElementById('weightControl').value); console.log(document.getElementById('weightControl').value)" type="submit" class="btn btn-info" data-dismiss="modal">Save &nbsp;<i class="fa fa-floppy-o" aria-hidden="true"></i></button>
                                     <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
                                 </div>
                             </form>

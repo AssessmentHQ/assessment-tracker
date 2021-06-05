@@ -27,6 +27,7 @@
 
 //This is the base url that we are using this base will always be applied it is global scope
 let base_url = "http://34.204.173.118:5000/";
+// let base_url ="http://localhost:5000/";
 let java_base_url ="http://localhost:7001/";
 let loginData = new Object();
 let batches = new Object();
@@ -435,5 +436,12 @@ function dateDiff(date1, date2) {
 function getIDFromUrl() {
     let currentUrl = new URL(window.location.href);
     return currentUrl.searchParams.get("batchID")
+}
+//load data that needs loaded more than once to anywhere that contains this class
+function loadinfoByClass(theClass, dataToLoad) {
+    let trainerName = document.getElementsByClassName(theClass);
+    Array.from(trainerName).forEach(element => {
+        element.innerHTML = dataToLoad;
+    });
 }
 // Chapter 6. Misc Named Functions ------------------------
