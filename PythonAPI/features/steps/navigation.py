@@ -1,14 +1,20 @@
+from time import sleep
+
 from behave import given, when, then
 
 
 @given(u'The user is on home.html page')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Given The user is on home.html page')
+    driver = context.driver
+    driver.get("G:/RevatureWork/assessment-tracker/web_files/home.html")
 
 
 @when(u'The user clicks the login button')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When The user clicks the login button')
+    context.home_page.login_button().click()
+    sleep(0.2)
+    context.home_page.login_credentials().send_keys("rs@revature.com")
+    sleep(5)
 
 
 @when(u'They input their login credentials to the modal')
