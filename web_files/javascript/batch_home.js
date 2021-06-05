@@ -102,6 +102,8 @@ function getAssessments(weekId) {
     //optional:json data to send to the server
     //can be left blank if not needed
     let jsonData = "";
+    console.log("batchId:")
+    console.log(batch.id)
 
     ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData)
 }
@@ -120,7 +122,9 @@ function getAssessments_complete(status, response, response_loc, load_loc) {
         if(!response) {
             document.getElementById(response_loc).innerHTML = "-No Assessments Yet-";
         } else {
-            document.getElementById(response_loc).innerHTML = displayAssessments(response);
+            res = JSON.parse(response)
+            console.log(res[0])
+            document.getElementById(response_loc).innerHTML = displayAssessments(res);
         }
 
         //action if code 201
