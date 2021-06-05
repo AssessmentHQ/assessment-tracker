@@ -45,14 +45,14 @@ public class AssessmentService {
         return assessmentDAO.getNotesForTrainee(id, weekId);
     }
 
+    public boolean updateTypeForAssessment(int assessmentId, int typeId) throws SQLException {
+        return assessmentDAO.assignAssessmentType(assessmentId, typeId);
+    }
+
     public Grade insertGrade(Grade grade) {
         return assessmentDAO.insertGrade(grade);
     }
 
-    public int assignAssessmentType(int ypeId) {
-        // TODO write method to assign assessment type
-        return -99;
-    }
 
     public List<Assessment> getBatchWeek(int batchId, String weekId) throws SQLException{
         return assessmentDAO.getBatchWeek(batchId, weekId);

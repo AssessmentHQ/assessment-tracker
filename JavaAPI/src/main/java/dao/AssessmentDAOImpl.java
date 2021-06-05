@@ -142,10 +142,9 @@ public class AssessmentDAOImpl implements AssessmentDAO {
             ps.setInt(1, weight);
             ps.setInt(2, assessmentId);
 
-            ResultSet rs = ps.executeQuery();
+            ps.executeUpdate();
 
-            return rs.next();
-
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -176,11 +175,12 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     public boolean assignAssessmentType(int assessmentId, int typeId) throws SQLException {
         try {
             String sql = "UPDATE assessments SET type_id=? WHERE id=? RETURNING *";
+
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
             ps.setInt(1, typeId);
             ps.setInt(2, assessmentId);
 
-            ResultSet rs = ps.executeQuery();
+            ps.executeUpdate();
 
             return rs.next();
 

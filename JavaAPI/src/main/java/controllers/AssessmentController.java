@@ -149,7 +149,8 @@ public class AssessmentController {
         aclogger.info("attempting to update type for assessment");
         try {
             int typeId = Integer.parseInt(context.pathParam("typeId"));
-            int updatedTypeId = as.assignAssessmentType(typeId);
+            int assessmentId = Integer.parseInt(context.pathParam("assessmentId"));
+            boolean updatedTypeId = as.updateTypeForAssessment(typeId,assessmentId);
             context.contentType("application/json");
             aclogger.info("attempting to return updated type for assessment");
             context.result(gson.toJson(updatedTypeId));
