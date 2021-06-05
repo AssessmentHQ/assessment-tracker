@@ -49,7 +49,7 @@ function caller() {
     //request_type: type of request
     //options:
     //"GET", "POST", "OPTIONS", "PATCH", "PULL", "HEAD", "DELETE", "CONNECT", "TRACE"
-    let request_type = "POST";
+    let request_type = "PATCH";
     //location you want the response to load
     let response_loc = "loadResult";
     //optional:location you want the load animation to be generated while awaiting the response
@@ -59,7 +59,6 @@ function caller() {
     //optional:json data to send to the server
     //can be left blank if not needed
     let jsonData = "";
-    console.log(jsonData);
 
     ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData)
 }
@@ -85,14 +84,15 @@ function caller_complete(status, response, response_loc, load_loc) {
         document.getElementById(response_loc).innerHTML = response;
     }
 }
-// Login Function
-// email for the login(obj)
-function logMeIN(email) {
+
+//Caller function: calls an ajax request
+//Function Description goes here
+function loadBatchesbyYear(trainerId) {
     //set the caller_complete to the function that is supposed to receive the response
     //naming convention: [this function name]_complete
-    let response_func = logMeIN_complete;
+    let response_func = loadBatchesbyYear_complete;
     //endpoint: rest api endpoint
-    let endpoint = "trainer/"
+    let endpoint = "trainers/years/"+trainerId
     //set the url by adding (base_url/java_base_url) + endpoint
     //options:
     //base_url(python)
@@ -101,40 +101,39 @@ function logMeIN(email) {
     //request_type: type of request
     //options:
     //"GET", "POST", "OPTIONS", "PATCH", "PULL", "HEAD", "DELETE", "CONNECT", "TRACE"
-    let request_type = "PUT";
+    let request_type = "GET";
     //location you want the response to load
-    let response_loc = "loadResult";
+    let response_loc = "yearsWorked";
     //optional:location you want the load animation to be generated while awaiting the response
     //can be set for any location but will most often be set to response_loc
     //can be left blank if not needed
-    let load_loc = "logload";
+    let load_loc = "batchLoader";
     //optional:json data to send to the server
     //can be left blank if not needed
-    let jsonData = email;
-    console.log(jsonData);
+    let jsonData = "";
 
     ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData)
 }
 //ajax on-complete function: receives the response from an ajax request
-function logMeIN_complete(status, response, response_loc, load_loc) {
+function loadBatchesbyYear_complete(status, response, response_loc, load_loc) {
     //do some logic with the ajax data that was returned
     //do this if you are expecting a json object - JSON.parse(response)
 
     //The var "load_loc" is set in case the response message is different from the action to be loaded into the named location
     //example:
     //-- you want a message to say "ajax done!" in a popup while the data is compiled and loaded somewhere else
-
+    let jsonHolder = JSON.parse(response);
+    //reset the window
+    document.getElementById(response_loc).innerHTML = "";
     //action if code 200
     if(status == 200) {
-        $("#loginBtn").html(`Log Out &nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i>`);
-        document.getElementById("loginBtn").setAttribute("data-target", "#logoutModal");
-        //save the session
-        saveSession(loginData, response);
-        // hides the modal after login is successful
-        $('#loginModal').modal('hide');
-        // reset page content back to the actual page
-         $("#mainbody").html(tempMainContentHolder);
-
+        batches = jsonHolder;
+        //loop structure to load data into element
+        $.each(batches,((index) => {
+            //load the response into the response_loc
+            document.getElementById(response_loc).innerHTML += newBatch(batches[index].year);
+            branchData(loginData.id, batches[index].year, "batch_"+batches[index].year);
+        }));
         //action if code 201
     } else if(status == 201) {
         document.getElementById(response_loc).innerHTML = JSON.parse(response);
@@ -143,7 +142,75 @@ function logMeIN_complete(status, response, response_loc, load_loc) {
         //load the response into the response_loc
         document.getElementById(response_loc).innerHTML = response;
     }
-    console.log(response);
+    console.log("jsonHolder");
+    console.log(jsonHolder);
+}
+
+//Caller function: calls an ajax request
+//Function Description goes here
+function branchData(trainerId, year, response_loc) {
+    //set the caller_complete to the function that is supposed to receive the response
+    //naming convention: [this function name]_complete
+    let response_func = branchData_complete;
+    //endpoint: rest api endpoint
+    let endpoint = "batches/"+trainerId+"/"+year;
+    //set the url by adding (base_url/java_base_url) + endpoint
+    //options:
+    //base_url(python)
+    //java_base_url(java)
+    let url = base_url + endpoint;
+    //request_type: type of request
+    //options:
+    //"GET", "POST", "OPTIONS", "PATCH", "PULL", "HEAD", "DELETE", "CONNECT", "TRACE"
+    let request_type = "GET";
+    //location you want the response to load
+    //let response_loc = "yearsWorked";
+    //optional:location you want the load animation to be generated while awaiting the response
+    //can be set for any location but will most often be set to response_loc
+    //can be left blank if not needed
+    let load_loc = "batchLoader";
+    //optional:json data to send to the server
+    //can be left blank if not needed
+    let jsonData = "";
+
+    ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData)
+}
+//ajax on-complete function: receives the response from an ajax request
+function branchData_complete(status, response, response_loc, load_loc) {
+    //do some logic with the ajax data that was returned
+    //do this if you are expecting a json object - JSON.parse(response)
+
+    //The var "load_loc" is set in case the response message is different from the action to be loaded into the named location
+    //example:
+    //-- you want a message to say "ajax done!" in a popup while the data is compiled and loaded somewhere else
+    let jsonHolder = JSON.parse(response);
+    //action if code 200
+    if(status == 200) {
+        batches = jsonHolder;
+        let myDateArray = [];
+        //loop structure to load data into element
+        $.each(batches,((index) => {
+            let myDate = new Date(batches[index].startDate);
+            // Check if a value exists in the date array
+            if(myDateArray.indexOf(myDate.getUTCMonth()) == -1){
+                myDateArray.push(myDate.getUTCMonth());
+                //load the response into the response_loc
+                document.getElementById(response_loc).innerHTML += newBatchBtn(batches[index].name, batches[index].id, myDate.getUTCMonth());
+            } else {
+                //load the response into the response_loc
+                document.getElementById(response_loc).innerHTML += newBatchBtn(batches[index].name, batches[index].id);
+            }
+        }));
+        //action if code 201
+    } else if(status == 201) {
+        document.getElementById(response_loc).innerHTML = JSON.parse(response);
+        //action if code 400
+    } else if(status == 400) {
+        //load the response into the response_loc
+        document.getElementById(response_loc).innerHTML = response;
+    }
+    console.log("batches");
+    console.log(batches);
 }
 
 // Chapter 2. Ajax End ------------------------------------
@@ -158,21 +225,40 @@ function logMeIN_complete(status, response, response_loc, load_loc) {
 // Chapter 5. Arrow/Anonymous Functions End ---------------
 
 // Chapter 6. Misc Named Functions ------------------------
+//data to load on this page
+// should be replicated for each page to abstract the load process in case the user was not logged in on load
+function pageDataToLoad() {
+    // reset page content back to the actual page
+    $("#mainbody").html(tempMainContentHolder);
+    loadinfoByClass("trainerName", loginData.first_name+" "+loginData.last_name);
+    loadBatchesbyYear(loginData.id);
+}
 
-// Sets the main navigation
-function setMainNav() {
-    return `
-    <a class="nav-link ${onHome} d-flex align-items-center justify-content-sm-center justify-content-md-start" title="Home" href="home.html"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;<span class="d-sm-none d-md-inline">Home</span></a>
-    <a class="nav-link ${onBatch} d-flex align-items-center justify-content-sm-center justify-content-md-start" title="Batch" href="batch_home.html"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;<span class="d-sm-none d-md-inline">Batch</span></a>
-    <a class="nav-link ${onAssess} d-flex align-items-center justify-content-sm-center justify-content-md-start" title="Assessments" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;<span class="d-sm-none d-md-inline">Assessments</span></a>
-    <a class="nav-link ${onNotes} d-flex align-items-center justify-content-sm-center justify-content-md-start" title="Notes" href="#">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
-            <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
-            <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
-            <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
-        </svg>
-    &nbsp;<span class="d-sm-none d-md-inline">Notes</span>
-    </a>`;
+function loadinfoByClass(theClass, dataToLoad) {
+    let trainerName = document.getElementsByClassName(theClass);
+    Array.from(trainerName).forEach(element => {
+        element.innerHTML = dataToLoad;
+    });
+}
+// holds the styling for the batches
+function newBatch(year) {
+    return `<div id="batch_${year}" class="d-flex-inline-block flex-fill p-4 mr-2 my-2 bg-darker border border-dark">
+    <h4 class="card-title">${year}</h4>
+    <hr class="bg-light" />
+    </div>`;
+}
+// holds the styling for the batches
+function newBatchBtn(btnName, batchID,monthName) {
+    if(monthName) {
+        return `
+        <h6 class="card-title">${months[monthName]}</h6>
+        <button onclick="goToPage('batch_home.html?batchID='+${batchID})" class="d-inline-block my-2 btn btn-light text-primary border border-dark bg-darker p-1 rounded">${btnName}</button>
+        `;
+    } else {
+        return `
+        <button onclick="goToPage('batch_home.html?batchID='+${batchID})" class="d-inline-block my-2 btn btn-light text-primary border border-dark bg-darker p-1 rounded">${btnName}</button>
+        `;
+    }
 }
 
 // Chapter 6. Misc Named Functions ------------------------

@@ -1,4 +1,3 @@
-import dao.AssessmentDAO;
 import dao.AssessmentDAOImpl;
 import models.Assessment;
 import models.Grade;
@@ -6,16 +5,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
-import util.dbconnection;
+import util_project.dbconnection;
 import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -84,13 +80,13 @@ public class testGetWeekAssessments {
 
     @Test
     public void testNotNull() throws Exception {
-        List<Assessment> returnedAssessments = adao.getWeekAssessments("3", 3);
+        List<Assessment> returnedAssessments = adao.getWeekAssessments(2, "1");
         assertNotNull(returnedAssessments);
     }
 
     @Test
     public void testOnlyGetCorrectWeek() throws Exception {
-        List<Assessment> returnedAssessments = adao.getWeekAssessments("3", 3);
+        List<Assessment> returnedAssessments = adao.getWeekAssessments(1, "3");
 
         // Iterate over each assessment and ensure that the week id is what we requested
         for (int i = 0; i < returnedAssessments.size(); i++) {

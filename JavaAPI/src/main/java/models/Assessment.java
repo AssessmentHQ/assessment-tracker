@@ -17,11 +17,11 @@ public class Assessment {
         super();
         assessmentId = 0;
         assessmentTitle = "";
-        typeId = 0;
-        batchId = 0;
+        typeId = 1;
+        batchId = 1;
         weekId = "";
-        assessmentWeight = 0;
-        categoryId = 0;
+        assessmentWeight = 1;
+        categoryId =1;
         notes = new ArrayList<String>();
     }
 

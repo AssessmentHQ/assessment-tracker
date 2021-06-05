@@ -35,3 +35,6 @@ class DAOTests(unittest.TestCase):
             assert False
         except ResourceNotFound:
             assert True
+
+    def test_get_years_for_trainer(self):
+        assert TrainerDAOImpl().get_years_for_trainer(1);
