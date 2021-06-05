@@ -74,7 +74,7 @@ function newWeek(week) {
                     <ul class="card-text" id="week${week}Assessments">
                         -No Assessments Yet-
                     </ul>
-                    <button id="addAssessmentBtn" class="btn btn-secondary border-0" data-toggle="modal" data-target="#createAssessmentModal"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Assessment</button>
+                    <button onclick="document.getElementById('assessment-week').innerHTML = ${week}" id="addAssessmentBtn" class="btn btn-secondary border-0" data-toggle="modal" data-target="#createAssessmentModal"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Assessment</button>
                 </div>
             </div>
         </div>
@@ -102,6 +102,8 @@ function getAssessments(weekId) {
     //optional:json data to send to the server
     //can be left blank if not needed
     let jsonData = "";
+    console.log("batchId:")
+    console.log(batch.id)
 
     ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData)
 }
@@ -120,7 +122,9 @@ function getAssessments_complete(status, response, response_loc, load_loc) {
         if(!response) {
             document.getElementById(response_loc).innerHTML = "-No Assessments Yet-";
         } else {
-            document.getElementById(response_loc).innerHTML = displayAssessments(response);
+            res = JSON.parse(response)
+            console.log(res[0])
+            document.getElementById(response_loc).innerHTML = displayAssessments(res);
         }
 
         //action if code 201
@@ -199,14 +203,15 @@ function createAssessment() {
     let url = java_base_url + endpoint;
     let request_type = "POST";
     //location you want the response to load
-    let response_loc = "";
+    thisWeekId = document.getElementById("assessment-week").innerHTML
+    let response_loc = `week${thisWeekId}Assessments`;
     let load_loc = response_loc;
 
     let thisAssessment = {
         assessmentTitle: document.getElementById("assessment-title").value,
         typeId: document.getElementById("assessment-type").value,
         batchId: batch.id,
-        weekId: document.getElementById("assessment-week").value
+        weekId: document.getElementById("assessment-week").innerHTML
     }
     let jsonData = thisAssessment;
     console.log(jsonData);
@@ -218,7 +223,8 @@ function createAssessment_complete(status, response, response_loc, load_loc) {
     //action if code 200
     if(status == 200) {
         //load the response into the response_loc
-        document.getElementById(response_loc).innerHTML = response;
+        newJson = JSON.parse(response)
+        document.getElementById(response_loc).innerHTML += `<li>${newJson.assessmentTitle}</li>`;
         //action if code 201
     } else if(status == 201) {
         document.getElementById(response_loc).innerHTML = JSON.parse(response);
