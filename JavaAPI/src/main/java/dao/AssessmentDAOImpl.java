@@ -53,6 +53,8 @@ public class AssessmentDAOImpl implements AssessmentDAO {
                 assessments.add(buildAssessment(rs));
             }
 
+
+
             return assessments;
 
         } catch (SQLException e) {

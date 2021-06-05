@@ -1,3 +1,5 @@
+package daoTests;
+
 import dao.AssessmentDAO;
 import dao.AssessmentDAOImpl;
 import models.Grade;
