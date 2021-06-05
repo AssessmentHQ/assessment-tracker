@@ -252,11 +252,11 @@ function newBatchBtn(btnName, batchID,monthName) {
     if(monthName) {
         return `
         <h6 class="card-title">${months[monthName]}</h6>
-        <button onclick="goToPage('specific_batch_week.html?batchID='+${batchID})" class="d-inline-block my-2 btn btn-light text-primary border border-dark bg-darker p-1 rounded">${btnName}</button>
+        <button onclick="goToPage('batch_home.html?batchID='+${batchID})" class="d-inline-block my-2 btn btn-light text-primary border border-dark bg-darker p-1 rounded">${btnName}</button>
         `;
     } else {
         return `
-        <button onclick="goToPage('specific_batch_week.html?batchID='+${batchID})" class="d-inline-block my-2 btn btn-light text-primary border border-dark bg-darker p-1 rounded">${btnName}</button>
+        <button onclick="goToPage('batch_home.html?batchID='+${batchID})" class="d-inline-block my-2 btn btn-light text-primary border border-dark bg-darker p-1 rounded">${btnName}</button>
         `;
     }
 }

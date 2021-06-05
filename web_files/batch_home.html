@@ -50,42 +50,11 @@
             <nav id="navController" class="left-nav col col-2 col-md-2 text-left" aria-labelledby="Sidebar navigation">
             </nav>
             <div id="mainbody" class="col col-10 col-md-10 mainbody bg-darker text-light p-5">
-                    
+                <div id="batchLoader" class="d-flex justify-content-center"></div>
                 <!-- --------PANELS------------ -->
                 <div id="panels">
-
-                       
-                    <!-- -----Week 1 hardcode ex:----- -->
-                    <!-- <div class="d-flex mb-5">
-
-                        <div id="week 1" class="col col-11 p-0">
-                            <div class="card bg-darker">
-                                <div class="card-body rounded">
-                                    <h3 class="card-title"><strong>Week 1</strong></h3>
-                                    <p class="">HTML/CSS.</p>
-                                    <p class="card-text">
-                                        -No Assessments Yet-
-                                    </p>
-                                    <button id="addAssessmentBtn" class="btn btn-primary">Add Assessment To This Week</button>
-                                    <button id="viewAssessmentsBtn" class="btn btn-primary">View Assessments For This Week</button>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <button id="deletePanelBtn" class="btn btn-danger col col-1 del-week align-items-center"><i class="fa fa-trash" aria-hidden="true"></i>Delete Week<br/><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;</button>
-                    </div> -->
-                   
+                    
                 </div>
-                <!-- -------Add A Week Button---------
-                <div class="col-sm-1-10">
-                    <div class="card mb-5 bg-darker p-3">
-                        <div class="card-body rounded p-3">
-                            <button id="addPanelBtn" class="btn btn-primary col col-3 del-week align-items-center" data-toggle="modal" data-target="#addWeekModal" data-preLoad="Some content to pre-load"><i class="fa-regular fa-square-plus" aria-hidden="true"></i>Add A Week</button>
-
-                        </div>
-                    </div>
-                </div> -->
             </div>
 
 
@@ -114,7 +83,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <span id="loadResult"><span id="logload"></span></span>
+                                    <span id="loadResult"></span><span id="logload"></span>
                                     <button onclick="let form = document.getElementById('loginform');if (form.checkValidity() === true) {loginData.email = document.getElementById('recipient-email').value;logMeIN(loginData);}" type="submit" class="btn btn-info">Login &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i></button>
                                     <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
                                 </div>
@@ -129,7 +98,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header text-center">
-                            <h5 class="modal-title h1" id="modalLabel"><strong>Login</strong></h5>
+                            <h5 class="modal-title h1" id="modalLabel"><strong>Log Out</strong></h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -139,58 +108,57 @@
                                     <h4>Are you sure?</h4>
                                 </div>
                                 <div class="modal-footer">
-                                    <span id="loadResult"><span id="logload"></span></span>
+                                    <span id="loadLogOutResult"></span><span id="logOutLoad"></span>
                                     <button onclick="wipeStorage();logout();" type="button" data-dismiss="modal" class="btn btn-info">Logout &nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i></button>
                                     <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
                                 </div>
                         </div>
                     </div>
                 </div>
-            </div>    
-        </footer>
-            
-        <!-- Modal Section -->
-        <div class="modal fade" id="createAssessmentModal" tabindex="-1" aria-labelledby="createAssessmentModal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h5 class="modal-title h1" id="modalLabel"><strong>Create Assessment</strong></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="createAssessmentForm" class="needs-validation" novalidate autocomplete="on">
-                            <div class="form-group">
-                                <label for="assessment-week" class="col-form-label h3">Batch Week:</label>
-                                <input type="text" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){17}$" minlength="1" placeholder="ex: 5" maxlength=2 class="form-control form-control-lg h-50" id="assessment-week" required />
-                                <div class="invalid-feedback">
-                                    Please select a valid Week.
+            </div>
+            <!-- Modal Section -->
+            <div class="modal fade" id="createAssessmentModal" tabindex="-1" aria-labelledby="createAssessmentModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <h5 class="modal-title h1" id="modalLabel"><strong>Create Assessment</strong></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="createAssessmentForm" class="needs-validation" novalidate autocomplete="on">
+                                <div class="form-group">
+                                    <label for="assessment-week" class="col-form-label h3">Batch Week:</label>
+                                    <input type="text" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){17}$" minlength="1" placeholder="ex: 5" maxlength=2 class="form-control form-control-lg h-50" id="assessment-week" required />
+                                    <div class="invalid-feedback">
+                                        Please select a valid Week.
+                                    </div>
+                                </div><div class="form-group">
+                                    <label for="assessment-type" class="col-form-label h3">Assessment Type:</label>
+                                    <input type="text" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){17}$" minlength="1" placeholder="ex: 1" maxlength=2 class="form-control form-control-lg h-50" id="assessment-type" required />
+                                    <div class="invalid-feedback">
+                                        Please select a valid Type.
+                                    </div>
                                 </div>
-                            </div><div class="form-group">
-                                <label for="assessment-type" class="col-form-label h3">Assessment Type:</label>
-                                <input type="text" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){17}$" minlength="1" placeholder="ex: 1" maxlength=2 class="form-control form-control-lg h-50" id="assessment-type" required />
-                                <div class="invalid-feedback">
-                                    Please select a valid Type.
+                                <div class="form-group">
+                                    <label for="assessment-title" class="col-form-label h3">Title:</label>
+                                    <input type="text" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){17}$" minlength="3" placeholder="ex: Python Quiz" maxlength=25 class="form-control form-control-lg h-50" id="assessment-title" required />
+                                    <div class="invalid-feedback">
+                                        Please enter a valid Title.
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="assessment-title" class="col-form-label h3">Title:</label>
-                                <input type="text" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){17}$" minlength="3" placeholder="ex: Python Quiz" maxlength=25 class="form-control form-control-lg h-50" id="assessment-title" required />
-                                <div class="invalid-feedback">
-                                    Please enter a valid Title.
+                                <div class="modal-footer">
+                                    <span id="loadAssessResult"><span id="assessLoad"></span></span>
+                                    <button onclick="createAssessment()" type="submit" class="btn btn-info" data-dismiss="modal">Create &nbsp;<i class="fa-solid fa-square-plus" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <span id="loadResult"><span id="logload"></span></span>
-                                <button onclick="createAssessment()" type="submit" class="btn btn-info" data-dismiss="modal">Create &nbsp;<i class="fa-solid fa-square-plus" aria-hidden="true"></i></button>
-                                <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </footer>
 
         <!-- Page HTML Code End -->
         <!-- Optional JavaScript -->
@@ -202,6 +170,6 @@
         <!-- Root Level JavaScript -->
         <script src="javascript/main.js"></script>
         <!-- current Level JavaScript -->
-        <script src="javascript/batch_home.js"></script>
+        <script src="javascript//batch_home.js"></script>
     </body>
 </html>
