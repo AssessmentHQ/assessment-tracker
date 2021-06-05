@@ -59,7 +59,6 @@ function caller() {
     //optional:json data to send to the server
     //can be left blank if not needed
     let jsonData = "";
-    console.log(jsonData);
 
     ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData)
 }
@@ -112,7 +111,6 @@ function loadBatchesbyYear(trainerId) {
     //optional:json data to send to the server
     //can be left blank if not needed
     let jsonData = "";
-    console.log(jsonData);
 
     ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData)
 }
@@ -125,14 +123,16 @@ function loadBatchesbyYear_complete(status, response, response_loc, load_loc) {
     //example:
     //-- you want a message to say "ajax done!" in a popup while the data is compiled and loaded somewhere else
     let jsonHolder = JSON.parse(response);
+    //reset the window
+    document.getElementById(response_loc).innerHTML = "";
     //action if code 200
     if(status == 200) {
-        batches = jsonHolder[0];
+        batches = jsonHolder;
         //loop structure to load data into element
-        $.each(batches,(element => {
+        $.each(batches,((index) => {
             //load the response into the response_loc
-            document.getElementById(response_loc).innerHTML += newBatch(batches[element]);
-            branchData(loginData.id, batches[element], "batch_"+batches[element]);
+            document.getElementById(response_loc).innerHTML += newBatch(batches[index].year);
+            branchData(loginData.id, batches[index].year, "batch_"+batches[index].year);
         }));
         //action if code 201
     } else if(status == 201) {
@@ -142,7 +142,8 @@ function loadBatchesbyYear_complete(status, response, response_loc, load_loc) {
         //load the response into the response_loc
         document.getElementById(response_loc).innerHTML = response;
     }
-    console.log(batches);
+    console.log("jsonHolder");
+    console.log(jsonHolder);
 }
 
 //Caller function: calls an ajax request
@@ -171,7 +172,6 @@ function branchData(trainerId, year, response_loc) {
     //optional:json data to send to the server
     //can be left blank if not needed
     let jsonData = "";
-    console.log(jsonData);
 
     ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData)
 }
@@ -186,12 +186,21 @@ function branchData_complete(status, response, response_loc, load_loc) {
     let jsonHolder = JSON.parse(response);
     //action if code 200
     if(status == 200) {
-        batches = jsonHolder[0];
-        let myDate = new Date(batches.startDate);
-        
-        console.log(myDate.getUTCMonth());
-        //load the response into the response_loc
-        document.getElementById(response_loc).innerHTML += newBatchBtn(batches.name, myDate.getUTCMonth());
+        batches = jsonHolder;
+        let myDateArray = [];
+        //loop structure to load data into element
+        $.each(batches,((index) => {
+            let myDate = new Date(batches[index].startDate);
+            // Check if a value exists in the date array
+            if(myDateArray.indexOf(myDate.getUTCMonth()) == -1){
+                myDateArray.push(myDate.getUTCMonth());
+                //load the response into the response_loc
+                document.getElementById(response_loc).innerHTML += newBatchBtn(batches[index].name, batches[index].id, myDate.getUTCMonth());
+            } else {
+                //load the response into the response_loc
+                document.getElementById(response_loc).innerHTML += newBatchBtn(batches[index].name, batches[index].id);
+            }
+        }));
         //action if code 201
     } else if(status == 201) {
         document.getElementById(response_loc).innerHTML = JSON.parse(response);
@@ -200,6 +209,7 @@ function branchData_complete(status, response, response_loc, load_loc) {
         //load the response into the response_loc
         document.getElementById(response_loc).innerHTML = response;
     }
+    console.log("batches");
     console.log(batches);
 }
 
@@ -218,6 +228,8 @@ function branchData_complete(status, response, response_loc, load_loc) {
 //data to load on this page
 // should be replicated for each page to abstract the load process in case the user was not logged in on load
 function pageDataToLoad() {
+    // reset page content back to the actual page
+    $("#mainbody").html(tempMainContentHolder);
     loadinfoByClass("trainerName", loginData.first_name+" "+loginData.last_name);
     loadBatchesbyYear(loginData.id);
 }
@@ -236,11 +248,17 @@ function newBatch(year) {
     </div>`;
 }
 // holds the styling for the batches
-function newBatchBtn(btnName,monthName) {
-    return `
-    <h6 class="card-title">${months[monthName]}</h6>
-    <button class="d-inline-block my-2 btn btn-light text-primary border border-dark bg-darker p-1 rounded">${btnName}</button>
-    `;
+function newBatchBtn(btnName, batchID,monthName) {
+    if(monthName) {
+        return `
+        <h6 class="card-title">${months[monthName]}</h6>
+        <button onclick="goToPage('specific_batch_week.html?batchID='+${batchID})" class="d-inline-block my-2 btn btn-light text-primary border border-dark bg-darker p-1 rounded">${btnName}</button>
+        `;
+    } else {
+        return `
+        <button onclick="goToPage('specific_batch_week.html?batchID='+${batchID})" class="d-inline-block my-2 btn btn-light text-primary border border-dark bg-darker p-1 rounded">${btnName}</button>
+        `;
+    }
 }
 
 // Chapter 6. Misc Named Functions ------------------------
