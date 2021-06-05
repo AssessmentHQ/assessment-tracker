@@ -1,5 +1,7 @@
+package daoTests;
+
+import dao.AssessmentDAO;
 import dao.AssessmentDAOImpl;
-import models.AssessmentType;
 import models.Grade;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,11 +15,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class testCreateAssessmentType {
+public class testAdjustWeight {
     // Class to be tested
-    private AssessmentDAOImpl adao;
+    private AssessmentDAO adao;
 
     // Dependencies
     private Connection mockConn;
@@ -43,21 +46,21 @@ public class testCreateAssessmentType {
         Mockito.when(mockConn.prepareStatement(Mockito.any(String.class))).thenReturn(mockPs);
         Mockito.when(mockPs.executeQuery()).thenReturn(mockRs);
 
-
         // Initialize the class to be tested
         adao = new AssessmentDAOImpl();
     }
 
     @Test
-    public void testNotNull() throws Exception {
-        AssessmentType returnedAssessmentType = adao.createAssessmentType("Quiz", 1);
-        assertNotNull(returnedAssessmentType);
+    public void testNotNegativeWeight() throws Exception {
+        boolean returnedVal = adao.adjustWeight(1, 1);
+        assertTrue(true, "Expected true on success");
     }
 
     @Test
-    public void testIsEmpty() throws Exception {
-        AssessmentType returnedAssessmentType = adao.createAssessmentType("Quiz", 1);
-        assertNotNull(returnedAssessmentType);
+    public void testTooMuchWeight() throws Exception {
+        boolean returnVal = adao.adjustWeight(1,1);
+        // TODO: Should we pass in who much weight we want to adjust by, and return the weight instead of a boolean.
+        //assertTrue(returnedWeight <= 100, "Expected weight less than 100");
     }
 
     @AfterEach
@@ -69,5 +72,4 @@ public class testCreateAssessmentType {
     static void tearDownAll() {
 
     }
-
 }
