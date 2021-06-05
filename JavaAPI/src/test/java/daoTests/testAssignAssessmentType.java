@@ -1,5 +1,6 @@
+package daoTests;
+
 import dao.AssessmentDAOImpl;
-import models.Assessment;
 import models.Grade;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,12 +13,10 @@ import util_project.dbconnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class testCreateAssessment {
+public class testAssignAssessmentType {
     // Class to be tested
     private AssessmentDAOImpl adao;
 
@@ -26,10 +25,6 @@ public class testCreateAssessment {
     private Grade mockGrade;
     private PreparedStatement mockPs;
     private ResultSet mockRs;
-
-    // Test Data
-    private Assessment sampleAssessment;
-    private Assessment sa1,sa2,sa3;
 
     @Before
     public void setup() throws Exception {
@@ -49,36 +44,21 @@ public class testCreateAssessment {
         Mockito.when(mockConn.prepareStatement(Mockito.any(String.class))).thenReturn(mockPs);
         Mockito.when(mockPs.executeQuery()).thenReturn(mockRs);
 
-
         // Initialize the class to be tested
         adao = new AssessmentDAOImpl();
-
-        ArrayList<String> sampleNote = new ArrayList<String>();
-        sampleNote.add("Needs Improvement");
-
-        // Create a sample assessment", 1,
-        sampleAssessment = new Assessment(1, "Test Assessment", 1, 3, "3", 30, 4,sampleNote);
-        sa1 = new Assessment(2,"Test 1",1,3,"5",20,1,sampleNote);
     }
 
     @Test
     public void testNotNull() throws Exception {
-        Assessment returnedAssessment = adao.createAssessment(sampleAssessment);
-        assertNotNull(returnedAssessment);
+        Boolean returnedAssessmentType = adao.assignAssessmentType(1, 1);
+        assertNotNull(returnedAssessmentType);
     }
 
     @Test
-    public void testCorrectBatchIdSet() throws Exception {
-        Assessment returnedAssessment = adao.createAssessment(sa1);
-        assertNotNull(returnedAssessment);
-        assertEquals(3, returnedAssessment.getBatchId());
-    }
-
-    @Test
-    public void testCorrectWeekIdSet() throws Exception {
-        Assessment returnedAssessment = adao.createAssessment(sa1);
-        assertNotNull(returnedAssessment);
-        assertEquals("5", returnedAssessment.getWeekId());
+    public void testEmptyString() throws Exception {
+        // TODO: Should we return the string os the assessment type here instead of a boolean
+        //Boolean returnedAssessmentType = adao.assignAssessmentType(1);
+        //assertTrue(!returnedAssessmentType.isEmpty());
     }
 
     @AfterEach
@@ -90,5 +70,4 @@ public class testCreateAssessment {
     static void tearDownAll() {
 
     }
-
 }
