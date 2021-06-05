@@ -34,7 +34,7 @@ let onNotes = offPage;
 // Chapter 2. Ajax ----------------------------------------
 
 //Caller function: calls an ajax request
-//Function Description goes here
+//This is a template to copy and paste to connect to a new endpoint
 function caller() {
     //set the caller_complete to the function that is supposed to receive the response
     //naming convention: [this function name]_complete
@@ -63,6 +63,7 @@ function caller() {
     ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData)
 }
 //ajax on-complete function: receives the response from an ajax request
+//This is a template to copy and paste to connect to a new endpoint
 function caller_complete(status, response, response_loc, load_loc) {
     //do some logic with the ajax data that was returned
     //do this if you are expecting a json object - JSON.parse(response)
@@ -232,13 +233,6 @@ function pageDataToLoad() {
     $("#mainbody").html(tempMainContentHolder);
     loadinfoByClass("trainerName", loginData.first_name+" "+loginData.last_name);
     loadBatchesbyYear(loginData.id);
-}
-
-function loadinfoByClass(theClass, dataToLoad) {
-    let trainerName = document.getElementsByClassName(theClass);
-    Array.from(trainerName).forEach(element => {
-        element.innerHTML = dataToLoad;
-    });
 }
 // holds the styling for the batches
 function newBatch(year) {
