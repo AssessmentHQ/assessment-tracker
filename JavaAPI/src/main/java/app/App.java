@@ -30,10 +30,9 @@ public class App {
         app.get("/notes/:id/:weekid/", ac.getNotesForTrainee);
         app.post("/assessments", ac.createAssessment);
         app.post("/grades/", ac.insertGrade);
-        app.put("/assessments/:id/", ac.adjustWeight);
+        app.put("/assessments/weight/:assessmentId/:weight", ac.adjustWeight);
         app.post("/types", ac.createAssessmentType);
-        app.put("/assessments/:types/:typeId/",ac.assignAssessmentType);
-
+        app.put("/assessments/type/:assessmentId/:typeId",ac.assignAssessmentType);
     }
 
 }

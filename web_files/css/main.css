@@ -38,6 +38,7 @@ main.row {
     max-height: 100%;
 }
 header {
+    min-height:70px;
     height:10%;
 }
 /* A element */
