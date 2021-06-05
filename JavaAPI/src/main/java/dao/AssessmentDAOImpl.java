@@ -137,7 +137,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     @Override
     public boolean adjustWeight(int assessmentId, int weight) throws SQLException {
         try {
-            String sql = "UPDATE assessments SET weight=? WHERE id=? RETURNING *";
+            String sql = "UPDATE assessments SET weight=? WHERE id=?";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
             ps.setInt(1, weight);
             ps.setInt(2, assessmentId);
@@ -174,7 +174,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     @Override
     public boolean assignAssessmentType(int assessmentId, int typeId) throws SQLException {
         try {
-            String sql = "UPDATE assessments SET type_id=? WHERE id=? RETURNING *";
+            String sql = "UPDATE assessments SET type_id=? WHERE id=?";
 
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
             ps.setInt(1, typeId);
@@ -182,7 +182,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
 
             ps.executeUpdate();
 
-            return rs.next();
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -216,8 +216,8 @@ public class AssessmentDAOImpl implements AssessmentDAO {
             String sql = "INSERT INTO grades VALUES (DEFAULT,?,?,?) RETURNING *";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
             ps.setInt(1, grade.getAssessmentId());
-            ps.setInt(2, grade.getTrainerId());
-            ps.setDouble(3, grade.getScore());
+            ps.setInt(3, grade.getAssociateId());
+            ps.setDouble(2, grade.getScore());
 
             ResultSet rs = ps.executeQuery();
 
@@ -262,8 +262,8 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     public Grade buildGrade(ResultSet rs) throws SQLException {
         Grade grade = new Grade();
         grade.setGradeId(rs.getInt("id"));
-        grade.setAssessmentId(rs.getInt("assessmentId"));
-        grade.setTrainerId(rs.getInt("trainerId"));
+        grade.setAssessmentId(rs.getInt("assessment_id"));
+        grade.getAssociateId(rs.getInt("associate_id"));
         grade.setScore(rs.getDouble("score"));
 
         return grade;

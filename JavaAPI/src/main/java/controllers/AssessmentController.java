@@ -125,10 +125,10 @@ public class AssessmentController {
             aclogger.info("attempting to update the grade on an assessment");
             int weight = Integer.parseInt(context.pathParam("weight"));
             int assessmentId = Integer.parseInt(context.pathParam("assessmentId"));
-            boolean weightUpdated = as.adjustWeight(assessmentId, weight);
+            boolean wasUpdated = as.adjustWeight(assessmentId, weight);
             context.contentType("application/json");
             aclogger.info("attempting to return updatedWeight");
-            context.result(gson.toJson(weightUpdated));
+            context.result(gson.toJson(wasUpdated));
         } catch (Exception e) {
             aclogger.info(e);
         }
@@ -150,10 +150,10 @@ public class AssessmentController {
         try {
             int typeId = Integer.parseInt(context.pathParam("typeId"));
             int assessmentId = Integer.parseInt(context.pathParam("assessmentId"));
-            boolean updatedTypeId = as.updateTypeForAssessment(typeId,assessmentId);
+            boolean wasUpdated = as.updateTypeForAssessment(assessmentId,typeId);
             context.contentType("application/json");
             aclogger.info("attempting to return updated type for assessment");
-            context.result(gson.toJson(updatedTypeId));
+            context.result(gson.toJson(wasUpdated));
         } catch (Exception e) {
             aclogger.info(e);
         }
