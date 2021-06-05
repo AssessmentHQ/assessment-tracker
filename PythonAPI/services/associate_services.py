@@ -11,3 +11,7 @@ class AssociateServices:
     @classmethod
     def get_associate_in_batch(cls, associate_id, batch_id):
         return cls.associate_dao.get_associate_in_batch(batch_id, associate_id)
+
+    @classmethod
+    def get_all_associates_in_batch(cls, batch_id):
+        return cls.associate_dao.get_all_associates_in_batch(batch_id)
