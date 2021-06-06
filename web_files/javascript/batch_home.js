@@ -64,7 +64,7 @@ function displayAssessments(assessments){
         assesssments["assessment"+assessment.assessmentId] = assessment;
         tempObj["assessment"+assessment.assessmentId] = assesssments["assessment"+assessment.assessmentId];
         batch["week"+assessment.weekId] = tempObj;
-        display += `<li id="assessment${assessment.assessmentId}"><a onclick="batch.currentWeek = ${assessment.weekId};batch.currentID = ${assessment.assessmentId};document.getElementById('assessWeightTitle').innerHTML = '${assessment.assessmentTitle} Weight';document.getElementById('weightControl').value = batch.week${assessment.weekId}.assessment${assessment.assessmentId}.assessmentWeight;document.getElementById('weightValue').innerHTML = batch.week${assessment.weekId}.assessment${assessment.assessmentId}.assessmentWeight;" id="assessment_${assessment.assessmentId}" data-toggle="modal" href="#adjustWeightModal">${assessment.assessmentTitle}</a></li>`;
+        display += `<li class="m-2" id="assessment${assessment.assessmentId}"><a onclick="batch.currentWeek = ${assessment.weekId};batch.currentID = ${assessment.assessmentId};document.getElementById('assessWeightTitle').innerHTML = '${assessment.assessmentTitle} Weight';document.getElementById('weightControl').value = batch.week${assessment.weekId}.assessment${assessment.assessmentId}.assessmentWeight;document.getElementById('weightValue').innerHTML = batch.week${assessment.weekId}.assessment${assessment.assessmentId}.assessmentWeight;" id="assessment_${assessment.assessmentId}" data-toggle="modal" href="#adjustWeightModal">${assessment.assessmentTitle}</a></li>`;
     });
     return display
 }
@@ -236,7 +236,11 @@ function createAssessment_complete(status, response, response_loc, load_loc) {
         //load the response into the response_loc
         let newJson = JSON.parse(response)
         console.log([newJson]);
-        document.getElementById(response_loc).innerHTML += displayAssessments([newJson]);
+        if(document.getElementById(response_loc).innerHTML == "-No Assessments Yet-") {
+            document.getElementById(response_loc).innerHTML = displayAssessments([newJson]);
+        } else {
+            document.getElementById(response_loc).innerHTML += displayAssessments([newJson]);
+        }
         //action if code 201
     } else if(status == 201) {
         document.getElementById(response_loc).innerHTML = JSON.parse(response);
