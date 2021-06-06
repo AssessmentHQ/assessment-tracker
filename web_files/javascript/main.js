@@ -27,9 +27,9 @@
 
 //This is the base url that we are using this base will always be applied it is global scope
 let base_url = "http://34.204.173.118:5000/";
-// let base_url ="http://localhost:5000/";
+//let base_url ="http://localhost:5000/";
 //let java_base_url ="http://localhost:7001/";
-let base_url = "http://34.204.173.118:7001/";
+let java_base_url = "http://34.204.173.118:7001/";
 let loginData = new Object();
 let batches = new Object();
 //holds the string value of months
