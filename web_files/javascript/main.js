@@ -43,7 +43,7 @@ let mainHeader = `
             </svg>
         </span>
     </a>
-    <a class="navbar-brand order-md-1 order-xs-1" href="#"><img src="images/rev-logo.png" alt="Revature Logo"></a>
+    <a class="navbar-brand order-md-1 order-xs-1" href="home.html"><img src="images/rev-logo.png" alt="Revature Logo"></a>
     <a id="loginBtn" data-toggle="modal" data-target="#loginModal" data-preLoad="Some content to pre-load" class="nav-link text-dark bg-info d-flex order-md-3 order-xs-2 align-items-center mr-3">Login &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i></a>
     <div class="collapse navbar-collapse order-md-2 order-xs-3 col-xs-12 bg-dark py-3" id="navbarToggle">
         <form class="mr-5 col-md-9 col-sm-12">
