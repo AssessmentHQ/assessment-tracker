@@ -29,5 +29,21 @@ class AssociateDAOImpl(AssociateDAO):
         else:
             raise ResourceNotFound("No associate could be found with that id and/or batch")
 
+    def get_all_associates_in_batch(self, batch_id):
+        """Get an all Associates in a batch by a batch ID"""
+        sql = "select a.id, a.first_name, a.last_name, a.email, ab.training_status " \
+              "from associates as a left join associate_batches ab " \
+              "on id = associate_id where batch_id = %s"
+        records = DbConn.make_connect(sql, [batch_id])
+        associates = []
+        if records:
+            for anAssociate in records:
+                associates.append(
+                    Associate(id=anAssociate[0], first_name=anAssociate[1], last_name=anAssociate[2], email=anAssociate[3],
+                              training_status=anAssociate[4]))
+            return associates
+        else:
+            raise ResourceNotFound("No batch could be found with that id")
+
 
 

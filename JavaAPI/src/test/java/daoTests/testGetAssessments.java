@@ -1,22 +1,27 @@
+package daoTests;
+
 import dao.AssessmentDAOImpl;
 import models.Assessment;
 import models.Grade;
 import org.junit.Before;
 import org.junit.Test;
+import java.util.List;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import util_project.dbconnection;
-import java.util.List;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class testGetWeekAssessments {
+public class testGetAssessments {
     // Class to be tested
     private AssessmentDAOImpl adao;
 
@@ -47,7 +52,6 @@ public class testGetWeekAssessments {
         Mockito.when(mockConn.prepareStatement(Mockito.any(String.class))).thenReturn(mockPs);
         Mockito.when(mockPs.executeQuery()).thenReturn(mockRs);
 
-
         // Initialize the class to be tested
         adao = new AssessmentDAOImpl();
 
@@ -70,7 +74,6 @@ public class testGetWeekAssessments {
         Assessment sampleAssessment2 = new Assessment(1, "Test Assessment 2", 2, 2, "2", 10, 3,sampleNotes2);
         Assessment sampleAssessment3 = new Assessment(1, "Test Assessment 3", 3, 3, "3", 5, 7,sampleNotes3);
 
-
         // Create the sample list of assessments
         sampleAssessments = new ArrayList<Assessment>();
         sampleAssessments.add(sampleAssessment1);
@@ -79,19 +82,17 @@ public class testGetWeekAssessments {
     }
 
     @Test
-    public void testNotNull() throws Exception {
-        List<Assessment> returnedAssessments = adao.getWeekAssessments(2, "1");
+    public void testNotNull() throws Exception{
+        List<Assessment> returnedAssessments = adao.getAssessments();
         assertNotNull(returnedAssessments);
     }
 
     @Test
-    public void testOnlyGetCorrectWeek() throws Exception {
-        List<Assessment> returnedAssessments = adao.getWeekAssessments(1, "3");
+    public void testGetCorrectSize() throws Exception {
+        List<Assessment> returnedAssessments = adao.getAssessments();
 
-        // Iterate over each assessment and ensure that the week id is what we requested
-        for (int i = 0; i < returnedAssessments.size(); i++) {
-            assertEquals("3", returnedAssessments.get(i).getWeekId());
-        }
+        // Test to for correct number of Assessments
+        assertEquals(3, returnedAssessments.size());
     }
 
     @AfterEach
@@ -103,5 +104,6 @@ public class testGetWeekAssessments {
     static void tearDownAll() {
 
     }
+
 
 }
