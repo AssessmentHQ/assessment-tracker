@@ -26,14 +26,9 @@
 // Chapter 1. Global var Declarations ---------------------
 
 //This is the base url that we are using this base will always be applied it is global scope
-let base_url = "http://34.204.173.118:5000/";
-// let base_url ="http://localhost:5000/";
-let java_base_url ="http://34.204.173.118:7001/";
-//let java_base_url ="http://localhost:7001/";
+let base_url = "http://localhost:5000/";
+let java_base_url ="http://localhost:7001/";
 let loginData = new Object();
-let batches = new Object();
-//holds the string value of months
-let months = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
 // main header content
 let mainHeader = `
 <nav class="nav top-nav navbar-expand-lg d-flex justify-content-between bg-dark" aria-labelledby="Topbar navigation">
@@ -107,6 +102,7 @@ function ajaxCaller(request_type, url, response_func, response_loc, load_loc, js
     ajax.onreadystatechange = function () {
         if (this.readyState == 4) {
             //readystate:4 means the response has come back
+            console.log("Ajax Complete! Loading result");
 
             //remove the loading animation
             document.getElementById(load_loc).innerHTML = "";
@@ -177,12 +173,10 @@ function logMeIN_complete(status, response, response_loc, load_loc) {
         document.getElementById("loginBtn").setAttribute("data-target", "#logoutModal");
         //save the session
         saveSession(loginData, response);
-        // loads it back to the object
-        loginData = getSession(loginData, true);
-        console.log(loginData);
         // hides the modal after login is successful
         $('#loginModal').modal('hide');
-        pageDataToLoad();
+        // reset page content back to the actual page
+         $("#mainbody").html(tempMainContentHolder);
 
         //action if code 201
     } else if(status == 201) {
@@ -192,6 +186,7 @@ function logMeIN_complete(status, response, response_loc, load_loc) {
         //load the response into the response_loc
         document.getElementById(response_loc).innerHTML = response;
     }
+    console.log(response);
 }
 
 // Chapter 2. Ajax End ------------------------------------
@@ -212,9 +207,6 @@ function logMeIN_complete(status, response, response_loc, load_loc) {
         //session data space
         // Logged in check
         if(getSession(loginData, true)){
-            loginData = getSession(loginData, true);
-            console.log(loginData);
-            pageDataToLoad();
             $("#loginBtn").html(`Log Out&nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i>`);
             document.getElementById("loginBtn").setAttribute("data-target", "#logoutModal");
         } else {
@@ -254,23 +246,6 @@ function logMeIN_complete(status, response, response_loc, load_loc) {
 // Chapter 5. Arrow/Anonymous Functions End ---------------
 
 // Chapter 6. Misc Named Functions ------------------------
-
-// Sets the main navigation
-function setMainNav() {
-    //some of these are stretch goal links so they are commented out until they can be completed
-    return `
-    <a class="nav-link ${onHome} d-flex align-items-center justify-content-center justify-content-md-start" title="Home" href="home.html"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;<span class="d-none d-md-inline">Home</span></a>
-    <a class="nav-link ${onBatch} d-flex align-items-center justify-content-center justify-content-md-start" title="Batch" href="batch_home.html"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;<span class="d-none d-md-inline">Batch</span></a>
-    <!--<a class="nav-link ${onAssess} d-flex align-items-center justify-content-center justify-content-md-start" title="Assessments" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;<span class="d-none d-md-inline">Assessments</span></a>
-    <a class="nav-link ${onNotes} d-flex align-items-center justify-content-center justify-content-md-start" title="Notes" href="#">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
-            <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
-            <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
-            <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
-        </svg>
-    &nbsp;<span class="d-none d-md-inline">Notes</span>
-    </a>-->`;
-}
 
 // ---------- pulling and saving form data ------------
 
@@ -405,44 +380,4 @@ function wipeStorage() {
     sessionStorage.clear();
 }
 
-//this sets the date ranges allowed for a form input["date"] element
-function getDateFormat(myDate, addDay, addMonth, addYear) {
-    myDate.setUTCDate(myDate.getUTCDate());
-    //to increase the future date just add a number to it ex. +5
-    let n = myDate.getUTCHours()+4;
-    let dd = myDate.getUTCDate()+addDay;
-    let mm = myDate.getUTCMonth()+1+addMonth; //January is 0!
-    let yyyy = myDate.getFullYear()+addYear;
-    if(dd<10){
-        dd='0'+dd
-    } 
-    if(mm<10){
-        mm='0'+mm
-    } 
-
-    myDate = yyyy+'-'+mm+'-'+dd;
-    return myDate;
-}
-
-// finds the difference between 2 dates in days
-function dateDiff(date1, date2) {
-    let diff = (date2 - date1)/1000;
-    diff = Math.abs(Math.floor(diff));
-    dateDiffHolder = Math.floor(diff/(24*60*60));
-    if(date1 > date2) {
-        dateDiffHolder = 0;
-    }
-    return dateDiffHolder+1;
-}
-function getIDFromUrl() {
-    let currentUrl = new URL(window.location.href);
-    return currentUrl.searchParams.get("batchID")
-}
-//load data that needs loaded more than once to anywhere that contains this class
-function loadinfoByClass(theClass, dataToLoad) {
-    let trainerName = document.getElementsByClassName(theClass);
-    Array.from(trainerName).forEach(element => {
-        element.innerHTML = dataToLoad;
-    });
-}
 // Chapter 6. Misc Named Functions ------------------------
