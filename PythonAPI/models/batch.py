@@ -1,4 +1,3 @@
-from PythonAPI.models.codable import Codable
 import unittest
 from datetime import datetime, date
 from math import floor
