@@ -64,5 +64,5 @@ Serigne Samb
 
 ## License
 
-This project uses the following license: [<unlicense>](<https://unlicense.org>).
+This project uses the following license: Unlicense. [<unlicense>](<https://unlicense.org>).
 
