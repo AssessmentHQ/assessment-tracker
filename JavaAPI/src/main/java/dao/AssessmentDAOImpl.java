@@ -147,6 +147,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
             ps.setInt(2, assessmentId);
 
             ps.executeUpdate();
+            dbconnection.getConnection().commit();
 
             return true;
         } catch (SQLException e) {
@@ -185,7 +186,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
             ps.setInt(2, assessmentId);
 
             ps.executeUpdate();
-
+            dbconnection.getConnection().commit();
             return true;
 
         } catch (SQLException e) {
