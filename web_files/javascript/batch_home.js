@@ -127,6 +127,7 @@ function getAssessments_complete(status, response, response_loc, load_loc) {
     //action if code 200
     if (status == 200) {
         let res = JSON.parse(response)
+        console.log(res);
         //load the response into the response_loc
         if(Object.keys(res).length <= 0) {
             document.getElementById(response_loc).innerHTML = "-No Assessments Yet-";
@@ -363,7 +364,7 @@ function getAssociates_complete(status, response, response_loc, load_loc) {
     }
 }
 
-//Update the weight of an assessment
+//Update the the score of an assessment for an associate
 function UpdateScores(grade,assessmentID,response_loc,load_loc) {
     //set the caller_complete to the function that is supposed to receive the response
     let response_func = UpdateScores_complete;
@@ -405,7 +406,7 @@ function UpdateScores_complete(status, response, response_loc, load_loc) {
 
     //action if code 200
     if (status == 200) {
-        console.log(responseParsed);
+        console.log(response);
         document.getElementById(response_loc).innerHTML = `<p class="text-success">${response}</p>`;
 
         //action if code 201
@@ -420,10 +421,64 @@ function UpdateScores_complete(status, response, response_loc, load_loc) {
         document.getElementById(response_loc).innerHTML = `<p class="text-danger">${response}</p>`;
     }
 }
+
+//get the score for an assessment for an associate
+function getScore(assessmentId,associateId,response_loc,load_loc) {
+    //set the caller_complete to the function that is supposed to receive the response
+    let response_func = getScore_complete;
+    //endpoint: rest api endpoint
+    let endpoint =  `grades/${assessmentId}/${associateId}`
+    //set the url by adding (base_url/java_base_url) + endpoint
+    //options:
+    //base_url(python)
+    //java_base_url(java)
+    let url = java_base_url + endpoint;
+    //request_type: type of request
+    //options:
+    //"GET", "POST", "OPTIONS", "PATCH", "PULL", "PUT", "HEAD", "DELETE", "CONNECT", "TRACE"
+    let request_type = "GET";
+    //location you want the response to load
+    //let response_loc = "";
+    //optional:location you want the load animation to be generated while awaiting the response
+    //can be set for any location but will most often be set to response_loc
+    //can be left blank if not needed
+    //let load_loc = "";
+    //optional:json data to send to the server
+    //can be left blank if not needed
+    let jsonData = "";
+
+    ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData)
+}
+//ajax on-complete function: receives the response from an ajax request
+function getScore_complete(status, response, response_loc, load_loc) {
+    //do some logic with the ajax data that was returned
+    //do this if you are expecting a json object - JSON.parse(response)
+
+    //The var "load_loc" is set in case the response message is different from the action to be loaded into the named location
+    //example:
+    //-- you want a message to say "ajax done!" in a popup while the data is compiled and loaded somewhere else
+
+    //action if code 200
+    if (status == 200) {
+        console.log(response);
+        document.getElementById(response_loc).value = response;
+
+        //action if code 201
+    } else if (status == 201) {
+        document.getElementById(load_loc).innerHTML = `<p class="text-success">${response}</p>`;
+        //action if code 400
+    } else if (status == 404) {
+        //load the response into the response_loc
+        document.getElementById(load_loc).innerHTML = `<p class="text-danger">${response}</p>`;
+    } else if (status == 0) {
+        //load the response into the response_loc
+        document.getElementById(load_loc).innerHTML = `<p class="text-danger">${response}</p>`;
+    }
+}
 function printAssociates(arrayData) {
     let display = "";
     $.each(arrayData,((index) => {
-        display += `<li class="m-2" id="associate${arrayData[index].id}"><a onclick="batch.currentAssoc = ${arrayData[index].id};batch.currentWeek = this.parentNode.parentNode.getAttribute('id');printWeekAssess(this.parentNode.parentNode.getAttribute('id'));document.getElementById('assessScoreTitle').innerHTML = 'Week '+this.parentNode.parentNode.getAttribute('id');document.getElementById('studentName').innerHTML = '${arrayData[index].firstName}';" data-toggle="modal" href="#giveScores">${arrayData[index].firstName}</a></li>`;
+        display += `<li class="m-2" id="associate${arrayData[index].id}"><a onclick="batch.currentAssoc = ${arrayData[index].id};batch.currentWeek = this.parentNode.parentNode.getAttribute('id');printWeekAssess(this.parentNode.parentNode.getAttribute('id'));executePreLoadScores();document.getElementById('assessScoreTitle').innerHTML = 'Week '+this.parentNode.parentNode.getAttribute('id');document.getElementById('studentName').innerHTML = '${arrayData[index].firstName}';" data-toggle="modal" href="#giveScores">${arrayData[index].firstName}</a></li>`;
     }));
     return display;
 }
@@ -431,9 +486,15 @@ function printAssociates(arrayData) {
 function printWeekAssess(weekID) {
     console.log(batch["week"+weekID]);
     //resets the form element
+    batch.loadScores = new Object();
     let display = "";
     document.getElementById("scoreForms").innerHTML = display;
     $.each(batch["week"+weekID],(index,item) => {
+        batch.loadScores[`score${item.assessmentId}`] = new Object();
+        batch.loadScores[`score${item.assessmentId}`].assessmentId = item.assessmentId;
+        batch.loadScores[`score${item.assessmentId}`].associateId = item.assessmentId;
+        batch.loadScores[`score${item.assessmentId}`].response_loc = `score${item.assessmentId}`;
+        batch.loadScores[`score${item.assessmentId}`].load_loc = `loadScoreResult${item.assessmentId}`;
         display += `
         <form id="GiveScoreForm${item.assessmentId}" class="needs-validation" novalidate autocomplete="off">
             <div id="scoreFormElem${item.assessmentId}">
@@ -461,4 +522,9 @@ function printWeekAssess(weekID) {
     } else {
         document.getElementById("scoreForms").innerHTML = "<p>No Assessments have been assigned to this week!</p>";
     }
+}
+function executePreLoadScores() {
+    $.each(batch.loadScores,(key,item) => {
+        getScore(item.assessmentId,item.associateId,item.response_loc,item.load_loc);
+    });
 }
