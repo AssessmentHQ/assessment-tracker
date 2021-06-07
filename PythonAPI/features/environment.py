@@ -7,8 +7,8 @@ from features.pages.home_page import HomePage
 
 
 def before_all(context):
-    # driver: WebDriver = webdriver.Chrome("G:\RevatureWork\SeleniumDrivers\chromedriver.exe")
-    driver: WebDriver = webdriver.Chrome("/Users/kin/Desktop/chromedriver")
+    driver: WebDriver = webdriver.Chrome("G:\RevatureWork\SeleniumDrivers\chromedriver.exe")
+    # driver: WebDriver = webdriver.Chrome("/Users/kin/Desktop/chromedriver")
     home_page: HomePage = HomePage(driver)
     batch_home: BatchHomePage = BatchHomePage(driver)
     assessments_page: AssessmentsPage = AssessmentsPage(driver)
