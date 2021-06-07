@@ -55,9 +55,9 @@ public class AssessmentController {
             int traineeId = Integer.parseInt(context.pathParam("id"));
             String weekId = context.pathParam("weekid");
             aclogger.info("attempting to get assessments");
-            List<Assessment> assessments = as.getWeekAssessments(traineeId, weekId);
+            List<Grade> grades = as.getWeekAssessments(traineeId, weekId);
             context.contentType("application/json");
-            context.result(gson.toJson(assessments));
+            context.result(gson.toJson(grades));
         } catch (Exception e) {
             aclogger.info(e);
         }

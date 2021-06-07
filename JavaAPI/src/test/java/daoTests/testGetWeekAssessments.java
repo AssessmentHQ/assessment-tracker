@@ -82,17 +82,17 @@ public class testGetWeekAssessments {
 
     @Test
     public void testNotNull() throws Exception {
-        List<Assessment> returnedAssessments = adao.getWeekAssessments(2, "1");
-        assertNotNull(returnedAssessments);
+        List<Grade> grades = adao.getWeekAssessments(2, "1");
+        assertNotNull(grades);
     }
 
     @Test
     public void testOnlyGetCorrectWeek() throws Exception {
-        List<Assessment> returnedAssessments = adao.getWeekAssessments(1, "3");
+        List<Grade> grades = adao.getWeekAssessments(1, "3");
 
         // Iterate over each assessment and ensure that the week id is what we requested
-        for (int i = 0; i < returnedAssessments.size(); i++) {
-            assertEquals("3", returnedAssessments.get(i).getWeekId());
+        for (int i = 0; i < grades.size(); i++) {
+            assertEquals("1", grades.get(i).getAssociateId());
         }
     }
 

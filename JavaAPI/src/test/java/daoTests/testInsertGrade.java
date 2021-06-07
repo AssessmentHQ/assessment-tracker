@@ -14,6 +14,7 @@ import util_project.dbconnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -53,7 +54,7 @@ public class testInsertGrade {
         // Initialize the class to be tested
         adao = new AssessmentDAOImpl();
 
-        sampleGrade = new Grade(2, 3, 4,80);
+        sampleGrade = new Grade(2, 3, 4, 80, new Date());
     }
 
     @Test

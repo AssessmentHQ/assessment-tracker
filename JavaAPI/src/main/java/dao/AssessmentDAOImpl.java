@@ -9,6 +9,7 @@ import util_project.dbconnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,9 +91,10 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     }
 
     @Override
-    public List<Assessment> getWeekAssessments(int traineeId, String weekId) throws SQLException {
+    public List<Grade> getWeekAssessments(int traineeId, String weekId) throws SQLException {
         try {
-            String sql = "SELECT * FROM grades AS g JOIN assessments a ON g.assessment_id = a.id WHERE" +
+            String sql = "SELECT g.id, g.assessment_id, g.score, g.associate_id, g.date_submitted FROM grades as g JOIN assessments a " +
+                    "ON g.assessment_id = a.id WHERE" +
                     " associate_id = ? AND week = ?";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
             ps.setInt(1, traineeId);
@@ -100,13 +102,13 @@ public class AssessmentDAOImpl implements AssessmentDAO {
 
             ResultSet rs = ps.executeQuery();
 
-            List<Assessment> assessments = new ArrayList<Assessment>();
+            List<Grade> grades = new ArrayList<Grade>();
 
             while (rs.next()) {
-                assessments.add(buildAssessment(rs));
+                grades.add(buildGrade(rs));
             }
 
-            return assessments;
+            return grades;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -218,11 +220,13 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     @Override
     public Grade insertGrade(Grade grade) {
         try {
-            String sql = "INSERT INTO grades VALUES (DEFAULT,?,?,?) RETURNING *";
+            String sql = "INSERT INTO grades VALUES (DEFAULT,?,?,?,?) RETURNING *";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
             ps.setInt(1, grade.getAssessmentId());
             ps.setInt(3, grade.getAssociateId());
             ps.setDouble(2, grade.getScore());
+            ps.setObject(4, grade.getDateSubmitted().toInstant()
+                                             .atZone(ZoneId.of("US/Eastern")).toLocalDate());
 
             ResultSet rs = ps.executeQuery();
 
@@ -239,7 +243,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     public Note buildNote(ResultSet rs) throws SQLException {
 
         return new Note(rs.getInt("id"), rs.getInt("batch_id"), rs.getInt("associate_id"), rs.getString("content"),
-                rs.getString("week_number"));
+                rs.getString("week"));
     }
 
     public Assessment buildAssessment(ResultSet rs) throws SQLException {
@@ -248,7 +252,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
         assessment.setAssessmentTitle(rs.getString("title"));
         assessment.setTypeId(rs.getInt("type_id"));
         assessment.setBatchId(rs.getInt("batch_id"));
-        assessment.setWeekId(rs.getString("week_number"));
+        assessment.setWeekId(rs.getString("week"));
         assessment.setAssessmentWeight(rs.getInt("weight"));
         assessment.setCategoryId(rs.getInt("category_id"));
 
@@ -270,6 +274,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
         grade.setAssessmentId(rs.getInt("assessment_id"));
         grade.getAssociateId(rs.getInt("associate_id"));
         grade.setScore(rs.getDouble("score"));
+        grade.setDateSubmitted(rs.getDate("date_submitted"));
 
         return grade;
     }
