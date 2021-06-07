@@ -47,7 +47,7 @@ function addWeek(totalWeeks) {
     document.getElementById("mainbody").innerHTML = `
     <div id="batchLoader" class="d-flex justify-content-center"></div>
     <div id="panels" class="card bg-darker p-3">
-        <h3 class="card-title text-center"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;<strong>${batch.name}</strong></h3>
+        <h3 class="card-title text-center"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;<strong>${batch.trainingTrack} - ${batch.name}</strong></h3>
         <p class="text-muted text-center">All the weeks for this batch. Total is ${batch.totalWeeks} weeks</p>
         ${holder}
     </div>`;
