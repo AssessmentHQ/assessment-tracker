@@ -138,7 +138,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="assessment-type" class="col-form-label h3">Assessment Type:</label>
-                                    <input type="number" pattern="^([0-9]+)$" min=1 placeholder="ex: 1" max=99 class="form-control form-control-lg h-50" id="assessment-type" required />
+                                    <select class="form-control form-control-lg h-50" id="assessment-type" required>
+                                        <option value="" selected="selected">Assessment Types</option>
+                                        <option value="1">QC</option>
+                                        <option value="2">Quiz</option>
+                                        <option value="3">One-on-Ones</option>
+                                        <option value="4">Project</option>
+                                    </select>
                                     <div class="invalid-feedback">
                                         Please select a valid Type.
                                     </div>
