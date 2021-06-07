@@ -196,10 +196,10 @@ function branchData_complete(status, response, response_loc, load_loc) {
             if(myDateArray.indexOf(myDate.getUTCMonth()) == -1){
                 myDateArray.push(myDate.getUTCMonth());
                 //load the response into the response_loc
-                document.getElementById(response_loc).innerHTML += newBatchBtn(batches[index].name, batches[index].id, myDate.getUTCMonth());
+                document.getElementById(response_loc).innerHTML += newBatchBtn(batches[index].trainingTrack+" - "+batches[index].name, batches[index].id, myDate.getUTCMonth());
             } else {
                 //load the response into the response_loc
-                document.getElementById(response_loc).innerHTML += newBatchBtn(batches[index].name, batches[index].id);
+                document.getElementById(response_loc).innerHTML += newBatchBtn(batches[index].trainingTrack+" - "+batches[index].name, batches[index].id);
             }
         }));
         //action if code 201

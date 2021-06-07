@@ -135,23 +135,24 @@
                                     <div class="invalid-feedback">
                                         Please select a valid Week.
                                     </div>
-                                </div><div class="form-group">
+                                </div>
+                                <div class="form-group">
                                     <label for="assessment-type" class="col-form-label h3">Assessment Type:</label>
-                                    <input type="text" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){17}$" minlength="1" placeholder="ex: 1" maxlength=2 class="form-control form-control-lg h-50" id="assessment-type" required />
+                                    <input type="number" pattern="^([0-9]+)$" min=1 placeholder="ex: 1" max=99 class="form-control form-control-lg h-50" id="assessment-type" required />
                                     <div class="invalid-feedback">
                                         Please select a valid Type.
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="assessment-title" class="col-form-label h3">Title:</label>
-                                    <input type="text" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){17}$" minlength="3" placeholder="ex: Python Quiz" maxlength=25 class="form-control form-control-lg h-50" id="assessment-title" required />
+                                    <input type="text" pattern="^([_\-\.0-9a-zA-Z\s]+)$" minlength="3" placeholder="ex: Python Quiz" maxlength=25 class="form-control form-control-lg h-50" id="assessment-title" required />
                                     <div class="invalid-feedback">
                                         Please enter a valid Title.
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <span id="loadAssessResult"><span id="assessLoad"></span></span>
-                                    <button onclick="createAssessment()" type="submit" class="btn btn-info" data-dismiss="modal">Create &nbsp;<i class="fa-solid fa-square-plus" aria-hidden="true"></i></button>
+                                    <button onclick="let form = document.getElementById('createAssessmentForm');if (form.checkValidity() === true) {createAssessment();}" type="submit" class="btn btn-info">Create &nbsp;<i class="fa-solid fa-square-plus" aria-hidden="true"></i></button>
                                     <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
                                 </div>
                             </form>
@@ -164,7 +165,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header text-center">
-                            <h5 class="modal-title h1" id="assessWeightTitle"><strong>Create Assessment</strong></h5>
+                            <h5 class="modal-title h1" id="assessWeightTitle"><strong>Assessment Weight</strong></h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -180,7 +181,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <span id="loadweightResult"></span><span id="WeightLoad"></span>
-                                    <button onclick="updateWeight(batch.currentWeek,batch.currentID, document.getElementById('weightControl').value); console.log(document.getElementById('weightControl').value)" type="submit" class="btn btn-info" data-dismiss="modal">Save &nbsp;<i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                                    <button onclick="let form = document.getElementById('adjustWeightForm');if (form.checkValidity() === true) {updateWeight(batch.currentWeek,batch.currentID, document.getElementById('weightControl').value); console.log(document.getElementById('weightControl').value);}" type="submit" class="btn btn-info" data-dismiss="modal">Save &nbsp;<i class="fa fa-floppy-o" aria-hidden="true"></i></button>
                                     <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
                                 </div>
                             </form>
@@ -214,11 +215,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <span id="loadScoreResult"></span><span id="ScoreLoad"></span>
-                                        <button onclick="
-                                            batch.currentScores = new Object();
-                                            extractObjectFromForm($('#GiveScoreForm'), batch.currentScores);
-                                            UpdateScores()
-                                        " type="submit" class="btn btn-info">Save &nbsp;<i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                                        <button onclick="UpdateScores();" type="submit" class="btn btn-info">Save &nbsp;<i class="fa fa-floppy-o" aria-hidden="true"></i></button>
                                         <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
                                     </div>
                                 </form>
