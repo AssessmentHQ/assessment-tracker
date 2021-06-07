@@ -24,6 +24,7 @@ public class App {
         // EndPoints
         AssessmentController ac = new AssessmentController(as);
         app.get("/assessments", ac.getAssessments);
+        app.get("/grade/:associateId/:assessmentId", ac.getGradeForAssociate);
         app.get("/assessments/:id/", ac.getAssessmentsByTraineeId);
         app.get("/grades/:id/:weekid", ac.getWeekAssessments);
         app.get("/assessments/batch/:id/:weekid", ac.getBatchWeek);

@@ -158,5 +158,15 @@ public class AssessmentController {
             aclogger.info(e);
         }
     };
-
+    public Handler getGradeForAssociate = (context) -> {
+        try{
+            int associateId = Integer.parseInt(context.pathParam("associateId"));
+            int assessmentId = Integer.parseInt(context.pathParam("assessmentId"));
+            Grade grade = as.getGradeForAssociate(associateId, assessmentId);
+            context.contentType("application/json");
+            context.result(gson.toJson(grade));
+        }catch (Exception e){
+            aclogger.info(e);
+        }
+    };
 }
