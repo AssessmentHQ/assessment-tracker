@@ -281,7 +281,6 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     }
 
     public Note buildNote(ResultSet rs) throws SQLException {
-
         return new Note(rs.getInt("id"), rs.getInt("batch_id"), rs.getInt("associate_id"), rs.getString("content"),
                 rs.getString("week"));
     }
