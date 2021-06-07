@@ -19,3 +19,4 @@ class TrainerDAO(ABC):
     @abstractmethod
     def get_years_for_trainer(self, trainer_id):
         pass
+
