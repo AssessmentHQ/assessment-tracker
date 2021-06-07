@@ -68,7 +68,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     @Override
     public List<Assessment> getBatchWeek(int batchId, String weekId) throws SQLException {
         try {
-            String sql = "SELECT * FROM assessments WHERE batch_id = ? AND week_number = ?";
+            String sql = "SELECT * FROM assessments WHERE batch_id = ? AND week = ?";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
             ps.setInt(1, batchId);
             ps.setString(2, weekId);
@@ -88,6 +88,11 @@ public class AssessmentDAOImpl implements AssessmentDAO {
         }
         return null;
 
+    }
+
+    @Override
+    public Grade getGradeForAssociate(int associateId, int assessmentId) throws SQLException {
+        return null;
     }
 
     @Override
@@ -276,11 +281,11 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     }
 
     public static void main(String[] args) {
-        Grade grade = new Grade();
-        grade.setAssessmentId(1);
-        grade.setAssociateId(1);
-        grade.setScore(100);
-        new AssessmentDAOImpl().insertGrade(grade);
+        try {
+            System.out.println(new AssessmentDAOImpl().getBatchWeek(1, "1"));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }
 

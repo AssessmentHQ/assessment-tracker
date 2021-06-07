@@ -29,4 +29,6 @@ public interface AssessmentDAO {
 
     public List<Assessment> getBatchWeek(int batchId, String weekId) throws SQLException;
 
+    public Grade getGradeForAssociate(int associateId, int assessmentId) throws SQLException;
+
 }
