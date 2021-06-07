@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AssessmentDAOImpl implements AssessmentDAO {
@@ -53,7 +54,6 @@ public class AssessmentDAOImpl implements AssessmentDAO {
             while (rs.next()) {
                 assessments.add(buildAssessment(rs));
             }
-
 
 
             return assessments;
@@ -220,16 +220,13 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     @Override
     public Grade insertGrade(Grade grade) {
         try {
-            String sql = "INSERT INTO grades VALUES (DEFAULT,?,?,?,?) RETURNING *";
+            String sql = "INSERT INTO grades VALUES (DEFAULT,?,?,?) RETURNING *";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
             ps.setInt(1, grade.getAssessmentId());
             ps.setInt(3, grade.getAssociateId());
             ps.setDouble(2, grade.getScore());
-            ps.setObject(4, grade.getDateSubmitted().toInstant()
-                                             .atZone(ZoneId.of("US/Eastern")).toLocalDate());
 
             ResultSet rs = ps.executeQuery();
-
             if (rs.next()) {
                 Grade grade1 = buildGrade(rs);
                 return grade1;
@@ -274,8 +271,16 @@ public class AssessmentDAOImpl implements AssessmentDAO {
         grade.setAssessmentId(rs.getInt("assessment_id"));
         grade.getAssociateId(rs.getInt("associate_id"));
         grade.setScore(rs.getDouble("score"));
-        grade.setDateSubmitted(rs.getDate("date_submitted"));
 
         return grade;
     }
+
+    public static void main(String[] args) {
+        Grade grade = new Grade();
+        grade.setAssessmentId(1);
+        grade.setAssociateId(1);
+        grade.setScore(100);
+        new AssessmentDAOImpl().insertGrade(grade);
+    }
 }
+

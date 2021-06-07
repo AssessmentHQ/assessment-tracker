@@ -16,16 +16,14 @@ public class Grade {
         assessmentId = 0;
         associateId = 0;
         score = 0;
-        dateSubmitted = new Date();
     }
 
-    public Grade(int gradeId, int assessmentId, int associateId, double score, Date date) {
+    public Grade(int gradeId, int assessmentId, int associateId, double score) {
         super();
         this.gradeId = gradeId;
         this.assessmentId = assessmentId;
         this.associateId = associateId;
         this.score = score;
-        this.dateSubmitted = date;
     }
 
     public int getGradeId() {
@@ -70,11 +68,4 @@ public class Grade {
         this.associateId = associateId;
     }
 
-    public Date getDateSubmitted() {
-        return dateSubmitted;
-    }
-
-    public void setDateSubmitted(Date dateSubmitted) {
-        this.dateSubmitted = dateSubmitted;
-    }
 }

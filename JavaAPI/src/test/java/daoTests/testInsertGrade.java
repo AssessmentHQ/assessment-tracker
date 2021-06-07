@@ -54,7 +54,7 @@ public class testInsertGrade {
         // Initialize the class to be tested
         adao = new AssessmentDAOImpl();
 
-        sampleGrade = new Grade(2, 3, 4, 80, new Date());
+        sampleGrade = new Grade(2, 3, 4, 80);
     }
 
     @Test
