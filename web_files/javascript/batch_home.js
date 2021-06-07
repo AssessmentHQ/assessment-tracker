@@ -436,7 +436,7 @@ function getScore(assessmentId,associateId,response_loc,load_loc) {
     //set the caller_complete to the function that is supposed to receive the response
     let response_func = getScore_complete;
     //endpoint: rest api endpoint
-    let endpoint =  `grade/${assessmentId}/${associateId}`;
+    let endpoint =  `grade/${associateId}/${assessmentId}`;
     //set the url by adding (base_url/java_base_url) + endpoint
     //options:
     //base_url(python)
