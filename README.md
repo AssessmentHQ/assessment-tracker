@@ -2,7 +2,7 @@
 
 ## Project Description
 
-The Assessment Tracker is an application designed to help track an individual's progress through a batch training. A user can see all the batches organized by year, view a particular week for a batch, create new assessments, update grades for associates for each assessment, and leave notes for associates as needed. In addition, the application calculates the average grade for each assessment, as well as the average grade per week according to weights assigned to each assessment.
+The Assessment Tracker is an application designed to help track an individual's progress through a batch training. A user can see all the batches organized by year, view a particular week for a batch, create new assessments, and organize assessments into types. Each assessment is assigned a weight to contribute to the final grade, and associates that complete a given assignment are given a grade in the application.
 
 ## Technologies Used
 
@@ -26,6 +26,8 @@ The Assessment Tracker is an application designed to help track an individual's 
 * Selenium - version 3.141.0 
 * PostgreSQL - version 12.5
 * Relational Database System on Amazon Web Service
+* Apache Tomcat - version 9.0.20
+* Jenkins - version 2.289.1
 
 ## Features
 
@@ -43,9 +45,9 @@ To be included in the future:
 
 ## Getting Started
 
-See STARTUP.md for more details on starting up the application.
+Link to clone the repository: https://github.com/AssessmentHQ/assessment-tracker.git.
 
-## Usage
+To run on a local device, make sure that you have cloned the repository to the desired location on your device. Then, make sure to install all dependencies using the requirements.txt file and run app.py and App.java. While these are runnning, the HTML website can connect to the APIs and function as intended. See [STARTUP.md](https://github.com/AssessmentHQ/assessment-tracker/blob/main/STARTUP.md) for more details on starting up the application on either a local device or on a cloud server.
 
 ## Contributers
 
@@ -64,5 +66,5 @@ Serigne Samb
 
 ## License
 
-This project uses the following license: Unlicense. [<unlicense>](<https://unlicense.org>).
+This project uses the following license: [Unlicense](<https://unlicense.org>).
 
