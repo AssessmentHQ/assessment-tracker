@@ -7,21 +7,6 @@ from models.trainer import Trainer
 from utils.db_connection import DbConn
 
 
-class TrainerDAOImpl():
-
-    def login(self, email):
-        sql = "Select * from trainers where email = %s"
-
-        records = DbConn.make_connect(sql, [email])
-
-        # this should only return 1
-        try:
-            record = records[0]
-        except IndexError:
-            return "No record was found"
-        return Trainer(id=record[0], email=record[1], first_name=record[2], last_name=record[3])
-        
-
 class TrainerDAOImpl(TrainerDAO):
 
     def get_trainer_by_id(self, trainer_id):
@@ -54,11 +39,6 @@ class TrainerDAOImpl(TrainerDAO):
             record = records[0]
             return Trainer(id=record[0], first_name=record[2], last_name=record[3], email=record[1])
         else:
-            f"Trainer with {trainer_id} and {batch_id} Not Found "
-            return f"Login Failed"
-
-
-
             raise ResourceNotFound("No trainer exists with those credentials")
 
     def get_years_for_trainer(self, trainer_id):

@@ -1,10 +1,14 @@
 package models;
 
+
+import java.util.Date;
+
 public class Grade {
     private int gradeId;
     private int assessmentId;
     private int associateId;
     private double score;
+    private Date dateSubmitted;
 
     public Grade() {
         super();
@@ -58,6 +62,10 @@ public class Grade {
     public String toString() {
         return "Grade [assessmentId=" + assessmentId + ", gradeId=" + gradeId + ", score=" + score + ", traineeId="
                 + associateId + "]";
+    }
+
+    public void setAssociateId(int associateId) {
+        this.associateId = associateId;
     }
 
 }

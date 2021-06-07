@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class Decodable(ABC):
+class Codable(ABC):
 
     @staticmethod
     @abstractmethod
