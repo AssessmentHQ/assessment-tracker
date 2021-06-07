@@ -76,15 +76,22 @@ function newWeek(week) {
         <div id="week_${week}" class="col col-12 p-0">
             <div class="card bg-darker">
                 <div class="card-body rounded">
-                    <h3 class="card-title"><strong>Week ${week}</strong></h3>
                     <div id="batchLoader${week}" class="d-flex justify-content-center"></div>
-                    <ul class="d-inline-block card-text overflow-auto assess-panel col col-3" id="week${week}Assessments">
-                        -No Assessments Yet-
-                    </ul>
-                    <ul id="${week}" class="d-inline-block card-text overflow-auto assess-panel col col-3 allAssociates">
-                        -No Associates-
-                    </ul>
-                    <button onclick="document.getElementById('assessment-week').innerHTML = ${week}" id="addAssessmentBtn" class="btn btn-secondary border-0 d-block" data-toggle="modal" data-target="#createAssessmentModal"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Assessment</button>
+                    <div class="d-flex flex-wrap justify-content-around">
+                        <div class="d-flex-inline-block flex-fill">
+                            <h3 class="card-title"><strong>Week ${week}</strong></h3>
+                            <ul class=" card-text overflow-auto assess-panel" id="week${week}Assessments">
+                                -No Assessments Yet-
+                            </ul>
+                            <button onclick="document.getElementById('assessment-week').innerHTML = ${week}" id="addAssessmentBtn" class="btn btn-secondary border-0 d-block" data-toggle="modal" data-target="#createAssessmentModal"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Assessment</button>
+                        </div>
+                        <div class="d-flex-inline-block flex-fill bg-darkest rounded p-3">
+                            <h3>Associates</h3>
+                            <ul id="${week}" class="d-inline-block card-text overflow-auto assess-panel allAssociates col col-12">
+                                -No Associates-
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -369,7 +376,7 @@ function UpdateScores(grade,assessmentID,response_loc,load_loc) {
     //set the caller_complete to the function that is supposed to receive the response
     let response_func = UpdateScores_complete;
     //endpoint: rest api endpoint
-    let endpoint =  `grade/`
+    let endpoint =  `grades/`
     //set the url by adding (base_url/java_base_url) + endpoint
     //options:
     //base_url(python)
@@ -378,7 +385,7 @@ function UpdateScores(grade,assessmentID,response_loc,load_loc) {
     //request_type: type of request
     //options:
     //"GET", "POST", "OPTIONS", "PATCH", "PULL", "PUT", "HEAD", "DELETE", "CONNECT", "TRACE"
-    let request_type = "POST";
+    let request_type = "PUT";
     //location you want the response to load
     //let response_loc = "";
     //optional:location you want the load animation to be generated while awaiting the response
@@ -406,8 +413,10 @@ function UpdateScores_complete(status, response, response_loc, load_loc) {
 
     //action if code 200
     if (status == 200) {
-        console.log(response);
-        document.getElementById(response_loc).innerHTML = `<p class="text-success">${response}</p>`;
+        console.log(JSON.parse(response));
+        if(response) {
+            document.getElementById(response_loc).innerHTML = `<p class="text-success">Your grade was saved!</p>`;
+        }
 
         //action if code 201
     } else if (status == 201) {
@@ -427,7 +436,7 @@ function getScore(assessmentId,associateId,response_loc,load_loc) {
     //set the caller_complete to the function that is supposed to receive the response
     let response_func = getScore_complete;
     //endpoint: rest api endpoint
-    let endpoint =  `grades/${assessmentId}/${associateId}`
+    let endpoint =  `grade/${assessmentId}/${associateId}`;
     //set the url by adding (base_url/java_base_url) + endpoint
     //options:
     //base_url(python)
@@ -460,7 +469,6 @@ function getScore_complete(status, response, response_loc, load_loc) {
 
     //action if code 200
     if (status == 200) {
-        console.log(response);
         document.getElementById(response_loc).value = response;
 
         //action if code 201
@@ -474,6 +482,7 @@ function getScore_complete(status, response, response_loc, load_loc) {
         //load the response into the response_loc
         document.getElementById(load_loc).innerHTML = `<p class="text-danger">${response}</p>`;
     }
+    console.log(response);
 }
 function printAssociates(arrayData) {
     let display = "";
@@ -508,17 +517,18 @@ function printWeekAssess(weekID) {
             </div>
             <div class="modal-footer">
                 <span id="loadScoreResult${item.assessmentId}"></span><span id="ScoreLoad${item.assessmentId}"></span>
-                <button onclick="
+                <button onclick="let form = document.getElementById('GiveScoreForm${item.assessmentId}');
+                if (form.checkValidity() === true) {
                     batch.currentScores = new Object();
-                    extractObjectFromForm($('#GiveScoreForm${item.assessmentId}'), batch.currentScores);
-                    UpdateScores(document.getElementById(score${item.assessmentId}).value,${item.assessmentId},'loadScoreResult${item.assessmentId}','ScoreLoad${item.assessmentId}');
-                " type="submit" class="btn btn-info">Save &nbsp;<i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                    UpdateScores(document.getElementById('score${item.assessmentId}').value,${item.assessmentId},'loadScoreResult${item.assessmentId}','ScoreLoad${item.assessmentId}');
+                }" type="submit" class="btn btn-info">Save &nbsp;<i class="fa fa-floppy-o" aria-hidden="true"></i></button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
             </div>
         </form>`;
     });
     if(display) {
         document.getElementById("scoreForms").innerHTML = display;
+        newGenForms();
     } else {
         document.getElementById("scoreForms").innerHTML = "<p>No Assessments have been assigned to this week!</p>";
     }

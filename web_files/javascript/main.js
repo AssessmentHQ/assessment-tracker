@@ -437,4 +437,24 @@ function loadinfoByClass(theClass, dataToLoad) {
         element.innerHTML = dataToLoad;
     });
 }
+//same as the onload except need to re-attach add-listeners
+function newGenForms() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+            event.stopPropagation();
+            event.preventDefault();
+            if (form.checkValidity() === false) {
+                //at least one element does not have a valid value
+                console.log("Form not valid");
+            } else {
+                //all elements are valid
+                console.log("Form is valid");
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
+}
 // Chapter 6. Misc Named Functions ------------------------
