@@ -35,12 +35,12 @@ insert into assessments (category_id, type_id, title, weight, batch_id, week_num
 insert into assessments (category_id, type_id, title, weight, batch_id, week_number) values (5, 4, 'Project 0', 75, 1, 3);
 
 /*default data for grades*/
-insert into grades (assessment_id, score, associate_id) values (1, 99, 1);
-insert into grades (assessment_id, score, associate_id) values (2, 1, 1);
-insert into grades (assessment_id, score, associate_id) values (3, 11, 1);
-insert into grades (assessment_id, score, associate_id) values (4, 24, 1);
-insert into grades (assessment_id, score, associate_id) values (1, 100, 2);
-insert into grades (assessment_id, score, associate_id) values (2, 100, 2);
-insert into grades (assessment_id, score, associate_id) values (3, 100, 2);
-insert into grades (assessment_id, score, associate_id) values (4, 100, 2);
-insert into grades (assessment_id, score, associate_id) values (1, 100, 3);
+insert into grades (assessment_id, score, associate_id) values (1, 99, 1, '2020-9-20');
+insert into grades (assessment_id, score, associate_id) values (2, 1, 1, '2020-9-20');
+insert into grades (assessment_id, score, associate_id) values (3, 11, 1, '2020-9-20');
+insert into grades (assessment_id, score, associate_id) values (4, 24, 1), '2020-9-20';
+insert into grades (assessment_id, score, associate_id) values (1, 100, 2, '2020-9-20');
+insert into grades (assessment_id, score, associate_id) values (2, 100, 2), '2020-9-20';
+insert into grades (assessment_id, score, associate_id) values (3, 100, 2, '2020-9-20');
+insert into grades (assessment_id, score, associate_id) values (4, 100, 2, '2020-9-20');
+insert into grades (assessment_id, score, associate_id) values (1, 100, 3, '2020-9-20');
