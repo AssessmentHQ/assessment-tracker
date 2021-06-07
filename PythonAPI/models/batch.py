@@ -2,10 +2,10 @@ import unittest
 from datetime import datetime, date
 from math import floor
 
-from models.decodable import Decodable
+from models.codable import Codable
 
 
-class Batch(Decodable):
+class Batch(Codable):
 
     def __init__(self,
                  name,

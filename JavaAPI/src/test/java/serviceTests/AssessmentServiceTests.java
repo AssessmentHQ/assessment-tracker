@@ -84,20 +84,20 @@ public class AssessmentServiceTests {
 
     @Test
     public void testGetWeekAssessmentsNotEmpty() throws Exception {
-        List<Assessment> assessments = new ArrayList<>();
-        assessments.add(new Assessment());
-        Mockito.when(adao.getWeekAssessments(1, "something")).thenReturn(assessments);
-        List<Assessment> newAssessments =assessmentService.getWeekAssessments(1, "something");
-        Assert.assertFalse(newAssessments.isEmpty());
+        List<Grade> grades = new ArrayList<>();
+        grades.add(new Grade());
+        Mockito.when(adao.getWeekAssessments(1, "something")).thenReturn(grades);
+        List<Grade> newGrades =assessmentService.getWeekAssessments(1, "something");
+        Assert.assertFalse(newGrades.isEmpty());
 
     }
 
     @Test
     public void testGetWeekAssessmentsEmpty() throws Exception {
-        List<Assessment> assessments = new ArrayList<>();
-        Mockito.when(adao.getWeekAssessments(1, "something")).thenReturn(assessments);
-        List<Assessment> newAssessments =assessmentService.getWeekAssessments(1, "something");
-        Assert.assertTrue(newAssessments.isEmpty());
+        List<Grade> grades = new ArrayList<>();
+        Mockito.when(adao.getWeekAssessments(1, "something")).thenReturn(grades);
+        List<Grade> newGrades =assessmentService.getWeekAssessments(1, "something");
+        Assert.assertTrue(newGrades.isEmpty());
 
     }
 
