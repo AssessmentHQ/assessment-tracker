@@ -45,12 +45,13 @@ let mainHeader = `
     <a class="navbar-brand order-md-1 order-xs-1" href="home.html"><img src="images/rev-logo.png" alt="Revature Logo"></a>
     <a id="loginBtn" data-toggle="modal" data-target="#loginModal" data-preLoad="Some content to pre-load" class="nav-link text-dark bg-info d-flex order-md-3 order-xs-2 align-items-center mr-3">Login &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i></a>
     <div class="collapse navbar-collapse order-md-2 order-xs-3 col-xs-12 bg-dark py-3" id="navbarToggle">
-        <form class="mr-5 col-md-9 col-sm-12">
+        <form class="mr-5 col-md-9 col-sm-12" autocomplete="off">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <label for="search" id="searchLabel" class="input-group-text bg-darkest border-none text-light"><i class="fa fa-search" aria-hidden="true"></i></label>
                 </div>
-                <input id="search" class="form-control bg-darkest border-none col-12" type="search" placeholder="Search" aria-label="Search" aria-describedby="Search a batch" />
+                <input oninput="document.getElementById('searchSuggestion').classList.remove('d-none');searchBatches(this.value);" id="search" class="form-control bg-darkest border-none col col-12" type="search" placeholder="Search" aria-label="Search" aria-describedby="Search a batch" />
+                <div class="bg-darkest rounded col col-12 p-3 d-none" id="searchSuggestion"></div>
             </div>
         </form>
     </div>
@@ -182,6 +183,61 @@ function logMeIN_complete(status, response, response_loc, load_loc) {
         $('#loginModal').modal('hide');
         pageDataToLoad();
 
+        //action if code 201
+    } else if(status == 201) {
+        document.getElementById(response_loc).innerHTML = JSON.parse(response);
+        //action if code 400
+    } else if(status == 400) {
+        //load the response into the response_loc
+        document.getElementById(response_loc).innerHTML = response;
+    }
+}
+// Search Function
+// load related batches of all batches
+function searchBatches(searchVal) {
+    //set the caller_complete to the function that is supposed to receive the response
+    //naming convention: [this function name]_complete
+    let response_func = searchBatches_complete;
+    //endpoint: rest api endpoint
+    let endpoint = `batches/search/${loginData.id}/${searchVal}`;
+    //set the url by adding (base_url/java_base_url) + endpoint
+    //options:
+    //base_url(python)
+    //java_base_url(java)
+    let url = base_url + endpoint;
+    //request_type: type of request
+    //options:
+    //"GET", "POST", "OPTIONS", "PATCH", "PULL", "HEAD", "DELETE", "CONNECT", "TRACE"
+    let request_type = "GET";
+    //location you want the response to load
+    let response_loc = "searchSuggestion";
+    //optional:location you want the load animation to be generated while awaiting the response
+    //can be set for any location but will most often be set to response_loc
+    //can be left blank if not needed
+    let load_loc = response_loc;
+    //optional:json data to send to the server
+    //can be left blank if not needed
+    let jsonData = "";
+    console.log("loginData.id");
+    console.log(loginData.id);
+    if(searchVal && loginData.id != undefined) {
+        ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData);
+    }
+}
+//ajax on-complete function: receives the response from an ajax request
+function searchBatches_complete(status, response, response_loc, load_loc) {
+    //do some logic with the ajax data that was returned
+    //do this if you are expecting a json object - JSON.parse(response)
+
+    //The var "load_loc" is set in case the response message is different from the action to be loaded into the named location
+    //example:
+    //-- you want a message to say "ajax done!" in a popup while the data is compiled and loaded somewhere else
+
+    //action if code 200
+    if(status == 200) {
+        let parsedResponse = JSON.parse(response);
+        console.log(parsedResponse);
+        document.getElementById(response_loc).innerHTML = styleSearch(parsedResponse, document.getElementById("search").value);
         //action if code 201
     } else if(status == 201) {
         document.getElementById(response_loc).innerHTML = JSON.parse(response);
@@ -454,5 +510,26 @@ function newGenForms() {
             form.classList.add('was-validated');
         }, false);
     });
+}
+// function to style the search results
+function styleSearch(searchJson, searchTxt) {
+    let display = "";
+    $.each(searchJson,((index, item) => {
+        display += `<div class="d-block m-1 bg-lighter rounded"><a class="d-block text-white p-1 bg-lighter rounded" href="batch_home.html?batchID=${item.id}"><strong class="text-primary">${item.trainingTrack.substr(0, searchTxt.length)}</strong>${item.trainingTrack.substr(searchTxt.length)}</a></div>`;
+    }));
+    return display;
+}
+/*execute a function when someone clicks in the document:*/
+//this is to close the autocomplete search if you click off
+document.addEventListener("click", function (e) {
+    closeAllLists(e.target);
+});
+//check to see if you clicked off search results then makes it go away
+function closeAllLists(clickOn) {
+    if (clickOn != document.getElementById('searchSuggestion') && clickOn != document.getElementById('search')) {
+        if(!document.getElementById('searchSuggestion').classList.contains("d-none")) {
+            document.getElementById('searchSuggestion').classList.add('d-none');
+        }
+    }
 }
 // Chapter 6. Misc Named Functions ------------------------
