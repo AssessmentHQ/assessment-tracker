@@ -29,7 +29,7 @@ public class App {
         app.get("/assessments/batch/:id/:weekid", ac.getBatchWeek);
         app.get("/notes/:id/:weekid/", ac.getNotesForTrainee);
         app.post("/assessments", ac.createAssessment);
-        app.post("/grades/", ac.insertGrade);
+        app.put("/grades/", ac.insertGrade);
         app.put("/assessments/weight/:assessmentId/:weight", ac.adjustWeight);
         app.post("/types", ac.createAssessmentType);
         app.put("/assessments/type/:assessmentId/:typeId",ac.assignAssessmentType);
