@@ -499,32 +499,34 @@ function printWeekAssess(weekID) {
     let display = "";
     document.getElementById("scoreForms").innerHTML = display;
     $.each(batch["week"+weekID],(index,item) => {
-        batch.loadScores[`score${item.assessmentId}`] = new Object();
-        batch.loadScores[`score${item.assessmentId}`].assessmentId = item.assessmentId;
-        batch.loadScores[`score${item.assessmentId}`].associateId = item.assessmentId;
-        batch.loadScores[`score${item.assessmentId}`].response_loc = `score${item.assessmentId}`;
-        batch.loadScores[`score${item.assessmentId}`].load_loc = `loadScoreResult${item.assessmentId}`;
-        display += `
-        <form id="GiveScoreForm${item.assessmentId}" class="needs-validation" novalidate autocomplete="off">
-            <div id="scoreFormElem${item.assessmentId}">
-                <div class="form-group">
-                    <label for="score${item.assessmentId}">${item.assessmentTitle}</label>
-                    <input placeholder="Please type a score out of 100%" type="number" step="0.01" min="0.01" max="100" class="form-control-range" id="score${item.assessmentId}" name="score${item.assessmentId}" required>
-                    <div class="invalid-feedback">
-                        Please type a valid Score percentage out of 100%.
+        if(weekID == item.weekId){
+            batch.loadScores[`score${item.assessmentId}`] = new Object();
+            batch.loadScores[`score${item.assessmentId}`].assessmentId = item.assessmentId;
+            batch.loadScores[`score${item.assessmentId}`].associateId = item.assessmentId;
+            batch.loadScores[`score${item.assessmentId}`].response_loc = `score${item.assessmentId}`;
+            batch.loadScores[`score${item.assessmentId}`].load_loc = `loadScoreResult${item.assessmentId}`;
+            display += `
+            <form id="GiveScoreForm${item.assessmentId}" class="needs-validation" novalidate autocomplete="off">
+                <div id="scoreFormElem${item.assessmentId}">
+                    <div class="form-group">
+                        <label for="score${item.assessmentId}">${item.assessmentTitle}</label>
+                        <input placeholder="Please type a score out of 100%" type="number" step="0.01" min="0.01" max="100" class="form-control-range" id="score${item.assessmentId}" name="score${item.assessmentId}" required>
+                        <div class="invalid-feedback">
+                            Please type a valid Score percentage out of 100%.
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <span id="loadScoreResult${item.assessmentId}"></span><span id="ScoreLoad${item.assessmentId}"></span>
-                <button onclick="let form = document.getElementById('GiveScoreForm${item.assessmentId}');
-                if (form.checkValidity() === true) {
-                    batch.currentScores = new Object();
-                    UpdateScores(document.getElementById('score${item.assessmentId}').value,${item.assessmentId},'loadScoreResult${item.assessmentId}','ScoreLoad${item.assessmentId}');
-                }" type="submit" class="btn btn-info">Save &nbsp;<i class="fa fa-floppy-o" aria-hidden="true"></i></button>
-                <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
-            </div>
-        </form>`;
+                <div class="modal-footer">
+                    <span id="loadScoreResult${item.assessmentId}"></span><span id="ScoreLoad${item.assessmentId}"></span>
+                    <button onclick="let form = document.getElementById('GiveScoreForm${item.assessmentId}');
+                    if (form.checkValidity() === true) {
+                        batch.currentScores = new Object();
+                        UpdateScores(document.getElementById('score${item.assessmentId}').value,${item.assessmentId},'loadScoreResult${item.assessmentId}','ScoreLoad${item.assessmentId}');
+                    }" type="submit" class="btn btn-info">Save &nbsp;<i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
+                </div>
+            </form>`;
+        }
     });
     if(display) {
         document.getElementById("scoreForms").innerHTML = display;
