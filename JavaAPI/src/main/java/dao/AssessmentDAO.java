@@ -31,4 +31,6 @@ public interface AssessmentDAO {
 
     public Grade getGradeForAssociate(int associateId, int assessmentId) throws SQLException;
 
+    public Grade updateGrade(Grade grade) throws SQLException;
+
 }

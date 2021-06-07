@@ -92,13 +92,51 @@ public class AssessmentDAOImpl implements AssessmentDAO {
 
     @Override
     public Grade getGradeForAssociate(int associateId, int assessmentId) throws SQLException {
+        try {
+            String sql = "SELECT g.id, g.assessment_id, g.score, g.associate_id FROM grades as g JOIN assessments a " +
+                    "ON g.assessment_id = a.id WHERE" +
+                    " associate_id = ? AND assessment_id = ?";
+            PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
+            ps.setInt(1, associateId);
+            ps.setInt(2, assessmentId);
+
+            ResultSet rs = ps.executeQuery();
+
+
+            if (rs.next()) {
+                return buildGrade(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Grade updateGrade(Grade grade) throws SQLException {
+        try {
+            String sql = "UPDATE grades SET score=? WHERE assessment_id=? and associate_id=? RETURNING *";
+
+            PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
+            ps.setDouble(1, grade.getScore());
+            ps.setInt(2, grade.getAssessmentId());
+            ps.setInt(3, grade.getAssociateId());
+
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return buildGrade(rs);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public List<Grade> getWeekAssessments(int traineeId, String weekId) throws SQLException {
         try {
-            String sql = "SELECT g.id, g.assessment_id, g.score, g.associate_id, g.date_submitted FROM grades as g JOIN assessments a " +
+            String sql = "SELECT g.id, g.assessment_id, g.score, g.associate_id FROM grades as g JOIN assessments a " +
                     "ON g.assessment_id = a.id WHERE" +
                     " associate_id = ? AND week = ?";
             PreparedStatement ps = dbconnection.getConnection().prepareStatement(sql);
@@ -282,7 +320,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
 
     public static void main(String[] args) {
         try {
-            System.out.println(new AssessmentDAOImpl().getBatchWeek(1, "1"));
+            System.out.println(new AssessmentDAOImpl().getGradeForAssociate(1, 1));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
