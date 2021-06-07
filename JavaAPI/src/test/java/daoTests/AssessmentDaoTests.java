@@ -59,7 +59,7 @@ public class AssessmentDaoTests {
         Mockito.when(mockRs.getString("title")).thenReturn("Title");
         Mockito.when(mockRs.getInt("type_id")).thenReturn(1);
         Mockito.when(mockRs.getInt("batch_id")).thenReturn(1);
-        Mockito.when(mockRs.getString("week_number")).thenReturn("weekNumber");
+        Mockito.when(mockRs.getString("week")).thenReturn("weekNumber");
         Mockito.when(mockRs.getInt("weight")).thenReturn(1);
         Mockito.when(mockRs.getInt("category_id")).thenReturn(1);
 
@@ -72,9 +72,20 @@ public class AssessmentDaoTests {
         Mockito.when(mockRs.getString("title")).thenReturn("Title");
         Mockito.when(mockRs.getInt("type_id")).thenReturn(1);
         Mockito.when(mockRs.getInt("batch_id")).thenReturn(1);
-        Mockito.when(mockRs.getString("week_number")).thenReturn("weekNumber");
+        Mockito.when(mockRs.getString("week")).thenReturn("weekNumber");
         Mockito.when(mockRs.getInt("weight")).thenReturn(1);
         Mockito.when(mockRs.getInt("category_id")).thenReturn(1);
+
+    }
+
+    private void createGradeRs() throws SQLException {
+
+        Mockito.when(mockRs.next()).thenReturn(true).thenReturn(false);
+        Mockito.when(mockRs.getInt("id")).thenReturn(3);
+        Mockito.when(mockRs.getInt("assessment_id")).thenReturn(3);
+        Mockito.when(mockRs.getInt("associate_id")).thenReturn(3);
+        Mockito.when(mockRs.getDouble("score")).thenReturn(50.0);
+
 
     }
 
@@ -113,8 +124,8 @@ public class AssessmentDaoTests {
     @Test
     public void testGetWeekAssessments() throws Exception {
         createAssessmentRs();
-        Mockito.when(mockRs.getInt("id")).thenReturn(2);
-        Mockito.when(mockRs.getString("week_number")).thenReturn("weekNumber");
+        Mockito.when(mockRs.getInt("associate_id")).thenReturn(2);
+        Mockito.when(mockRs.getString("week")).thenReturn("weekNumber");
         try (MockedStatic<dbconnection> mockedStatic = Mockito.mockStatic(dbconnection.class)) {
             mockedStatic.when(dbconnection::getConnection).thenReturn(mockConn);
             List<Grade> newGrades = assessmentDAOImpl.getWeekAssessments(2,"weekNumber");
@@ -129,7 +140,7 @@ public class AssessmentDaoTests {
     @Test
     public void testGetBatchWeek() throws Exception {
         createAssessmentRs();
-        Mockito.when(mockRs.getString("week_number")).thenReturn("weekNumber");
+        Mockito.when(mockRs.getString("week")).thenReturn("weekNumber");
         try (MockedStatic<dbconnection> mockedStatic = Mockito.mockStatic(dbconnection.class)) {
             mockedStatic.when(dbconnection::getConnection).thenReturn(mockConn);
             List<Assessment> newAssessments = assessmentDAOImpl.getBatchWeek(2,"weekNumber");
@@ -161,7 +172,7 @@ public class AssessmentDaoTests {
             Assert.assertEquals(newAssessment.getAssessmentId(), Assessment.getAssessmentId());
             Assert.assertEquals(newAssessment.getAssessmentTitle(), Assessment.getAssessmentTitle());
             Assert.assertEquals(newAssessment.getAssessmentWeight(), Assessment.getAssessmentWeight());
-           // Assert.assertEquals(newAssessment.getWeekId(), Assessment.getWeekId());
+            Assert.assertEquals(newAssessment.getWeekId(), Assessment.getWeekId());
             Assert.assertEquals(newAssessment.getCategoryId(), Assessment.getCategoryId());
         } catch (Exception e) {
             System.out.println("error");
@@ -199,7 +210,7 @@ public class AssessmentDaoTests {
     @Test
     public void testCreateAssessmentType() throws Exception {
         createAssessmentRs();
-        Mockito.when(mockRs.getString("week_number")).thenReturn("weekNumber");
+        Mockito.when(mockRs.getString("week")).thenReturn("weekNumber");
         try (MockedStatic<dbconnection> mockedStatic = Mockito.mockStatic(dbconnection.class)) {
             mockedStatic.when(dbconnection::getConnection).thenReturn(mockConn);
             List<Assessment> newAssessments = assessmentDAOImpl.getBatchWeek(2,"weekNumber");
@@ -209,6 +220,11 @@ public class AssessmentDaoTests {
         }
 
     }
+
+    //----------------------------------------------------------------------
+
+
+
 
     //----------------------------------------------------------------------
 
@@ -223,6 +239,28 @@ public class AssessmentDaoTests {
             System.out.println("error");
         }
     }
+
+    //----------------------------------------------------------------------
+    @Test
+    public void testInsertGrade() throws Exception {
+        createGradeRs();
+        Grade grade=new Grade();
+        grade.setGradeId(3);
+        grade.setAssessmentId(3);
+        grade.setAssociateId(3);
+        grade.setScore(50.0);
+        try (MockedStatic<dbconnection> mockedStatic = Mockito.mockStatic(dbconnection.class)) {
+            mockedStatic.when(dbconnection::getConnection).thenReturn(mockConn);
+            Grade newGrade = assessmentDAOImpl.insertGrade(grade);
+            Assert.assertSame(newGrade.getGradeId(), grade.getGradeId());
+            Assert.assertSame(newGrade.getAssessmentId(), grade.getAssessmentId());
+            Assert.assertSame(newGrade.getAssociateId(), grade.getAssociateId());
+            Assert.assertTrue(newGrade.getScore()== grade.getScore());
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+    }
+
 
     //----------------------------------------------------------------------
 
