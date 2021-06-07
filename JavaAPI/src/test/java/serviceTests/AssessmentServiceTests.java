@@ -182,7 +182,7 @@ public class AssessmentServiceTests {
     //----------------------------------------------------------------------
 
     @Test
-    public void testInsertGrade()  {
+    public void testInsertGrade() throws SQLException {
         Grade grade =new Grade();
         Mockito.when(adao.insertGrade(grade)).thenReturn(grade);
         Grade newGrade =assessmentService.insertGrade(grade);

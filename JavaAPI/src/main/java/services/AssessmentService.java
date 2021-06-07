@@ -49,8 +49,11 @@ public class AssessmentService {
         return assessmentDAO.assignAssessmentType(assessmentId, typeId);
     }
 
-    public Grade insertGrade(Grade grade) {
-        return assessmentDAO.insertGrade(grade);
+    public Grade insertGrade(Grade grade) throws SQLException {
+        if(assessmentDAO.getGradeForAssociate(grade.getAssociateId(), grade.getAssessmentId()) == null){
+            return assessmentDAO.insertGrade(grade);
+        }
+        else{return assessmentDAO.updateGrade(grade);}
     }
 
 

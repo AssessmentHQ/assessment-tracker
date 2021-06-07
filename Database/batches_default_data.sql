@@ -62,6 +62,10 @@ insert into trainer_batches (trainer_id, batch_id, start_date, end_date, "role")
 insert into trainer_batches (trainer_id, batch_id, start_date, end_date, "role") values (4, 2, '2021-5-27', null, 'Co-Lead');
 
 /*Adding more trainers to batches to try pulling multiple records*/
+insert into trainer_batches (trainer_id, batch_id, start_date, end_date, "role") values (4, 3, '2021-2-20', null, 'Lead');
+insert into trainer_batches (trainer_id, batch_id, start_date, end_date, "role") values (4, 4, '2021-2-20', null, 'Lead');
+insert into trainer_batches (trainer_id, batch_id, start_date, end_date, "role") values (4, 5, '2021-2-20', null, 'Lead');
+insert into trainer_batches (trainer_id, batch_id, start_date, end_date, "role") values (4, 6, '2021-3-20', null, 'Lead');
 insert into trainer_batches (trainer_id, batch_id, start_date, end_date, "role") values (1, 3, '2020-02-20', '2020-4-24', 'Lead');
 insert into trainer_batches (trainer_id, batch_id, start_date, end_date, "role") values (1, 4, '2020-02-20', '2020-4-13', 'Lead');
 insert into trainer_batches (trainer_id, batch_id, start_date, end_date, "role") values (1, 5, '2020-02-20', '2020-4-19', 'Lead');
