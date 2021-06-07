@@ -1,7 +1,7 @@
-from models.decodable import Decodable
+from models.codable import Codable
 
 
-class Trainer(Decodable):
+class Trainer(Codable):
 
     def  __init__(self, first_name, last_name, email, role="", id=-1):
         self.id = id

@@ -56,16 +56,17 @@ function addWeek(totalWeeks) {
         getAssessments(i);
     }
 }
-
+//creates a new assessment link for
 function displayAssessments(assessments){
     let display = "";
-    let tempObj = new Object();
+    let tempObj = assesssments;
     Array.prototype.forEach.call(assessments, (assessment)=>{
         assesssments["assessment"+assessment.assessmentId] = assessment;
         tempObj["assessment"+assessment.assessmentId] = assesssments["assessment"+assessment.assessmentId];
         batch["week"+assessment.weekId] = tempObj;
         display += `<li class="m-2" id="assessment${assessment.assessmentId}"><a onclick="batch.currentWeek = ${assessment.weekId};batch.currentID = ${assessment.assessmentId};document.getElementById('assessWeightTitle').innerHTML = '${assessment.assessmentTitle} Weight';document.getElementById('weightControl').value = batch.week${assessment.weekId}.assessment${assessment.assessmentId}.assessmentWeight;document.getElementById('weightValue').innerHTML = batch.week${assessment.weekId}.assessment${assessment.assessmentId}.assessmentWeight;" id="assessment_${assessment.assessmentId}" data-toggle="modal" href="#adjustWeightModal">${assessment.assessmentTitle}</a></li>`;
     });
+    console.log(batch);
     return display
 }
 // holds the styling for the batches
@@ -80,7 +81,7 @@ function newWeek(week) {
                     <ul class="d-inline-block card-text overflow-auto assess-panel col col-3" id="week${week}Assessments">
                         -No Assessments Yet-
                     </ul>
-                    <ul class="d-inline-block card-text overflow-auto assess-panel col col-3 allAssociates">
+                    <ul id="${week}" class="d-inline-block card-text overflow-auto assess-panel col col-3 allAssociates">
                         -No Associates-
                     </ul>
                     <button onclick="document.getElementById('assessment-week').innerHTML = ${week}" id="addAssessmentBtn" class="btn btn-secondary border-0 d-block" data-toggle="modal" data-target="#createAssessmentModal"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Assessment</button>
@@ -126,6 +127,7 @@ function getAssessments_complete(status, response, response_loc, load_loc) {
     //action if code 200
     if (status == 200) {
         let res = JSON.parse(response)
+        console.log(res);
         //load the response into the response_loc
         if(Object.keys(res).length <= 0) {
             document.getElementById(response_loc).innerHTML = "-No Assessments Yet-";
@@ -347,14 +349,7 @@ function getAssociates_complete(status, response, response_loc, load_loc) {
     if (status == 200) {
         let responseParsed = JSON.parse(response);
         console.log(responseParsed);
-        loadinfoByClass(response_loc, responseParsed);
-        //load the response into the response_loc
-        // if(Object.keys(res).length <= 0) {
-        //     document.getElementById(response_loc).innerHTML = "-No Associates-";
-        // } else {
-        //     console.log(res);
-        //     document.getElementById(response_loc).innerHTML = displayAssessments(res);
-        // }
+        loadinfoByClass(response_loc, printAssociates(responseParsed));
 
         //action if code 201
     } else if (status == 201) {
@@ -367,4 +362,169 @@ function getAssociates_complete(status, response, response_loc, load_loc) {
         //load the response into the response_loc
         document.getElementById(response_loc).innerHTML = "-No Associates-";
     }
+}
+
+//Update the the score of an assessment for an associate
+function UpdateScores(grade,assessmentID,response_loc,load_loc) {
+    //set the caller_complete to the function that is supposed to receive the response
+    let response_func = UpdateScores_complete;
+    //endpoint: rest api endpoint
+    let endpoint =  `grade/`
+    //set the url by adding (base_url/java_base_url) + endpoint
+    //options:
+    //base_url(python)
+    //java_base_url(java)
+    let url = java_base_url + endpoint;
+    //request_type: type of request
+    //options:
+    //"GET", "POST", "OPTIONS", "PATCH", "PULL", "PUT", "HEAD", "DELETE", "CONNECT", "TRACE"
+    let request_type = "POST";
+    //location you want the response to load
+    //let response_loc = "";
+    //optional:location you want the load animation to be generated while awaiting the response
+    //can be set for any location but will most often be set to response_loc
+    //can be left blank if not needed
+    //let load_loc = "";
+    //optional:json data to send to the server
+    //can be left blank if not needed
+    let jsonData = {
+        "assessmentId": assessmentID,
+        "associateId": batch.currentAssoc,
+        "score": grade
+    };
+
+    ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData)
+}
+//ajax on-complete function: receives the response from an ajax request
+function UpdateScores_complete(status, response, response_loc, load_loc) {
+    //do some logic with the ajax data that was returned
+    //do this if you are expecting a json object - JSON.parse(response)
+
+    //The var "load_loc" is set in case the response message is different from the action to be loaded into the named location
+    //example:
+    //-- you want a message to say "ajax done!" in a popup while the data is compiled and loaded somewhere else
+
+    //action if code 200
+    if (status == 200) {
+        console.log(response);
+        document.getElementById(response_loc).innerHTML = `<p class="text-success">${response}</p>`;
+
+        //action if code 201
+    } else if (status == 201) {
+        document.getElementById(response_loc).innerHTML = `<p class="text-success">${response}</p>`;
+        //action if code 400
+    } else if (status == 404) {
+        //load the response into the response_loc
+        document.getElementById(response_loc).innerHTML = `<p class="text-danger">${response}</p>`;
+    } else if (status == 0) {
+        //load the response into the response_loc
+        document.getElementById(response_loc).innerHTML = `<p class="text-danger">${response}</p>`;
+    }
+}
+
+//get the score for an assessment for an associate
+function getScore(assessmentId,associateId,response_loc,load_loc) {
+    //set the caller_complete to the function that is supposed to receive the response
+    let response_func = getScore_complete;
+    //endpoint: rest api endpoint
+    let endpoint =  `grades/${assessmentId}/${associateId}`
+    //set the url by adding (base_url/java_base_url) + endpoint
+    //options:
+    //base_url(python)
+    //java_base_url(java)
+    let url = java_base_url + endpoint;
+    //request_type: type of request
+    //options:
+    //"GET", "POST", "OPTIONS", "PATCH", "PULL", "PUT", "HEAD", "DELETE", "CONNECT", "TRACE"
+    let request_type = "GET";
+    //location you want the response to load
+    //let response_loc = "";
+    //optional:location you want the load animation to be generated while awaiting the response
+    //can be set for any location but will most often be set to response_loc
+    //can be left blank if not needed
+    //let load_loc = "";
+    //optional:json data to send to the server
+    //can be left blank if not needed
+    let jsonData = "";
+
+    ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData)
+}
+//ajax on-complete function: receives the response from an ajax request
+function getScore_complete(status, response, response_loc, load_loc) {
+    //do some logic with the ajax data that was returned
+    //do this if you are expecting a json object - JSON.parse(response)
+
+    //The var "load_loc" is set in case the response message is different from the action to be loaded into the named location
+    //example:
+    //-- you want a message to say "ajax done!" in a popup while the data is compiled and loaded somewhere else
+
+    //action if code 200
+    if (status == 200) {
+        console.log(response);
+        document.getElementById(response_loc).value = response;
+
+        //action if code 201
+    } else if (status == 201) {
+        document.getElementById(load_loc).innerHTML = `<p class="text-success">${response}</p>`;
+        //action if code 400
+    } else if (status == 404) {
+        //load the response into the response_loc
+        document.getElementById(load_loc).innerHTML = `<p class="text-danger">${response}</p>`;
+    } else if (status == 0) {
+        //load the response into the response_loc
+        document.getElementById(load_loc).innerHTML = `<p class="text-danger">${response}</p>`;
+    }
+}
+function printAssociates(arrayData) {
+    let display = "";
+    $.each(arrayData,((index) => {
+        display += `<li class="m-2" id="associate${arrayData[index].id}"><a onclick="batch.currentAssoc = ${arrayData[index].id};batch.currentWeek = this.parentNode.parentNode.getAttribute('id');printWeekAssess(this.parentNode.parentNode.getAttribute('id'));executePreLoadScores();document.getElementById('assessScoreTitle').innerHTML = 'Week '+this.parentNode.parentNode.getAttribute('id');document.getElementById('studentName').innerHTML = '${arrayData[index].firstName}';" data-toggle="modal" href="#giveScores">${arrayData[index].firstName}</a></li>`;
+    }));
+    return display;
+}
+//print all the tests that can have a score given to them
+function printWeekAssess(weekID) {
+    console.log(batch["week"+weekID]);
+    //resets the form element
+    batch.loadScores = new Object();
+    let display = "";
+    document.getElementById("scoreForms").innerHTML = display;
+    $.each(batch["week"+weekID],(index,item) => {
+        batch.loadScores[`score${item.assessmentId}`] = new Object();
+        batch.loadScores[`score${item.assessmentId}`].assessmentId = item.assessmentId;
+        batch.loadScores[`score${item.assessmentId}`].associateId = item.assessmentId;
+        batch.loadScores[`score${item.assessmentId}`].response_loc = `score${item.assessmentId}`;
+        batch.loadScores[`score${item.assessmentId}`].load_loc = `loadScoreResult${item.assessmentId}`;
+        display += `
+        <form id="GiveScoreForm${item.assessmentId}" class="needs-validation" novalidate autocomplete="off">
+            <div id="scoreFormElem${item.assessmentId}">
+                <div class="form-group">
+                    <label for="score${item.assessmentId}">${item.assessmentTitle}</label>
+                    <input placeholder="Please type a score out of 100%" type="number" step="0.01" min="0.01" max="100" class="form-control-range" id="score${item.assessmentId}" name="score${item.assessmentId}" required>
+                    <div class="invalid-feedback">
+                        Please type a valid Score percentage out of 100%.
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span id="loadScoreResult${item.assessmentId}"></span><span id="ScoreLoad${item.assessmentId}"></span>
+                <button onclick="
+                    batch.currentScores = new Object();
+                    extractObjectFromForm($('#GiveScoreForm${item.assessmentId}'), batch.currentScores);
+                    UpdateScores(document.getElementById(score${item.assessmentId}).value,${item.assessmentId},'loadScoreResult${item.assessmentId}','ScoreLoad${item.assessmentId}');
+                " type="submit" class="btn btn-info">Save &nbsp;<i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
+            </div>
+        </form>`;
+    });
+    if(display) {
+        document.getElementById("scoreForms").innerHTML = display;
+    } else {
+        document.getElementById("scoreForms").innerHTML = "<p>No Assessments have been assigned to this week!</p>";
+    }
+}
+function executePreLoadScores() {
+    $.each(batch.loadScores,(key,item) => {
+        getScore(item.assessmentId,item.associateId,item.response_loc,item.load_loc);
+    });
 }

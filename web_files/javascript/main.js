@@ -321,15 +321,7 @@ function getObjectFromObject(formObject,outputObject) {
     $.each(formObject,function(index,item){
         $.each(item,function(key,value){
             if(key) {
-                outputObject[key] = services[key];
-                if(typeof(value) == "boolean") {
-                    outputObject[key].isSelected = value;
-                } else {
-                    outputObject[key].quantity = value;
-                }
-                if(value == "" || value == false) {
-                    delete outputObject[key];
-                }
+                outputObject[index] = item;
             }
         });
     });

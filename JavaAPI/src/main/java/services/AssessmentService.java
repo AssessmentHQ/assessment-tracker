@@ -23,9 +23,9 @@ public class AssessmentService {
         return assessments;
     }
 
-    public List<Assessment> getWeekAssessments(int traineeId, String weekId) throws SQLException {
-        List<Assessment> weekAssessments = assessmentDAO.getWeekAssessments(traineeId, weekId);
-        return weekAssessments;
+    public List<Grade> getWeekAssessments(int traineeId, String weekId) throws SQLException {
+        List<Grade> grades = assessmentDAO.getWeekAssessments(traineeId, weekId);
+        return grades;
 
     }
 

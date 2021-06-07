@@ -1,8 +1,5 @@
 from abc import abstractmethod, ABC
 
-from models.batch import Batch
-
-
 class BatchDAO(ABC):
 
     @abstractmethod

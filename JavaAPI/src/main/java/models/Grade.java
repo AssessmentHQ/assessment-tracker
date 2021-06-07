@@ -1,10 +1,14 @@
 package models;
 
+
+import java.util.Date;
+
 public class Grade {
     private int gradeId;
     private int assessmentId;
     private int associateId;
     private double score;
+    private Date dateSubmitted;
 
     public Grade() {
         super();
@@ -12,14 +16,16 @@ public class Grade {
         assessmentId = 0;
         associateId = 0;
         score = 0;
+        dateSubmitted = new Date();
     }
 
-    public Grade(int gradeId, int assessmentId, int associateId, double score) {
+    public Grade(int gradeId, int assessmentId, int associateId, double score, Date date) {
         super();
         this.gradeId = gradeId;
         this.assessmentId = assessmentId;
         this.associateId = associateId;
         this.score = score;
+        this.dateSubmitted = date;
     }
 
     public int getGradeId() {
@@ -60,4 +66,15 @@ public class Grade {
                 + associateId + "]";
     }
 
+    public void setAssociateId(int associateId) {
+        this.associateId = associateId;
+    }
+
+    public Date getDateSubmitted() {
+        return dateSubmitted;
+    }
+
+    public void setDateSubmitted(Date dateSubmitted) {
+        this.dateSubmitted = dateSubmitted;
+    }
 }
