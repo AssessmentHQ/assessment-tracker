@@ -24,12 +24,13 @@ public class App {
         // EndPoints
         AssessmentController ac = new AssessmentController(as);
         app.get("/assessments", ac.getAssessments);
+        app.get("/grade/:associateId/:assessmentId", ac.getGradeForAssociate);
         app.get("/assessments/:id/", ac.getAssessmentsByTraineeId);
-        app.get("/assessments/:id/:weekid", ac.getWeekAssessments);
+        app.get("/grades/:id/:weekid", ac.getWeekAssessments);
         app.get("/assessments/batch/:id/:weekid", ac.getBatchWeek);
         app.get("/notes/:id/:weekid/", ac.getNotesForTrainee);
         app.post("/assessments", ac.createAssessment);
-        app.post("/grades/", ac.insertGrade);
+        app.put("/grades/", ac.insertGrade);
         app.put("/assessments/weight/:assessmentId/:weight", ac.adjustWeight);
         app.post("/types", ac.createAssessmentType);
         app.put("/assessments/type/:assessmentId/:typeId",ac.assignAssessmentType);

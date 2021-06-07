@@ -30,6 +30,5 @@ create table assessments(id serial primary key,
 create table grades (id serial primary key,
 					 assessment_id int not null references assessments(id),
 					 score decimal not null,
-					 associate_id int not null,
-					 date_submitted date not null);
+					 associate_id int not null);
 

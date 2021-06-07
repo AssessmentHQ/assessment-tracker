@@ -6,7 +6,10 @@ import models.Assessment;
 import models.Grade;
 import models.Note;
 import models.AssessmentType;
+import util_project.dbconnection;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -49,12 +52,18 @@ public class AssessmentService {
         return assessmentDAO.assignAssessmentType(assessmentId, typeId);
     }
 
-    public Grade insertGrade(Grade grade) {
-        return assessmentDAO.insertGrade(grade);
+    public Grade insertGrade(Grade grade) throws SQLException {
+        if(assessmentDAO.getGradeForAssociate(grade.getAssociateId(), grade.getAssessmentId()) == null){
+            return assessmentDAO.insertGrade(grade);
+        }
+        else{return assessmentDAO.updateGrade(grade);}
     }
 
 
     public List<Assessment> getBatchWeek(int batchId, String weekId) throws SQLException{
         return assessmentDAO.getBatchWeek(batchId, weekId);
+    }
+    public Grade getGradeForAssociate(int associateId, int assessmentId) throws SQLException {
+        return assessmentDAO.getGradeForAssociate(associateId, assessmentId);
     }
 }
