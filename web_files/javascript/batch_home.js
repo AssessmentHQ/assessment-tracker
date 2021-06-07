@@ -469,7 +469,9 @@ function getScore_complete(status, response, response_loc, load_loc) {
 
     //action if code 200
     if (status == 200) {
-        document.getElementById(response_loc).value = response;
+        if(response != null) {
+            document.getElementById(response_loc).value = JSON.parse(response).score;
+        }
 
         //action if code 201
     } else if (status == 201) {
@@ -502,7 +504,7 @@ function printWeekAssess(weekID) {
         if(weekID == item.weekId){
             batch.loadScores[`score${item.assessmentId}`] = new Object();
             batch.loadScores[`score${item.assessmentId}`].assessmentId = item.assessmentId;
-            batch.loadScores[`score${item.assessmentId}`].associateId = item.assessmentId;
+            batch.loadScores[`score${item.assessmentId}`].associateId = batch.currentAssoc;
             batch.loadScores[`score${item.assessmentId}`].response_loc = `score${item.assessmentId}`;
             batch.loadScores[`score${item.assessmentId}`].load_loc = `loadScoreResult${item.assessmentId}`;
             display += `
