@@ -33,6 +33,7 @@ class BatchDAOImpl(BatchDAO):
         return batches
 
     def search_for_batch(self, trainer_id, track):
+        """Searches for batch by trainer and track"""
         sql = "SELECT b.id, b.start_date, b.end_date, b.name, b.training_track " \
               "FROM batches as b " \
               "left join trainer_batches as tb " \
