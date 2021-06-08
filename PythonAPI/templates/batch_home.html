@@ -13,9 +13,9 @@
         <!-- Font Awesome for custom loaders and icons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <!-- Root Level CSS pre-production -->
-        <!-- <link rel="stylesheet" href="css/main.css"> -->
+        <!-- <link rel="stylesheet" href="../static/css/main.css"> -->
         <!-- Current Page Specific CSS pre-production -->
-        <!-- <link rel="stylesheet" href="css/batch_home.css"> -->
+        <!-- <link rel="stylesheet" href="../static/css/batch_home.css"> -->
         <!-- Root Level CSS minified -->
         <link rel="stylesheet" href="../static/css/main.min.css">
         <!-- Current Page Specific CSS minified -->
@@ -81,13 +81,15 @@
                             <form id="loginform" class="needs-validation" novalidate autocomplete="on">
                                 <div class="form-group">
                                     <label for="recipient-name" class="col-form-label h3">Email:</label>
-                                    <input type="email" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){2,7}$" minlength="10" placeholder="ex: name@the.com" maxlength=25 class="form-control form-control-lg h-50" id="recipient-email" name="recipient-email" required />
+                                    <input type="email" pattern="^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){2,7}$" minlength="10" placeholder="ex: name@the.com" maxlength=50 class="form-control form-control-lg h-50" id="recipient-email" name="recipient-email" required />
                                     <div class="invalid-feedback">
                                         Please enter a valid Email.
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <span id="loadResult"></span><span id="logload"></span>
+                                    <div class="d-inline-block col col-5 text-wrap h-50">
+                                        <span id="loadResult"></span><span id="logload"></span>
+                                    </div>
                                     <button onclick="let form = document.getElementById('loginform');if (form.checkValidity() === true) {loginData.email = document.getElementById('recipient-email').value;logMeIN(loginData);}" type="submit" class="btn btn-info">Log In &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i></button>
                                     <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
                                 </div>
@@ -244,9 +246,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
         <!-- Override JavaScript -->
         <!-- Root Level JavaScript pre-production-->
-        <!-- <script src="javascript/main.js"></script> -->
+        <!-- <script src="../static/javascript/main.js"></script> -->
         <!-- current Level JavaScript pre-production -->
-        <!-- <script src="javascript/batch_home.js"></script> -->
+        <!-- <script src="../static/javascript/batch_home.js"></script> -->
         <!-- Root Level JavaScript minified -->
         <script src="../static/javascript/main.js"></script>
         <!-- current Level JavaScript minified -->

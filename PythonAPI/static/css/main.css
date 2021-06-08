@@ -15,10 +15,10 @@
 /* Custom Fonts */
 @font-face {
     font-family: "Futura STD";
-    src: url("/fonts/Futura-Std-Bold.otf") format("otf"),
-    url("/fonts/Futura-Std-Book.otf") format("otf"),
-    url("/fonts/Futura-Std-Heavy.otf") format("otf"),
-    url("/fonts/Futura-Std-Medium.otf") format("otf");
+    src: url("../static/fonts/Futura-Std-Bold.otf") format("otf"),
+    url("../static/fonts/Futura-Std-Book.otf") format("otf"),
+    url("../static/fonts/Futura-Std-Heavy.otf") format("otf"),
+    url("../static/fonts/Futura-Std-Medium.otf") format("otf");
 }
 html, body {
     height: 100%;
@@ -150,8 +150,6 @@ a:hover {
 }
 .top-nav img{
     height: 100% !important;
-    padding-left: 45px !important;
-    padding-right: 45px !important;
 }
 .top-nav a {
     height: 100% !important;
