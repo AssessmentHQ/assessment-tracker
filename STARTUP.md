@@ -6,7 +6,7 @@ The frontend of this application looks for an app running on an instance of Amaz
 
 ## Set Up an RDS
 
-We used Amazon RDS with PostgreSQL to store data. The files to set up the tables in the database and to insert data are contained in the [Database](https://github.com/AssessmentHQ/assessment-tracker/tree/main/Database) folder of the repository. Included are diagrams of the ERD as it should display after running the "create" scripts.
+We used Amazon RDS with PostgreSQL to store data. The files to set up the tables in the database and to insert data are contained in the [main/Database](https://github.com/AssessmentHQ/assessment-tracker/tree/main/Database) folder of the repository. Included are diagrams of the ERD as it should display after running the "create" scripts.
 
 ## Configure Jenkins
 
@@ -18,7 +18,7 @@ In the Configure menu, click the "Build" tab, and click Add a Build Step -> Exec
 
 ## Access the Website
 
-After building the project, access the frontend by navigating to the HTML files in the [main/PythonAPi/templates](https://github.com/AssessmentHQ/assessment-tracker/tree/main/PythonAPI/templates) folder of this repository. Access the home.html file to open the home page in your browser.
+After building the project, access the frontend by navigating to the HTML files in the [PythonAPi/templates](https://github.com/AssessmentHQ/assessment-tracker/tree/main/PythonAPI/templates) folder of this repository. Access the home.html file to open the home page in your browser.
 
 ## Jenkins Command Script
 
