@@ -29,7 +29,7 @@ function pageDataToLoad() {
             <div id="empty" class="col col-12 p-0">
                 <div class="card bg-darker">
                     <div class="card-body rounded">
-                    <p>No batches have been selected!</p>
+                    <p>No batches have been selected! Please type in the search bar to find a batch or go back <a href="home.html">home</a> to select a batch!</p>
                     </div>
                 </div>
             </div>
