@@ -43,14 +43,14 @@ let mainHeader = `
         </span>
     </a>
     <a class="navbar-brand order-md-1 order-xs-1" href="home.html"><img src="images/rev-logo.png" alt="Revature Logo"></a>
-    <a id="loginBtn" data-toggle="modal" data-target="#loginModal" data-preLoad="Some content to pre-load" class="nav-link text-dark bg-info d-flex order-md-3 order-xs-2 align-items-center mr-3">Login &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i></a>
+    <a id="loginBtn" data-toggle="modal" data-target="#loginModal" data-preLoad="Some content to pre-load" class="nav-link text-dark bg-info d-flex order-md-3 order-xs-2 align-items-center mr-3">Log In &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i></a>
     <div class="collapse navbar-collapse order-md-2 order-xs-3 col-xs-12 bg-dark py-3" id="navbarToggle">
-        <form class="mr-5 col-md-9 col-sm-12" autocomplete="off">
+        <form class="mr-5 col-md-9 col-sm-12 needs-validation" novalidate autocomplete="off">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <label for="search" id="searchLabel" class="input-group-text bg-darkest border-none text-light"><i class="fa fa-search" aria-hidden="true"></i></label>
                 </div>
-                <input oninput="document.getElementById('searchSuggestion').classList.remove('d-none');searchBatches(this.value);" id="search" class="form-control bg-darkest border-none col col-12" type="search" placeholder="Search" aria-label="Search" aria-describedby="Search a batch" />
+                <input oninput="document.getElementById('searchSuggestion').classList.remove('d-none');searchBatches(this.value);" id="search" class="form-control bg-darkest border-none col col-12 rounded-right" type="search" placeholder="Search" aria-label="Search" aria-describedby="Search a batch" />
                 <div class="bg-darkest rounded col col-12 p-3 d-none" id="searchSuggestion"></div>
             </div>
         </form>
@@ -66,8 +66,8 @@ let mustLogin = `
 <div class="col-sm-1-10">
     <div class="card mb-5 bg-darker p-3">
         <div class="card-body rounded p-3">
-            <h3 class="card-title"><strong>Please Login</strong></h3>
-            <p class="">If you would like to view your batches then please <a data-toggle="modal" href="#loginModal">login Here</a>, or you may click the link above.</p>
+            <h3 class="card-title"><strong>Please Log In</strong></h3>
+            <p class="">If you would like to view your batches then please <a data-toggle="modal" href="#loginModal">Log In Here</a>, or you may click the link above.</p>
         </div>
     </div>
 </div>`;
@@ -218,10 +218,17 @@ function searchBatches(searchVal) {
     //optional:json data to send to the server
     //can be left blank if not needed
     let jsonData = "";
-    console.log("loginData.id");
-    console.log(loginData.id);
+    console.log("searchVal")
+    console.log(searchVal)
     if(searchVal && loginData.id != undefined) {
         ajaxCaller(request_type, url, response_func, response_loc, load_loc, jsonData);
+    } else if(loginData.id == undefined) {
+        document.getElementById('searchSuggestion').innerHTML = `<div class="d-block m-1 bg-lighter rounded"><p class="d-block text-center text-black p-3 bg-lighter rounded">Please <a class="text-info login-modal-link rounded" data-toggle="modal" href="#loginModal">Log In</a> to use this search feature.</p></div>`;
+    }
+    if(!searchVal) {
+        if(!document.getElementById('searchSuggestion').classList.contains("d-none")) {
+            document.getElementById('searchSuggestion').classList.add('d-none');
+        }
     }
 }
 //ajax on-complete function: receives the response from an ajax request
@@ -237,7 +244,11 @@ function searchBatches_complete(status, response, response_loc, load_loc) {
     if(status == 200) {
         let parsedResponse = JSON.parse(response);
         console.log(parsedResponse);
-        document.getElementById(response_loc).innerHTML = styleSearch(parsedResponse, document.getElementById("search").value);
+        if(Object.keys(parsedResponse).length <= 0) {
+            document.getElementById(response_loc).innerHTML = `<div class="d-block m-1 bg-lighter rounded"><p class="d-block text-center text-black p-3 bg-lighter rounded">- No Batches with this name exist! -</p></div>`;
+        } else {
+            document.getElementById(response_loc).innerHTML = styleSearch(parsedResponse, document.getElementById("search").value);
+        }
         //action if code 201
     } else if(status == 201) {
         document.getElementById(response_loc).innerHTML = JSON.parse(response);
@@ -330,10 +341,11 @@ function setMainNav() {
 
 // logout function
 function logout(){
-    $("#loginBtn").html(`Login&nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i>`);
+    $("#loginBtn").html(`Log In&nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i>`);
     document.getElementById("loginBtn").setAttribute("data-target", "#loginModal");
     tempMainContentHolder = $("#mainbody").html();
     $("#mainbody").html(mustLogin);
+    loginData = new Object();
 }
 
 /*
@@ -515,7 +527,7 @@ function newGenForms() {
 function styleSearch(searchJson, searchTxt) {
     let display = "";
     $.each(searchJson,((index, item) => {
-        display += `<div class="d-block m-1 bg-lighter rounded"><a class="d-block text-white p-1 bg-lighter rounded" href="batch_home.html?batchID=${item.id}"><strong class="text-primary">${item.trainingTrack.substr(0, searchTxt.length)}</strong>${item.trainingTrack.substr(searchTxt.length)}</a></div>`;
+        display += `<div class="d-block m-1 bg-lighter rounded"><a class="d-block text-white p-1 bg-lighter rounded" href="batch_home.html?batchID=${item.id}"><strong class="text-black">${item.trainingTrack.substr(0, searchTxt.length)}</strong>${item.trainingTrack.substr(searchTxt.length)}<small> - <i>[${item.name}]</i> Started(${item.startDate}) and goes for ${item.totalWeeks} weeks</small></a></div>`;
     }));
     return display;
 }
@@ -532,4 +544,12 @@ function closeAllLists(clickOn) {
         }
     }
 }
+//detects if you hit the x in a search to clear the search bar
+$('input[type=search]').on('search', function () {
+    // search logic here
+    // this function will be executed on click of X (clear button)
+    if(!document.getElementById('searchSuggestion').classList.contains("d-none")) {
+        document.getElementById('searchSuggestion').classList.add('d-none');
+    }
+});
 // Chapter 6. Misc Named Functions ------------------------
