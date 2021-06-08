@@ -21,3 +21,9 @@ class DAOTests(unittest.TestCase):
             assert False
         except ResourceNotFound:
             assert True
+
+    def test_search(self):
+        batches = BatchDAOImpl().search_for_batch(1, "py")
+        print(batches)
+        assert batches
+

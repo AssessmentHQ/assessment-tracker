@@ -29,8 +29,19 @@ class BatchDAOImpl(BatchDAO):
         records = DbConn.make_connect(sql, [trainer_id, year])
         batches = []
         for batch in records:
-            batches.append(
-                Batch(id=batch[0], start_date=batch[1], end_date=batch[2], name=batch[3], training_track=batch[4]))
+            batches.append(Batch(id=batch[0], start_date=batch[1], end_date=batch[2], name=batch[3], training_track=batch[4]))
         return batches
 
+    def search_for_batch(self, trainer_id, track):
+        """Searches for batch by trainer and track"""
+        sql = "SELECT b.id, b.start_date, b.end_date, b.name, b.training_track " \
+              "FROM batches as b " \
+              "left join trainer_batches as tb " \
+              "on b.id = tb.batch_id " \
+              "WHERE trainer_id = %s and LOWER(training_track) like %s"
 
+        records = DbConn.make_connect(sql, [trainer_id, track + "%"])
+        batches = []
+        for batch in records:
+            batches.append(Batch(id=batch[0], start_date=batch[1], end_date=batch[2], name=batch[3], training_track=batch[4]))
+        return batches
