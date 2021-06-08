@@ -38,7 +38,7 @@ class BatchDAOImpl(BatchDAO):
               "FROM batches as b " \
               "left join trainer_batches as tb " \
               "on b.id = tb.batch_id " \
-              "WHERE trainer_id = %s and LOWER(training_track) like %s"
+              "WHERE trainer_id = %s and LOWER(training_track) like LOWER(%s)"
 
         records = DbConn.make_connect(sql, [trainer_id, track + "%"])
         batches = []
