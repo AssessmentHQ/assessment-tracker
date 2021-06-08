@@ -42,7 +42,7 @@ let mainHeader = `
             </svg>
         </span>
     </a>
-    <a class="navbar-brand order-md-1 order-xs-1" href="home.html"><img src="images/rev-logo.png" alt="Revature Logo"></a>
+    <a class="navbar-brand order-md-1 order-xs-1" href="home"><img src="../static/images/rev-logo.png" alt="Revature Logo"></a>
     <a id="loginBtn" data-toggle="modal" data-target="#loginModal" data-preLoad="Some content to pre-load" class="nav-link text-dark bg-info d-flex order-md-3 order-xs-2 align-items-center mr-3">Log In &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i></a>
     <div class="collapse navbar-collapse order-md-2 order-xs-3 col-xs-12 bg-dark py-3" id="navbarToggle">
         <form class="mr-5 col-md-9 col-sm-12 needs-validation" novalidate autocomplete="off">
@@ -324,8 +324,8 @@ function searchBatches_complete(status, response, response_loc, load_loc) {
 function setMainNav() {
     //some of these are stretch goal links so they are commented out until they can be completed
     return `
-    <a class="nav-link ${onHome} d-flex align-items-center justify-content-center justify-content-md-start" title="Home" href="home.html"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;<span class="d-none d-md-inline">Home</span></a>
-    <a class="nav-link ${onBatch} d-flex align-items-center justify-content-center justify-content-md-start" title="Batch" href="batch_home.html"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;<span class="d-none d-md-inline">Batch</span></a>
+    <a class="nav-link ${onHome} d-flex align-items-center justify-content-center justify-content-md-start" title="Home" href="home"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;<span class="d-none d-md-inline">Home</span></a>
+    <a class="nav-link ${onBatch} d-flex align-items-center justify-content-center justify-content-md-start" title="Batch" href="batch"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;<span class="d-none d-md-inline">Batch</span></a>
     <!--<a class="nav-link ${onAssess} d-flex align-items-center justify-content-center justify-content-md-start" title="Assessments" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;<span class="d-none d-md-inline">Assessments</span></a>
     <a class="nav-link ${onNotes} d-flex align-items-center justify-content-center justify-content-md-start" title="Notes" href="#">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
@@ -527,7 +527,7 @@ function newGenForms() {
 function styleSearch(searchJson, searchTxt) {
     let display = "";
     $.each(searchJson,((index, item) => {
-        display += `<div class="d-block m-1 bg-lighter rounded"><a class="d-block text-white p-1 bg-lighter rounded" href="batch_home.html?batchID=${item.id}"><strong class="text-black">${item.trainingTrack.substr(0, searchTxt.length)}</strong>${item.trainingTrack.substr(searchTxt.length)}<small> - <i>[${item.name}]</i> Started(${item.startDate}) and goes for ${item.totalWeeks} weeks</small></a></div>`;
+        display += `<div class="d-block m-1 bg-lighter rounded"><a class="d-block text-white p-1 bg-lighter rounded" href="batch?batchID=${item.id}"><strong class="text-black">${item.trainingTrack.substr(0, searchTxt.length)}</strong>${item.trainingTrack.substr(searchTxt.length)}<small> - <i>[${item.name}]</i> Started(${item.startDate}) and goes for ${item.totalWeeks} weeks</small></a></div>`;
     }));
     return display;
 }
