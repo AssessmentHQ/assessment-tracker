@@ -7,7 +7,7 @@ class AssessmentsPage:
         self.driver = driver
 
     def created_assessment(self):
-        return self.driver.find_element_by_css_selector('#assessment_1')
+        return self.driver.find_element_by_xpath('//*[@id="assessment_9"]')
 
     def grade_slider(self):
         return self.driver.find_element_by_id('weightControl')
