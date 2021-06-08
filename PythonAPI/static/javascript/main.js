@@ -42,7 +42,7 @@ let mainHeader = `
             </svg>
         </span>
     </a>
-    <a class="navbar-brand order-md-1 order-xs-1" href="home"><img src="../static/images/rev-logo.png" alt="Revature Logo"></a>
+    <a class="navbar-brand order-md-1 order-xs-1 col col-5 col-sm-4 col-md-3 col-lg-2" href="home"><img src="../static/images/rev-logo.png" alt="Revature Logo"></a>
     <a id="loginBtn" data-toggle="modal" data-target="#loginModal" data-preLoad="Some content to pre-load" class="nav-link text-dark bg-info d-flex order-md-3 order-xs-2 align-items-center mr-3">Log In &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i></a>
     <div class="collapse navbar-collapse order-md-2 order-xs-3 col-xs-12 bg-dark py-3" id="navbarToggle">
         <form class="mr-5 col-md-9 col-sm-12 needs-validation" novalidate autocomplete="off">
@@ -187,9 +187,9 @@ function logMeIN_complete(status, response, response_loc, load_loc) {
     } else if(status == 201) {
         document.getElementById(response_loc).innerHTML = JSON.parse(response);
         //action if code 400
-    } else if(status == 400) {
+    } else if(status == 404) {
         //load the response into the response_loc
-        document.getElementById(response_loc).innerHTML = response;
+        document.getElementById(response_loc).innerHTML = `<p class="text-danger">${response}!</p>`;
     }
 }
 // Search Function
