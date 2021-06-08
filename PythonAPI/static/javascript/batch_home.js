@@ -512,7 +512,7 @@ function printWeekAssess(weekID) {
                 <div id="scoreFormElem${item.assessmentId}">
                     <div class="form-group">
                         <label for="score${item.assessmentId}">${item.assessmentTitle}</label>
-                        <input placeholder="Please type a score out of 100%" type="number" step="0.01" min="0.01" max="100" class="form-control-range" id="score${item.assessmentId}" name="score${item.assessmentId}" required>
+                        <input placeholder="Please type a score out of 100%" type="number" step="0.01" min="0.01" max="100" class="form-control" id="score${item.assessmentId}" name="score${item.assessmentId}" required>
                         <div class="invalid-feedback">
                             Please type a valid Score percentage out of 100%.
                         </div>
