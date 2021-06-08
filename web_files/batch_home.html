@@ -31,7 +31,7 @@
                     </span>
                 </a>
                 <a class="navbar-brand order-md-1 order-xs-1" href="#"><img src="images/rev-logo.png" alt="Revature Logo"></a>
-                <a id="logoutBtn" data-toggle="modal" data-target="#loginModal" data-preLoad="Some content to pre-load" class="nav-link bg-info d-flex order-md-3 order-xs-2 align-items-center mr-3">Logout &nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                <a id="logoutBtn" data-toggle="modal" data-target="#loginModal" data-preLoad="Some content to pre-load" class="nav-link bg-info d-flex order-md-3 order-xs-2 align-items-center mr-3">Log Out &nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i></a>
                 <div class="collapse navbar-collapse order-md-2 order-xs-3 col-xs-12 bg-dark py-3" id="navbarToggle">
                     <form class="mr-5 col-md-9 col-sm-12">
                         <div class="input-group">
@@ -68,7 +68,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header text-center">
-                            <h5 class="modal-title h1" id="modalLabel"><strong>Login</strong></h5>
+                            <h5 class="modal-title h1" id="modalLabel"><strong>Log In</strong></h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <span id="loadResult"></span><span id="logload"></span>
-                                    <button onclick="let form = document.getElementById('loginform');if (form.checkValidity() === true) {loginData.email = document.getElementById('recipient-email').value;logMeIN(loginData);}" type="submit" class="btn btn-info">Login &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i></button>
+                                    <button onclick="let form = document.getElementById('loginform');if (form.checkValidity() === true) {loginData.email = document.getElementById('recipient-email').value;logMeIN(loginData);}" type="submit" class="btn btn-info">Log In &nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i></button>
                                     <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
                                 </div>
                             </form>
@@ -109,7 +109,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <span id="loadLogOutResult"></span><span id="logOutLoad"></span>
-                                    <button onclick="wipeStorage();logout();goToPage('home.html')" type="button" data-dismiss="modal" class="btn btn-info">Logout &nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i></button>
+                                    <button onclick="wipeStorage();logout();goToPage('home.html')" type="button" data-dismiss="modal" class="btn btn-info">Log Out &nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i></button>
                                     <button type="button" class="btn btn-warning" data-dismiss="modal">Close <i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
                                 </div>
                         </div>
