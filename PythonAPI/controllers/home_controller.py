@@ -8,7 +8,7 @@ def route(app):
         return render_template("home.html")
 
     @app.route("/", methods=["GET"])
-    def home():
+    def home_redirect():
         return render_template("home.html")
 
     @app.route("/batch")
