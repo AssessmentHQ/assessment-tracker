@@ -21,11 +21,12 @@ The Assessment Tracker is an application designed to help track an individual's 
 * Popper version 1.16.1
 * HTML5 version 5
 * JavaScript version ECMAScript 2021
-* CSS3 version 3
+* CSS - version 3
 * behave - version 1.2.6
 * Selenium - version 3.141.0 
 * PostgreSQL - version 12.5
 * Relational Database System on Amazon Web Service
+* Elastic Compute Cloud on Amazon Web Service
 * Apache Tomcat - version 9.0.20
 * Jenkins - version 2.289.1
 
