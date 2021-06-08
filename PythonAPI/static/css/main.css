@@ -264,6 +264,9 @@ a:hover {
 }
 #loginBtn {
     cursor:pointer;
+    max-width: 100px;
+    position: absolute;
+    right: 0px;
 }
 #searchSuggestion {
     /*the container must be positioned absolute:*/
