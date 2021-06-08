@@ -13,7 +13,7 @@ The Assessment Tracker is an application designed to help track an individual's 
 * Maven - version 4.0.0
 * Javalin - version 3.13
 * JUnit - version 5.7
-* JUnit Jupiter Mockito - version 3.10
+* Mockito - version 3.10
 * Gson - version 2.8.6
 * Log4j - version 2.14
 * Bootstrap version 4.6.0

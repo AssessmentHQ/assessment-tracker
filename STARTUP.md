@@ -18,7 +18,7 @@ In the Configure menu, click the "Build" tab, and click Add a Build Step -> Exec
 
 ## Access the Website
 
-After building the project, access the frontend by navigating to the HTML files in the [web_files](https://github.com/AssessmentHQ/assessment-tracker/tree/main/web_files) folder of this repository. Access the home.html file to open the home page in your browser.
+After building the project, access the frontend by navigating to the HTML files in the [PythonAPi/templates](https://github.com/AssessmentHQ/assessment-tracker/tree/main/PythonAPI/templates) folder of this repository. Access the home.html file to open the home page in your browser.
 
 ## Jenkins Command Script
 
