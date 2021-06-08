@@ -13,7 +13,7 @@ class HomePage:
         return self.driver.find_element_by_id("recipient-email")
 
     def login_cred_button(self):
-        return self.driver.find_element_by_xpath('//*[@id="loginform"]/div[2]/button[1]')
+        return self.driver.find_element_by_xpath('//*[@id="loginform"]/div[2]/div[2]/button[1]')
 
     # The button for a user to click on to view that specific batches information
     def batch_button(self):

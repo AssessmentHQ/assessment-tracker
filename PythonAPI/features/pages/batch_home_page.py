@@ -16,4 +16,7 @@ class BatchHomePage:
         return self.driver.find_element_by_id("assessment-title")
 
     def create_assessment_button(self):
-        return self.driver.find_element_by_css_selector('#createAssessmentForm > div.modal-footer > button.btn.btn-info')
+        return self.driver.find_element_by_xpath('//*[@id="createAssessmentForm"]/div[4]/button[1]')
+
+    def close_assessment_button(self):
+        return self.driver.find_element_by_xpath('//*[@id="createAssessmentForm"]/div[4]/button[2]')
