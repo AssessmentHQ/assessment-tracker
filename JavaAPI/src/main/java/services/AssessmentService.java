@@ -6,10 +6,7 @@ import models.Assessment;
 import models.Grade;
 import models.Note;
 import models.AssessmentType;
-import util_project.dbconnection;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -26,8 +23,8 @@ public class AssessmentService {
         return assessments;
     }
 
-    public List<Grade> getWeekAssessments(int traineeId, String weekId) throws SQLException {
-        List<Grade> grades = assessmentDAO.getWeekAssessments(traineeId, weekId);
+    public List<Grade> getGradesForWeek(int traineeId, String weekId) throws SQLException {
+        List<Grade> grades = assessmentDAO.getGradesForWeek(traineeId, weekId);
         return grades;
 
     }

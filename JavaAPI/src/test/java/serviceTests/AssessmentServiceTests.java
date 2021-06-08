@@ -86,8 +86,8 @@ public class AssessmentServiceTests {
     public void testGetWeekAssessmentsNotEmpty() throws Exception {
         List<Grade> grades = new ArrayList<>();
         grades.add(new Grade());
-        Mockito.when(adao.getWeekAssessments(1, "something")).thenReturn(grades);
-        List<Grade> newGrades =assessmentService.getWeekAssessments(1, "something");
+        Mockito.when(adao.getGradesForWeek(1, "something")).thenReturn(grades);
+        List<Grade> newGrades =assessmentService.getGradesForWeek(1, "something");
         Assert.assertFalse(newGrades.isEmpty());
 
     }
@@ -95,16 +95,16 @@ public class AssessmentServiceTests {
     @Test
     public void testGetWeekAssessmentsEmpty() throws Exception {
         List<Grade> grades = new ArrayList<>();
-        Mockito.when(adao.getWeekAssessments(1, "something")).thenReturn(grades);
-        List<Grade> newGrades =assessmentService.getWeekAssessments(1, "something");
+        Mockito.when(adao.getGradesForWeek(1, "something")).thenReturn(grades);
+        List<Grade> newGrades =assessmentService.getGradesForWeek(1, "something");
         Assert.assertTrue(newGrades.isEmpty());
 
     }
 
     @Test(expectedExceptions= SQLException.class)
     public void testGetWeekAssessmentsEmptySqlException() throws Exception {
-        Mockito.when(adao.getWeekAssessments(2, "something")).thenThrow(SQLException.class);
-        assessmentService.getWeekAssessments(2, "something");
+        Mockito.when(adao.getGradesForWeek(2, "something")).thenThrow(SQLException.class);
+        assessmentService.getGradesForWeek(2, "something");
     }
 
     //----------------------------------------------------------------------

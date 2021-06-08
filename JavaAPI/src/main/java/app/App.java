@@ -26,7 +26,7 @@ public class App {
         app.get("/assessments", ac.getAssessments);
         app.get("/grade/:associateId/:assessmentId", ac.getGradeForAssociate);
         app.get("/assessments/:id/", ac.getAssessmentsByTraineeId);
-        app.get("/grades/:id/:weekid", ac.getWeekAssessments);
+        app.get("/grades/:id/:weekid", ac.getGradesForWeek);
         app.get("/assessments/batch/:id/:weekid", ac.getBatchWeek);
         app.get("/notes/:id/:weekid/", ac.getNotesForTrainee);
         app.post("/assessments", ac.createAssessment);
