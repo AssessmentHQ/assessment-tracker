@@ -1,22 +1,18 @@
 package daoTests;
 
-import dao.AssessmentDAO;
 import dao.AssessmentDAOImpl;
 import models.Assessment;
-import models.AssessmentType;
 import models.Grade;
 import models.Note;
 import org.mockito.*;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import services.AssessmentService;
 import util_project.dbconnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -128,7 +124,7 @@ public class AssessmentDaoTests {
         Mockito.when(mockRs.getString("week")).thenReturn("weekNumber");
         try (MockedStatic<dbconnection> mockedStatic = Mockito.mockStatic(dbconnection.class)) {
             mockedStatic.when(dbconnection::getConnection).thenReturn(mockConn);
-            List<Grade> newGrades = assessmentDAOImpl.getWeekAssessments(2,"weekNumber");
+            List<Grade> newGrades = assessmentDAOImpl.getGradesForWeek(2,"weekNumber");
             Assert.assertEquals(newGrades.get(0).getAssociateId(), 2);
         } catch (Exception e) {
             System.out.println("error");

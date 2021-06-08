@@ -13,7 +13,7 @@ public interface AssessmentDAO {
 
     public List<Assessment> getAssessmentsByTraineeId(int traineeId) throws SQLException;
 
-    public List<Grade> getWeekAssessments(int traineeId, String weekId) throws SQLException;
+    public List<Grade> getGradesForWeek(int traineeId, String weekId) throws SQLException;
 
     public List<Assessment> getBatchWeek(int batchId, String weekId) throws SQLException;
 

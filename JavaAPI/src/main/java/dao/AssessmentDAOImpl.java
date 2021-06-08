@@ -134,7 +134,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     }
 
     @Override
-    public List<Grade> getWeekAssessments(int traineeId, String weekId) throws SQLException {
+    public List<Grade> getGradesForWeek(int traineeId, String weekId) throws SQLException {
         try {
             String sql = "SELECT g.id, g.assessment_id, g.score, g.associate_id FROM grades as g JOIN assessments a " +
                     "ON g.assessment_id = a.id WHERE" +
