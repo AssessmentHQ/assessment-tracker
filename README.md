@@ -70,5 +70,5 @@ Serigne Samb
 
 ## License
 
-This project uses the following license: [Unlicense](<https://unlicense.org>).
+This project uses the following license: [Unlicense](https://github.com/AssessmentHQ/assessment-tracker/blob/main/LICENSE).
 
