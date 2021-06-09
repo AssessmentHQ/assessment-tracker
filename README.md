@@ -42,7 +42,10 @@ Features included:
 * Create a note for a particular associate
 
 To be included in the future:
-* 
+* Ability to create new associates and batches
+* Expand the capabilities of the search bar
+* An analytic view with grades and overall statistics displayed
+* Implementation to greate new assessment types
 
 ## Getting Started
 
