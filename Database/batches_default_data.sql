@@ -21,7 +21,6 @@ insert into associates (email, first_name, last_name) values ('bl@revature.com',
 /*Default data for batches*/
 insert into batches (start_date, end_date, "name", training_track) values ('2020-1-20', '2020-2-20', '20200120', 'Python');
 insert into batches (start_date, end_date, "name", training_track) values ('2021-5-27', '2021-7-21', '20210527', 'Data Admin');
-/*Currently Empty*/
 insert into batches (start_date, end_date, "name", training_track) values ('2020-2-20', '2020-4-24', '20200220', 'Java');
 insert into batches (start_date, end_date, "name", training_track) values ('2020-2-20', '2020-4-13', '202002220', 'C#');
 insert into batches (start_date, end_date, "name", training_track) values ('2021-2-20', '2021-4-19', '20202222', 'C++');
@@ -38,21 +37,21 @@ insert into trainers (email, first_name, last_name) values ('cp@revature.com', '
 /*add some associates to a batch*/
 insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (1, 1, '2020-01-20', '2020-2-20', 'Passed');
 insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (2, 1, '2020-01-20', '2020-2-20', 'Passed');
-insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (3, 1, '2020-01-20', '2020-2-20', 'Passed');
-insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (4, 1, '2020-01-20', '2020-2-20', 'Passed');
-insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (5, 1, '2020-01-20', '2020-2-20', 'Passed');
-insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (6, 1, '2020-01-20', '2020-2-20', 'Passed');
-insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (7, 1, '2020-01-20', '2020-2-20', 'Passed');
-insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (8, 1, '2020-01-20', '2020-2-20', 'Passed');
-insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (9, 1, '2021-5-27', '2020-2-20', 'Passed');
-insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (10, 2, '2021-5-27', null, 'Enrolled');
-insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (11, 2, '2021-5-27', null, 'Enrolled');
-insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (12, 2, '2021-5-27', null, 'Enrolled');
-insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (13, 2, '2021-5-27', null, 'Enrolled');
-insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (14, 2, '2021-5-27', null, 'Enrolled');
-insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (15, 2, '2021-5-27', null, 'Enrolled');
-insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (16, 2, '2021-5-27', null, 'Enrolled');
-insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (17, 2, '2021-5-27', null, 'Enrolled');
+insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (3, 2, '2021-5-27', '2021-7-21', 'Passed');
+insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (4, 2, '2021-5-27', '2021-7-21', 'Passed');
+insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (5, 3, '2020-2-20', '2020-4-24', 'Passed');
+insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (6, 3, '2020-2-20', '2020-4-24', 'Passed');
+insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (7, 4, '2020-2-20', '2020-4-13', 'Passed');
+insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (8, 4, '2020-2-20', '2020-4-13', 'Passed');
+insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (9, 5, '2021-2-20', '2021-4-19', 'Passed');
+insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (10, 5, '2021-2-20', '2021-4-19', 'Enrolled');
+insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (11, 6, '2021-3-20', '2021-9-20', 'Enrolled');
+insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (12, 6, '2021-3-20', '2021-9-20', 'Enrolled');
+insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (13, 7, '2021-6-20', '2021-8-20', 'Enrolled');
+insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (14, 7, '2021-6-20', '2021-8-20', 'Enrolled');
+insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (15, 1, '2020-01-20', '2020-2-20', 'Enrolled');
+insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (16, 2, '2021-5-27', '2021-7-21', 'Enrolled');
+insert into associate_batches (associate_id, batch_id, start_date, end_date, training_status) values (17, 3, '2020-2-20', '2020-4-24', 'Enrolled');
 
 
 /*Give batches a trainer*/
