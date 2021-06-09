@@ -1,4 +1,3 @@
-
 drop table if exists notes;
 drop table if exists grades;
 drop table if exists assessments;
